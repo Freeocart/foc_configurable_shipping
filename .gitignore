@@ -1,0 +1,4 @@
+node_modules
+upload/admin/view/javascript
+upload/admin/view/stylesheet
+*.zip

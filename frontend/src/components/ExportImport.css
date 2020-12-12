@@ -1,0 +1,9 @@
+.ExportImport {
+  max-width: 960px;
+  margin: 4em auto;
+  padding: 3em;
+  background: #efefef;
+}
+.ExportImport__title {
+  margin: 0 auto 2em auto;
+}
