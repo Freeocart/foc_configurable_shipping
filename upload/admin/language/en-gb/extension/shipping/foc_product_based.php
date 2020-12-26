@@ -7,6 +7,7 @@ $_['text_extension'] = 'Extensions';
 $_['text_success'] = 'Settings successfuly saved';
 
 $_['entry_cost'] = 'Base cost';
+$_['entry_disable_if_total_is_zero'] = 'Disable if shipping cost is 0';
 $_['entry_tax_class'] = 'Tax Class';
 $_['entry_geo_zone'] = 'Geo Zone';
 $_['entry_status'] = 'Status';

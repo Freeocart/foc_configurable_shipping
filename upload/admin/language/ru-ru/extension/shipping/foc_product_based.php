@@ -7,6 +7,7 @@ $_['text_extension'] = 'Расширения';
 $_['text_success'] = 'Настройки успешно сохранены';
 
 $_['entry_cost'] = 'Базовая стоимость';
+$_['entry_disable_if_total_is_zero'] = 'Отключать если стоимость доставки 0';
 $_['entry_tax_class'] = 'Класс налога';
 $_['entry_geo_zone'] = 'Географическая зона';
 $_['entry_status'] = 'Статус';
@@ -15,12 +16,12 @@ $_['entry_config'] = 'Конфигурация';
 $_['entry_shipping_label'] = 'Название метода доставки';
 $_['entry_shipping_group'] = 'Название группы доставки';
 
-$_['entry_cost_increase_mode'] = 'Режим подсчёта конечной стоимости доставки';
-$_['entry_cost_increase_mode_max'] = 'Выбрать максимальное значение из базовой стоимости и наценки';
-$_['entry_cost_increase_mode_min'] = 'Выбрать минимальное значение из базовой стоимости и наценки';
-$_['entry_cost_increase_mode_min_nonzero'] = 'Выбрать минимальное ненулевое значение из базовой стоимости и наценки';
-$_['entry_cost_increase_mode_sum'] = 'Суммировать базовую стоимость и наценку';
-$_['entry_cost_increase_mode_nonzero_increase'] = 'Использовать только наценку если она больше 0';
+$_['entry_cost_increase_mode'] = 'Режим расчёта стоимости доставки';
+$_['entry_cost_increase_mode_max'] = 'Выбрать максимальное значение из базовой стоимости и наценки корзины';
+$_['entry_cost_increase_mode_min'] = 'Выбрать минимальное значение из базовой стоимости и наценки корзины';
+$_['entry_cost_increase_mode_min_nonzero'] = 'Выбрать минимальное ненулевое значение из базовой стоимости и наценки корзины';
+$_['entry_cost_increase_mode_sum'] = 'Суммировать базовую стоимость и наценку корзины';
+$_['entry_cost_increase_mode_nonzero_increase'] = 'Использовать только наценку корзины если она больше 0';
 
 $_['entry_loading_frontend'] = 'Загрузка...';
 

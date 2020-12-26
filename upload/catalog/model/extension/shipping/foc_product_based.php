@@ -439,6 +439,13 @@ class ModelExtensionShippingFocProductBased extends Model {
 				break;
 			}
 
+			$disable_if_total_is_zero = $this->config->get('shipping_foc_product_based_disable_if_total_is_zero');
+
+			// disable shipping if zero and option enabled
+			if ($disable_if_total_is_zero && $totalCost <= 0) {
+				return;
+			}
+
 			$language_id = $this->config->get('config_language_id');
 			$shipping_labels = $this->config->get('shipping_foc_product_based_label');
 			$shipping_groups = $this->config->get('shipping_foc_product_based_group');

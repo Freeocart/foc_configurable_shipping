@@ -95,6 +95,13 @@ class ControllerExtensionShippingFocProductBased extends Controller {
 			$data['shipping_foc_product_based_cost'] = $this->config->get('shipping_foc_product_based_cost');
     }
 
+    if (isset($this->request->post['shipping_foc_product_based_disable_if_total_is_zero'])) {
+			$data['shipping_foc_product_based_disable_if_total_is_zero'] = $this->request->post['shipping_foc_product_based_disable_if_total_is_zero'];
+		}
+		else {
+			$data['shipping_foc_product_based_disable_if_total_is_zero'] = $this->config->get('shipping_foc_product_based_disable_if_total_is_zero');
+    }
+
     if (isset($this->request->post['shipping_foc_product_based_tax_class_id'])) {
 			$data['shipping_foc_product_based_tax_class_id'] = $this->request->post['shipping_foc_product_based_tax_class_id'];
 		} else {
