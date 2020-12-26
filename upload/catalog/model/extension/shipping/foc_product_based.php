@@ -50,7 +50,8 @@ class ModelExtensionShippingFocProductBased extends Model {
 			self::COST_INCREASE_MODE_MAX,
 			self::COST_INCREASE_MODE_MIN,
 			self::COST_INCREASE_MODE_SUM,
-			self::COST_INCREASE_MODE_NON_ZERO_INCREASE
+			self::COST_INCREASE_MODE_NON_ZERO_INCREASE,
+			self::COST_INCREASE_MODE_MIN_NON_ZERO
 		];
 		$this->_defaultTotalCostIncreaseMode = self::COST_INCREASE_MODE_MAX;
 
