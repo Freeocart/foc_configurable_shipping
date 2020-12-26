@@ -432,7 +432,7 @@ class ModelExtensionShippingFocProductBased extends Model {
 						$totalCost = 0;
 					}
 				case self::COST_INCREASE_MODE_NON_ZERO_INCREASE:
-					$totalCost = $increaseTotal > 0 ? $increaseTotal : $cost;
+					$totalCost = $increaseTotal > 0 ? $increaseTotal : 0;
 				break;
 				default:
 					$totalCost = $cost + $increaseTotal;
