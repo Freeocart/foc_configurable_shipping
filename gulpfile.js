@@ -4,7 +4,7 @@ const pkg = require('./package.json')
 
 gulp.task('build', () => {
   return gulp
-    .src('./upload/**', { base: '.' })
+    .src(['./install.xml', './upload/**'], { base: '.' })
     .pipe(zip(`${pkg.name}.ocmod.zip`))
     .pipe(gulp.dest('./'));
 })
