@@ -3,6 +3,16 @@
 class ControllerExtensionShippingFocProductBased extends Controller {
 	private $error = array();
 
+	public function install () {
+		$this->load->model('extension/shipping/foc_product_based');
+		$this->model_extension_shipping_foc_product_based->install();
+	}
+
+	public function uninstall () {
+		$this->load->model('extension/shipping/foc_product_based');
+		$this->model_extension_shipping_foc_product_based->uninstall();
+	}
+
 	public function index() {
 		$this->load->language('extension/shipping/foc_product_based');
 
@@ -168,10 +178,10 @@ class ControllerExtensionShippingFocProductBased extends Controller {
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
 
-		$this->document->addScript('view/javascript/foc_product_based/runtime-main.js');
-		$this->document->addScript('view/javascript/foc_product_based/main.js');
-		$this->document->addScript('view/javascript/foc_product_based/2.js');
-		$this->document->addStyle('view/stylesheet/foc_product_based/main.css');
+		$this->document->addScript('view/javascript/foc_product_based/module/runtime-main.js');
+		$this->document->addScript('view/javascript/foc_product_based/module/main.js');
+		$this->document->addScript('view/javascript/foc_product_based/module/2.js');
+		$this->document->addStyle('view/stylesheet/foc_product_based/module/main.css');
 
 		$data['scripts'] = $this->document->getScripts();
 		$data['styles'] = $this->document->getStyles();

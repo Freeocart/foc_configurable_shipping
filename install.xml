@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+  <name>FOC: Configurable shipping</name>
+  <code>freeocart_configurable_shipping</code>
+  <version>1.0</version>
+  <author>Freeocart</author>
+  <link>https://freeocart.ru</link>
+  <file path="admin/language/en-gb/en-gb.php">
+    <operation>
+      <search><![CDATA[$_['tab_special']]]></search>
+			<add position="before" error="log" index="1"><![CDATA[
+      $_['tab_shipping'] = 'Shipping';
+      ]]></add>
+    </operation>
+  </file>
+  <file path="admin/language/ru-ru/ru-ru.php">
+    <operation>
+      <search><![CDATA[$_['tab_special']]]></search>
+			<add position="before" error="log" index="1"><![CDATA[
+      $_['tab_shipping'] = 'Доставка';
+      ]]></add>
+    </operation>
+  </file>
+
+	<file path="admin/view/template/catalog/product_form.twig">
+		<!-- Discount -->
+		<operation>
+			<search><![CDATA[<div class="tab-pane" id="tab-design">]]></search>
+			<add position="before" error="log" index="1"><![CDATA[
+      <div class="tab-pane" id="tab-configurable-shipping">
+        <div data-output-name="foc_product_configurable_shipping" data-state='{{ foc_configurable_shipping_product_settings }}' data-oc-info='{{ foc_configurable_shipping_oc_info }}' id="product-based-foc-configurable-shipping"></div>
+      </div>
+      ]]></add>
+		</operation>
+		<operation>
+			<search><![CDATA[<li><a href="#tab-design" data-toggle="tab">{{ tab_design }}</a></li>]]></search>
+			<add position="after" error="log" index="1"><![CDATA[
+      <li><a href="#tab-configurable-shipping" data-toggle="tab">{{ tab_shipping }}</a></li>
+      ]]></add>
+		</operation>
+    <operation>
+      <search><![CDATA[{{ footer }}]]></search>
+      <add position="before"><![CDATA[
+      {% for script in scripts %}
+      <script src="{{ script }}" type="text/javascript"></script>
+      {% endfor %}
+      {% for style in styles %}
+      <link rel="{{ style.rel }}" href="{{ style.href }}" media="{{ style.media }}" />
+      {% endfor %}
+      ]]></add>
+    </operation>
+  </file>
+	<file path="admin/controller/catalog/product.php">
+		<operation>
+      <search><![CDATA[$this->model_catalog_product->addProduct($this->request->post);]]></search>
+      <add position="replace"><![CDATA[
+        $product_id = $this->model_catalog_product->addProduct($this->request->post);
+        if (isset($this->request->post['foc_product_configurable_shipping'])) {
+          $this->load->model('extension/shipping/foc_product_based');
+          $this->model_extension_shipping_foc_product_based->saveProductSettings($product_id, json_decode($_POST['foc_product_configurable_shipping'], true));
+        }
+      ]]></add>
+    </operation>
+		<operation>
+      <search><![CDATA[$this->model_catalog_product->editProduct($this->request->get['product_id'], $this->request->post);]]></search>
+      <add position="after"><![CDATA[
+        if (isset($this->request->post['foc_product_configurable_shipping'])) {
+          $this->load->model('extension/shipping/foc_product_based');
+          $this->model_extension_shipping_foc_product_based->saveProductSettings($this->request->get['product_id'], json_decode($_POST['foc_product_configurable_shipping'], true));
+        }
+      ]]></add>
+    </operation>
+		<operation>
+			<search><![CDATA[protected function getForm() {]]></search>
+			<add position="after" error="log" index="1"><![CDATA[
+        // get product settings for shipping here
+        $this->load->model('extension/shipping/foc_product_based');
+        $this->load->model('localisation/tax_class');
+        $this->load->model('localisation/language');
+        $this->load->model('localisation/country');
+        $this->load->model('localisation/currency');
+        $this->load->model('localisation/geo_zone');
+
+        $currency = $this->config->get('config_currency');
+
+        $currency_symbol = $this->currency->getSymbolRight($currency);
+        if (empty($currency_symbol)) {
+          $currency_symbol = $this->currency->getSymbolLeft($currency);
+        }
+
+        $countries = $this->model_localisation_country->getCountries();
+        $currencies_list = $this->model_localisation_currency->getCurrencies();
+        $currencies = array_values($currencies_list);
+				$geo_zones = $this->model_localisation_geo_zone->getGeoZones();
+
+        $data['foc_configurable_shipping_product_settings'] = json_encode($this->model_extension_shipping_foc_product_based->getProductSettings($this->request->get['product_id']), JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
+
+        $data['foc_configurable_shipping_oc_info'] = json_encode(array(
+          'languages' => array_values($this->model_localisation_language->getLanguages()),
+          'options' => $this->model_extension_shipping_foc_product_based->getOptionsList($this->config->get('config_language_id')),
+          'optionsValues' => $this->model_extension_shipping_foc_product_based->getOptionsValuesList($this->config->get('config_language_id')),
+          'attributeGroups' => $this->model_extension_shipping_foc_product_based->getAttributeGroupList($this->config->get('config_language_id')),
+          'attributes' => $this->model_extension_shipping_foc_product_based->getAttributesList($this->config->get('config_language_id')),
+          'currencies' => $currencies,
+          'currencySymbol' => $currency_symbol,
+          'countries' => $countries,
+          'geoZones' => $geo_zones
+        ), JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
+      ]]></add>
+		</operation>
+    <operation>
+      <search><![CDATA[$data['footer'] = $this->load->controller('common/footer');]]></search>
+      <add position="before"><![CDATA[
+        $this->document->addScript('view/javascript/foc_product_based/product/runtime-main.js');
+        $this->document->addScript('view/javascript/foc_product_based/product/main.js');
+        $this->document->addScript('view/javascript/foc_product_based/product/2.js');
+        $this->document->addScript('view/javascript/foc_product_based/product/3.js');
+        $this->document->addStyle('view/stylesheet/foc_product_based/product/main.css');
+
+        $data['scripts'] = $this->document->getScripts();
+				$data['styles'] = $this->document->getStyles();
+      ]]></add>
+    </operation>
+  </file>
+</modification>

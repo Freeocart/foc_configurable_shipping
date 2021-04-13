@@ -23,6 +23,11 @@ class ModelExtensionShippingFocProductBased extends Model {
 	const COST_INCREASE_MODE_NON_ZERO_INCREASE = 3;
 	const COST_INCREASE_MODE_MIN_NON_ZERO = 4;
 
+	const RULESET_RESOLVER_SET_POSITION_VALUE = 0;
+	const RULESET_RESOLVER_SET_POSITION_ITEM_VALUE = 1;
+	const RULESET_RESOLVER_ADD_POSITION_VALUE = 2;
+	const RULESET_RESOLVER_ADD_POSITION_ITEM_VALUE = 3;
+
 	/*
 		Init vars
 	*/
@@ -153,7 +158,8 @@ class ModelExtensionShippingFocProductBased extends Model {
 				}
 
 				$language_id = (int) $this->config->get('config_language_id');
-				if ($language_id === $rule['language_id']) {
+
+				if ($language_id === (int) $rule['language_id']) {
 					return true;
 				}
 			break;
@@ -166,7 +172,7 @@ class ModelExtensionShippingFocProductBased extends Model {
 				$currency_code = $this->session->data['currency'];
 				$currency = $this->model_localisation_currency->getCurrencyByCode($currency_code);
 
-				if ((int)$currency['currency_id'] === (int) $rule['currency_id']) {
+				if ((int) $currency['currency_id'] === (int) $rule['currency_id']) {
 					return true;
 				}
 			break;
@@ -193,9 +199,9 @@ class ModelExtensionShippingFocProductBased extends Model {
 				}
 
 				foreach ($attributesGroups as $attributeGroup) {
-					if ($rule['attribute_group_id'] === $attributeGroup['attribute_group_id']) {
+					if ( (int) $rule['attribute_group_id'] === (int) $attributeGroup['attribute_group_id']) {
 						foreach ($attributeGroup['attribute'] as $attribute) {
-							if ($rule['attribute_id'] === $attribute['attribute_id']) {
+							if ((int) $rule['attribute_id'] === (int) $attribute['attribute_id']) {
 								if ($rule['check_value']) {
 									if ($rule['value'] === $attribute['text']) {
 										return true;
@@ -217,7 +223,7 @@ class ModelExtensionShippingFocProductBased extends Model {
 
 				if ($customerGeoZones->num_rows > 0) {
 					foreach ($customerGeoZones->rows as $customerGeoZone) {
-						if ((int)$customerGeoZone['geo_zone_id'] === (int) $rule['zone_id']) {
+						if ((int) $customerGeoZone['geo_zone_id'] === (int) $rule['zone_id']) {
 							return true;
 						}
 					}
@@ -323,6 +329,101 @@ class ModelExtensionShippingFocProductBased extends Model {
 		}
 	}
 
+
+	/*
+		Calculate product increase and return as [ 'exclude' => bool, 'increase' => num ]
+	*/
+	public function checkProductBasedIncreaseRule ($product, $rules = []) {
+		$useRule = false;
+		$increase = [];
+		$result = [
+			'exclude' => false,
+			'increase' => 0
+		];
+
+		foreach ($rules as $rule) {
+			$checks = [];
+
+			foreach ($rule['conditions'] as $ruleCondition) {
+				// check rule
+				$checks[] = $this->checkRuleForProduct($product, $ruleCondition);
+			}
+
+			// use first?
+			if (!$useRule && count(array_unique($checks)) === 1 && current($checks) === true) {
+				$useRule = true;
+				$increase = $rule['resolve'];
+			}
+		}
+
+		if (isset($increase['type']) && isset($increase['value'])) {
+			switch ($increase['type']) {
+				case self::RULESET_RESOLVER_SET_POSITION_VALUE:
+					$result['increase'] = $increase['value'];
+					$result['exclude'] = true;
+					break;
+				case self::RULESET_RESOLVER_SET_POSITION_ITEM_VALUE:
+					$result['increase'] = $increase['value'] * $product['quantity'];
+					$result['exclude'] = true;
+					break;
+				case self::RULESET_RESOLVER_ADD_POSITION_VALUE:
+					$result['increase'] += $increase['value'];
+					$result['exclude'] = false;
+					break;
+				case self::RULESET_RESOLVER_ADD_POSITION_ITEM_VALUE:
+					$result['increase'] += $increase['value'] * $product['quantity'];
+					$result['exclude'] = false;
+					break;
+			}
+		}
+
+		return $result;
+	}
+
+	/*
+		Product based increases
+		Returns increase value and products list that can be processed with other increases
+		[ 'increase' => num, 'products' => [] ]
+	*/
+	public function checkProductBasedIncreases ($products = array()) {
+		$ids = array_column($products, 'product_id');
+		$increase = 0;
+		$processableProducts = [];
+
+		if (count($ids) > 0) {
+			$productSettingsSql = 'SELECT product_id, settings FROM ' . DB_PREFIX . 'foc_product_shipping_settings WHERE product_id IN (' . implode(',', $ids) . ');';
+
+			$productSettings = $this->db->query($productSettingsSql);
+
+			if ($productSettings->num_rows > 0) {
+				foreach ($productSettings->rows as $productSettingsRow) {
+					$productIndex = array_search($productSettingsRow['product_id'], $ids);
+					$settings = json_decode($productSettingsRow['settings'], true);
+
+					if (isset($settings['rules']) && count($settings['rules']) > 0) {
+						/*
+							[ exclude: bool, increase: number ]
+						*/
+						$productIncrease = $this->checkProductBasedIncreaseRule($products[$productIndex], $settings['rules']);
+						$increase += $productIncrease['increase'];
+						// if exclude is true then we drop product from processing
+						// else add it to processable
+						if ($productIncrease['exclude'] === false) {
+							$processableProducts[] = $products[$productIndex];
+						}
+					}
+				}
+			}
+		}
+
+		$result = [
+			'increase' => $increase,
+			'products' => $processableProducts
+		];
+
+		return $result;
+	}
+
 	/*
 		Opencart getQuote API
 	*/
@@ -360,8 +461,11 @@ class ModelExtensionShippingFocProductBased extends Model {
 
 			$productsIncreases = [];
 
-			foreach ($this->cart->getProducts() as $product) {
+			$productCheckResult = $this->checkProductBasedIncreases($this->cart->getProducts());
+
+			foreach ($productCheckResult['products'] as $product) {
 				$rulesetsToApply = $this->checkValidRulesetsToApplyForProduct($product, $rulesets);
+
 				$appliedRulesetsIncrease = 0;
 
 				if (!empty($rulesetsToApply)) {
@@ -394,22 +498,24 @@ class ModelExtensionShippingFocProductBased extends Model {
 				$productsIncreases[] = $appliedRulesetsIncrease;
 			}
 
-			switch ($increaseStrategy) {
-				case self::PRODUCT_INCREASE_STRATEGY_MAX:
-					$increaseTotal = max($productsIncreases);
-				break;
-				case self::PRODUCT_INCREASE_STRATEGY_MIN:
-					$increaseTotal = min($productsIncreases);
-				break;
-				case self::PRODUCT_INCREASE_STRATEGY_MIN_NON_ZERO:
-					$nonZero = array_filter($productsIncreases, [ $this, '__greater_than_zero' ]);
-					if (count($nonZero) > 0) {
-						$increaseTotal = min($nonZero);
-					}
-				break;
-				case self::PRODUCT_INCREASE_STRATEGY_SUM:
-					$increaseTotal = array_reduce($productsIncreases, [ $this, '__sum' ], 0);
-				break;
+			if (count($productsIncreases) > 0) {
+				switch ($increaseStrategy) {
+					case self::PRODUCT_INCREASE_STRATEGY_MAX:
+						$increaseTotal = max($productsIncreases);
+					break;
+					case self::PRODUCT_INCREASE_STRATEGY_MIN:
+						$increaseTotal = min($productsIncreases);
+					break;
+					case self::PRODUCT_INCREASE_STRATEGY_MIN_NON_ZERO:
+						$nonZero = array_filter($productsIncreases, [ $this, '__greater_than_zero' ]);
+						if (count($nonZero) > 0) {
+							$increaseTotal = min($nonZero);
+						}
+					break;
+					case self::PRODUCT_INCREASE_STRATEGY_SUM:
+						$increaseTotal = array_reduce($productsIncreases, [ $this, '__sum' ], 0);
+					break;
+				}
 			}
 
 			$totalCostIncreaseMode = $this->getTotalCostIncreaseMode();
@@ -438,6 +544,11 @@ class ModelExtensionShippingFocProductBased extends Model {
 					$totalCost = $cost + $increaseTotal;
 				break;
 			}
+
+			/*
+				Sum calculated totalCost and product based increase
+			*/
+			$totalCost += $productCheckResult['increase'];
 
 			$disable_if_total_is_zero = $this->config->get('shipping_foc_product_based_disable_if_total_is_zero');
 
