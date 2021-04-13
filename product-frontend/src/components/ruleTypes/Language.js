@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from "react";
-import { useAppSettings } from "../../lib/AppSettingsProvider";
+import { useAppSettings } from "../../lib/AppSettings";
 import { useI18n } from "react-simple-i18n";
 
 export default function Language({ value: propValue, onChange }) {

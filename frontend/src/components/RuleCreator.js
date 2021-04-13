@@ -1,37 +1,54 @@
-import React, { useState, useContext } from 'react'
-import { RULE_TYPES } from './ruleTypes'
-import { ConfigContext } from './ConfigProvider'
+import React, { useState } from "react";
+import { useAppSettings } from "../lib/AppSettings";
+import { useI18n } from "react-simple-i18n";
 
-import './RuleCreator.css'
-import { useI18n } from 'react-simple-i18n'
+import { RULE_TYPES } from "./ruleTypes";
 
-export default function RuleCreator ({ rulesetId }) {
-  const [ selectedType, setSelectedType ] = useState(Object.keys(RULE_TYPES)[0])
-  const { addNewRule } = useContext(ConfigContext)
+import "./RuleCreator.css";
 
-  const { t } = useI18n()
+export default function RuleCreator({ rulesetId }) {
+  const [selectedType, setSelectedType] = useState(Object.keys(RULE_TYPES)[0]);
+  const { addNewRule } = useAppSettings();
 
-  const handleRuleTypeChange = e => {
-    setSelectedType(e.target.value)
-  }
+  const { t } = useI18n();
 
-  const handleRuleTypeCreateClick = e => {
-    e.preventDefault()
-    addNewRule(rulesetId, selectedType)
-  }
+  const handleRuleTypeChange = useCallback((e) => {
+    setSelectedType(e.target.value);
+  }, []);
 
-  return <div className="RuleCreator">
-    <h5>{ t('Add new rule') }</h5>
+  const handleRuleTypeCreateClick = useCallback(
+    (e) => {
+      e.preventDefault();
+      addNewRule(rulesetId, selectedType);
+    },
+    [addNewRule, rulesetId, selectedType]
+  );
 
-    <div className="input-group">
-      <select className="form-control" onChange={ handleRuleTypeChange } value={ selectedType }>
-        { Object.entries(RULE_TYPES).map(([key, ruleType]) => (
-          <option key={ key } value={ key }>{ t(ruleType.name) }</option>
-        ))}
-      </select>
-      <div className="input-group-btn">
-        <button className="btn btn-primary" onClick={ handleRuleTypeCreateClick }>{ t('Add') }</button>
+  return (
+    <div className="RuleCreator">
+      <h5>{t("Add new rule")}</h5>
+
+      <div className="input-group">
+        <select
+          className="form-control"
+          onChange={handleRuleTypeChange}
+          value={selectedType}
+        >
+          {Object.entries(RULE_TYPES).map(([key, ruleType]) => (
+            <option key={key} value={key}>
+              {t(ruleType.name)}
+            </option>
+          ))}
+        </select>
+        <div className="input-group-btn">
+          <button
+            className="btn btn-primary"
+            onClick={handleRuleTypeCreateClick}
+          >
+            {t("Add")}
+          </button>
+        </div>
       </div>
     </div>
-  </div>
+  );
 }

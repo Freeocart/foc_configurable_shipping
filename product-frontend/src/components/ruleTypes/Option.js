@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useMemo } from "react";
 import { useI18n } from "react-simple-i18n";
-import { useAppSettings } from "../../lib/AppSettingsProvider";
+import { useAppSettings } from "../../lib/AppSettings";
 import { intOrNull } from "../../lib/helpers";
 
 import { OPTION_VALUE_IS_ANY } from "../../config/constants";

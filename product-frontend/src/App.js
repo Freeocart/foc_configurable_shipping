@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { useI18n } from "react-simple-i18n";
-import { useAppSettings } from "./lib/AppSettingsProvider";
+import { useAppSettings } from "./lib/AppSettings";
 
 import Condition from "./components/Condition";
 import RulesetResolver from "./components/RulesetResolver";

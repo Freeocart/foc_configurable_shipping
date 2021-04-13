@@ -1,8 +1,8 @@
-import React, { useContext, useState, useEffect } from "react";
-import { ConfigContext } from "./ConfigProvider";
+import React, { useState, useEffect } from "react";
+import { useAppSettings } from "../lib/AppSettings";
 
 export default function Output({ outputName }) {
-  const { state } = useContext(ConfigContext);
+  const { state } = useAppSettings();
   const [output, setOutput] = useState(state);
 
   useEffect(() => {

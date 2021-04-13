@@ -5,7 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
 import { parseJsonOr } from "./lib/helpers";
-import { AppSettingsProvider } from "./lib/AppSettingsProvider";
+import { AppSettingsProvider } from "./lib/AppSettings";
 import { I18nProvider, createI18n } from "react-simple-i18n";
 
 import i18nData from "./i18n.json";

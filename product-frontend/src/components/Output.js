@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useAppSettings } from "../lib/AppSettingsProvider";
+import { useAppSettings } from "../lib/AppSettings";
 
 export default function Output({ outputName }) {
   const { state } = useAppSettings();

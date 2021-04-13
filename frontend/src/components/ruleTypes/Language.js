@@ -1,25 +1,28 @@
-import React, { useContext, useState } from "react";
-import { ConfigContext } from "../ConfigProvider";
+import React, { useState, useCallback } from "react";
+import { useAppSettings } from "../../lib/AppSettings";
 import { useI18n } from "react-simple-i18n";
 
 export default function Language({ rulesetId, rule: propRule }) {
   const [rule, setRule] = useState(propRule);
-  const { languages, updateRule } = useContext(ConfigContext);
+  const { languages, updateRule } = useAppSettings();
 
   const { t } = useI18n();
 
-  const onLanguageChange = (e) => {
-    const newRule = {
-      ...rule,
-      language_id: e.target.value,
-    };
+  const onLanguageChange = useCallback(
+    (e) => {
+      const newRule = {
+        ...rule,
+        language_id: e.target.value,
+      };
 
-    setRule(newRule);
-    updateRule(rulesetId, propRule, {
-      ...rule,
-      ...newRule,
-    });
-  };
+      setRule(newRule);
+      updateRule(rulesetId, propRule, {
+        ...rule,
+        ...newRule,
+      });
+    },
+    [propRule, rule, rulesetId, updateRule]
+  );
 
   return (
     <div className="Language">
