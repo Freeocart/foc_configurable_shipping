@@ -1,8 +1,8 @@
 import React, { useState, useContext, useMemo, useCallback } from "react";
 import { mergeLeft } from "merge-left-utils";
-import { RULESET_RESOLVER_ADD_POSITION_VALUE } from "../config/constants";
+import { RULESET_RESOLVER_ADD_POSITION_VALUE } from "../AppSettings/constants";
 
-const ConfigContext = React.createContext({});
+const AppSettingsContext = React.createContext({});
 
 const DEFAULT_STATE = {
   rules: [],
@@ -33,7 +33,7 @@ const DEFAULT_OC_INFO = {
   geoZones: [],
 };
 
-function ConfigProvider({ ocInfo, state: defaultState = {}, children }) {
+function AppSettingsProvider({ ocInfo, state: defaultState = {}, children }) {
   const [state, setState] = useState(
     Object.assign({}, DEFAULT_STATE, defaultState)
   );
@@ -181,12 +181,19 @@ function ConfigProvider({ ocInfo, state: defaultState = {}, children }) {
   };
 
   return (
-    <ConfigContext.Provider value={value}>{children}</ConfigContext.Provider>
+    <AppSettingsContext.Provider value={value}>
+      {children}
+    </AppSettingsContext.Provider>
   );
 }
 
-const ConfigConsumer = ConfigContext.Consumer;
+const AppSettingsConsumer = AppSettingsContext.Consumer;
 
-const useAppSettings = () => useContext(ConfigContext);
+const useAppSettings = () => useContext(AppSettingsContext);
 
-export { useAppSettings, ConfigContext, ConfigProvider, ConfigConsumer };
+export {
+  useAppSettings,
+  AppSettingsContext,
+  AppSettingsProvider,
+  AppSettingsConsumer,
+};

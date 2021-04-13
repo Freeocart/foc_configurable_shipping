@@ -5,7 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
 import { parseJsonOr } from "./lib/helpers";
-import { ConfigProvider } from "./lib/AppSettingsProvider";
+import { AppSettingsProvider } from "./lib/AppSettingsProvider";
 import { I18nProvider, createI18n } from "react-simple-i18n";
 
 import i18nData from "./i18n.json";
@@ -30,9 +30,9 @@ const lang = i18nData[userLanguage] ? userLanguage : "en-gb";
 ReactDOM.render(
   <React.StrictMode>
     <I18nProvider i18n={createI18n(i18nData, { lang })}>
-      <ConfigProvider state={state} ocInfo={ocInfo}>
+      <AppSettingsProvider state={state} ocInfo={ocInfo}>
         <App outputName={outputName} />
-      </ConfigProvider>
+      </AppSettingsProvider>
     </I18nProvider>
   </React.StrictMode>,
   rootEl
