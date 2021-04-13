@@ -1,6 +1,7 @@
 import React, { useState, useContext, useMemo, useCallback } from "react";
 import { mergeLeft } from "merge-left-utils";
-import { RULESET_RESOLVER_ADD_POSITION_VALUE } from "../AppSettings/constants";
+
+import { RULESET_RESOLVER_ADD_POSITION_VALUE } from "../config/constants";
 
 const AppSettingsContext = React.createContext({});
 
