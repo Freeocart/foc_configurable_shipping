@@ -1,0 +1,12 @@
+/* @import "https://fractalika.com/catalog/view/javascript/bootstrap/css/bootstrap.min.css"; */
+
+.Ruleset {
+  border: 1px solid #ddd;
+  margin: 2em auto;
+  padding: 1em;
+  border-radius: 5px;
+}
+/*
+.Rules__output {
+  display: none;
+} */

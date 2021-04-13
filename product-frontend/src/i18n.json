@@ -1,0 +1,24 @@
+{
+  "en-gb": {
+    "Add condition": "Add condition",
+    "Add ruleset": "Add ruleset",
+    "If": "If",
+    "Then": "Then",
+    "And": "And",
+    "Delete ruleset": "Delete ruleset",
+    "Delete condition": "Delete condition",
+    "Country filter": "Country filter",
+    "Show checked only": "Show checked only"
+  },
+  "ru-ru": {
+    "Add condition": "Добавить условие",
+    "Add ruleset": "Добавить наценку",
+    "If": "Если",
+    "Then": "То",
+    "And": "И",
+    "Delete ruleset": "Удалить набор условий",
+    "Delete condition": "Удалить условие",
+    "Country filter": "Фильтр по стране",
+    "Show checked only": "Отобразить только выбранные"
+  }
+}
