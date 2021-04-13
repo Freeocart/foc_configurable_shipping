@@ -2,6 +2,8 @@ import Language from "./Language";
 import Currency from "./Currency";
 import Countries from "./Countries";
 import Geozone from "./Geozone";
+import Option from "./Option";
+import Attribute from "./Attribute";
 
 export const RULE_TYPES = {
   language: {
@@ -19,6 +21,14 @@ export const RULE_TYPES = {
   geozones: {
     name: "Geozone",
     component: Geozone,
+  },
+  option: {
+    name: "Option",
+    component: Option,
+  },
+  attribute: {
+    name: "Attribute",
+    component: Attribute,
   },
 };
 
