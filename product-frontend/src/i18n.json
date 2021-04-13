@@ -1,14 +1,21 @@
 {
   "en-gb": {
     "Add condition": "Add condition",
-    "Add ruleset": "Add ruleset",
+    "Add ruleset": "Add increase ruleset",
     "If": "If",
     "Then": "Then",
     "And": "And",
     "Delete ruleset": "Delete ruleset",
     "Delete condition": "Delete condition",
     "Country filter": "Country filter",
-    "Show checked only": "Show checked only"
+    "Show checked only": "Show checked only",
+
+    "Increase value": "Increase value",
+
+    "Set as shipping total for position (skip other increases for position)": "Set as shipping total for position (skip other increases for position)",
+    "Set as shipping total for position (multiply on products quantity)": "Set as shipping total for position (multiply on products quantity)",
+    "Add to shipping total (do not skip other increases for position)": "Add to shipping total (do not skip other increases for position)",
+    "Add to shipping total (multiply on products quantity)": "Add to shipping total (multiply on products quantity)"
   },
   "ru-ru": {
     "Add condition": "Добавить условие",
@@ -19,6 +26,13 @@
     "Delete ruleset": "Удалить набор условий",
     "Delete condition": "Удалить условие",
     "Country filter": "Фильтр по стране",
-    "Show checked only": "Отобразить только выбранные"
+    "Show checked only": "Отобразить только выбранные",
+
+    "Increase value": "Значение наценки",
+
+    "Set as shipping total for position (skip other increases for position)": "Установить стоимость доставки позиции (не учитывать остальные наценки для позиции)",
+    "Set as shipping total for position (multiply on products quantity)": "Установить стоимость (умножает на количество товаров в корзине)",
+    "Add to shipping total (do not skip other increases for position)": "Прибавить стоимость позиции (суммировать с остальными наценками)",
+    "Add to shipping total (multiply on products quantity)": "Прибавить стоимость позиции (для каждого товара в позиции)"
   }
 }

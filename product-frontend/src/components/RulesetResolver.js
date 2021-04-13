@@ -1,5 +1,7 @@
 import { useCallback } from "react";
 import { useI18n } from "react-simple-i18n";
+import { useAppSettings } from "../lib/AppSettingsProvider";
+
 import {
   RULESET_RESOLVER_SET_POSITION_VALUE,
   RULESET_RESOLVER_SET_POSITION_ITEM_VALUE,
@@ -12,6 +14,7 @@ export default function RulesetResolver({
   onChange,
 }) {
   const { t } = useI18n();
+  const { currencySymbol } = useAppSettings();
 
   const handleValueChange = useCallback(
     (e) => {
@@ -39,16 +42,22 @@ export default function RulesetResolver({
           className="form-control"
         >
           <option value={RULESET_RESOLVER_SET_POSITION_VALUE}>
-            установить стоимость позиции
+            {t(
+              "Set as shipping total for position (skip other increases for position)"
+            )}
           </option>
           <option value={RULESET_RESOLVER_SET_POSITION_ITEM_VALUE}>
-            установить стоимость (для каждого товара в позиции)
+            {t(
+              "Set as shipping total for position (multiply on products quantity)"
+            )}
           </option>
           <option value={RULESET_RESOLVER_ADD_POSITION_VALUE}>
-            прибавить стоимость позиции
+            {t(
+              "Add to shipping total (do not skip other increases for position)"
+            )}
           </option>
           <option value={RULESET_RESOLVER_ADD_POSITION_ITEM_VALUE}>
-            прибавить стоимость (для каждого товара в позиции)
+            {t("Add to shipping total (multiply on products quantity)")}
           </option>
         </select>
       </div>
@@ -59,7 +68,7 @@ export default function RulesetResolver({
         <input
           className="form-control"
           type="text"
-          placeholder="Сумма"
+          placeholder={`${t("Increase value")} (${currencySymbol})`}
           value={value}
           onChange={handleValueChange}
         />

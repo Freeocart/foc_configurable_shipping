@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useMemo } from "react";
 import { useAppSettings } from "../../lib/AppSettingsProvider";
 import { useI18n } from "react-simple-i18n";
 
 import "./Countries.css";
-import { mergeLeft } from "merge-left-utils";
 
 const filterCountries = (filter, data = []) =>
   data.filter((item) => {
@@ -25,27 +24,34 @@ export default function Countries({ value: propValue = {}, onChange }) {
 
   const { t } = useI18n();
 
-  const toggleCountry = (country_id) => {
-    const countriesList = selectedCountries.includes(country_id)
-      ? selectedCountries.filter((id) => id !== country_id)
-      : [...selectedCountries, country_id];
+  const toggleCountry = useCallback(
+    (country_id) => {
+      const countriesList = selectedCountries.includes(country_id)
+        ? selectedCountries.filter((id) => id !== country_id)
+        : [...selectedCountries, country_id];
 
-    setSelectedCountries(countriesList);
-    onChange?.({
-      ...propValue,
-      countries: countriesList,
-    });
-  };
+      setSelectedCountries(countriesList);
+      onChange?.({
+        ...propValue,
+        countries: countriesList,
+      });
+    },
+    [onChange, propValue, selectedCountries]
+  );
 
-  const handleChangeShowCheckedOnly = (e) => {
+  const handleChangeShowCheckedOnly = useCallback((e) => {
     setShowCheckedOnly(e.target.checked);
-  };
+  }, []);
 
-  const items = showCheckedOnly
-    ? filterCountries(filter, countries).filter((country) =>
-        selectedCountries.includes(country.country_id)
-      )
-    : filterCountries(filter, countries);
+  const items = useMemo(
+    () =>
+      showCheckedOnly
+        ? filterCountries(filter, countries).filter((country) =>
+            selectedCountries.includes(country.country_id)
+          )
+        : filterCountries(filter, countries),
+    [countries, filter, selectedCountries, showCheckedOnly]
+  );
 
   return (
     <div className="Countries">

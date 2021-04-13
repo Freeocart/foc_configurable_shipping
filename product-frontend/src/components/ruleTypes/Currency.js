@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { useAppSettings } from "../../lib/AppSettingsProvider";
 import { useI18n } from "react-simple-i18n";
 
@@ -8,15 +8,18 @@ export default function Currency({ value: propValue, onChange }) {
 
   const { t } = useI18n();
 
-  const onCurrencyChange = (e) => {
-    const newRule = {
-      ...rule,
-      currency_id: e.target.value,
-    };
+  const onCurrencyChange = useCallback(
+    (e) => {
+      const newRule = {
+        ...rule,
+        currency_id: e.target.value,
+      };
 
-    setRule(newRule);
-    onChange?.(newRule);
-  };
+      setRule(newRule);
+      onChange?.(newRule);
+    },
+    [onChange, rule]
+  );
 
   return (
     <div className="Language">

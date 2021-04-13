@@ -1,19 +1,16 @@
-import React from "react";
-// import Language from './ruleTypes/Language'
-// import Option from './ruleTypes/Option'
+import React, { useMemo } from "react";
 import { getRuleTypeComponent } from "./ruleTypes";
-// import { useAppSettings } from "../lib/AppSettingsProvider";
 
 import "./ruleTypes/Rule.css";
 
-function RulePicker({ indexes, type, value, onChange }) {
-  const RuleComponent = getRuleTypeComponent(type);
+function RulePicker({ type, value, onChange }) {
+  const RuleComponent = useMemo(() => getRuleTypeComponent(type), [type]);
 
   if (RuleComponent) {
     return (
       <div className="Rule form-horizontal">
         <div className="form-group">
-          <RuleComponent indexes={indexes} value={value} onChange={onChange} />
+          <RuleComponent value={value} onChange={onChange} />
         </div>
       </div>
     );

@@ -75,7 +75,6 @@ function App({ outputName }) {
                 )}
 
                 <Condition
-                  indexes={{ rulesetIndex, ruleIndex }}
                   value={condition}
                   onChange={(payload) =>
                     handleConditionChange({ rulesetIndex, ruleIndex }, payload)

@@ -1,11 +1,9 @@
 import { useCallback } from "react";
 import { useI18n } from "react-simple-i18n";
 
-// import ConditionValue from "./ConditionValue";
 import RulePicker from "./RulePicker";
 
 export default function Condition({
-  indexes,
   value: { type, value } = {},
   onChange,
   onDelete,

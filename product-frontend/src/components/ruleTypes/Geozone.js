@@ -1,22 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { useAppSettings } from "../../lib/AppSettingsProvider";
 import { useI18n } from "react-simple-i18n";
 
-export default function Geozone({ rulesetId, value: propValue, onChange }) {
+export default function Geozone({ value: propValue, onChange }) {
   const [rule, setRule] = useState(propValue ?? null);
   const { geoZones = [] } = useAppSettings();
 
   const { t } = useI18n();
 
-  const onLanguageChange = (e) => {
-    const newRule = {
-      ...rule,
-      zone_id: e.target.value,
-    };
+  const onLanguageChange = useCallback(
+    (e) => {
+      const newRule = {
+        ...rule,
+        zone_id: e.target.value,
+      };
 
-    setRule(newRule);
-    onChange(newRule);
-  };
+      setRule(newRule);
+      onChange(newRule);
+    },
+    [onChange, rule]
+  );
 
   return (
     <div className="Language">
