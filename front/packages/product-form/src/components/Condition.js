@@ -36,7 +36,7 @@ export default function Condition({
   }, [onDelete]);
 
   return (<>
-    <ConditionLabel className="ConditionLabel--left" label={t("If")} />
+    {/* <ConditionLabel className="ConditionLabel--left" label={t("If")} /> */}
     <div className="Condition row">
 
       <div className="col-md-3">
@@ -66,7 +66,7 @@ export default function Condition({
       {showDeleteBtn && (
         <div className="col-md-2">
           <button
-            className="btn btn-xs btn-danger"
+            className="btn btn-danger"
             type="button"
             onClick={handleDeleteConditionClick}
           >

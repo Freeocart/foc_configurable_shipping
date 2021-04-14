@@ -35,46 +35,47 @@ export default function RulesetResolver({
   );
 
   return (
-    <div className="row RulesetResolver">
+    <div className="RulesetResolver">
       <ConditionLabel className="ConditionLabel--block" label={t('Then')} />
+      <div className="row">
+        <div className="col-md-5">
+          <select
+            value={type}
+            onChange={handleTypeChange}
+            className="form-control"
+          >
+            <option value={RULESET_RESOLVER_SET_POSITION_VALUE}>
+              {t(
+                "Set as shipping total for position (skip other increases for position)"
+              )}
+            </option>
+            <option value={RULESET_RESOLVER_SET_POSITION_ITEM_VALUE}>
+              {t(
+                "Set as shipping total for position (multiply on products quantity)"
+              )}
+            </option>
+            <option value={RULESET_RESOLVER_ADD_POSITION_VALUE}>
+              {t(
+                "Add to shipping total (do not skip other increases for position)"
+              )}
+            </option>
+            <option value={RULESET_RESOLVER_ADD_POSITION_ITEM_VALUE}>
+              {t("Add to shipping total (multiply on products quantity)")}
+            </option>
+          </select>
+        </div>
 
-      <div className="col-md-5">
-        <select
-          value={type}
-          onChange={handleTypeChange}
-          className="form-control"
-        >
-          <option value={RULESET_RESOLVER_SET_POSITION_VALUE}>
-            {t(
-              "Set as shipping total for position (skip other increases for position)"
-            )}
-          </option>
-          <option value={RULESET_RESOLVER_SET_POSITION_ITEM_VALUE}>
-            {t(
-              "Set as shipping total for position (multiply on products quantity)"
-            )}
-          </option>
-          <option value={RULESET_RESOLVER_ADD_POSITION_VALUE}>
-            {t(
-              "Add to shipping total (do not skip other increases for position)"
-            )}
-          </option>
-          <option value={RULESET_RESOLVER_ADD_POSITION_ITEM_VALUE}>
-            {t("Add to shipping total (multiply on products quantity)")}
-          </option>
-        </select>
-      </div>
+        <ConditionLabel className="col-md-2" label="=" />
 
-      <ConditionLabel className="col-md-2" label="=" />
-
-      <div className="col-md-5">
-        <input
-          className="form-control"
-          type="text"
-          placeholder={`${t("Increase value")} (${currencySymbol})`}
-          value={value}
-          onChange={handleValueChange}
-        />
+        <div className="col-md-5">
+          <input
+            className="form-control"
+            type="text"
+            placeholder={`${t("Increase value")} (${currencySymbol})`}
+            value={value}
+            onChange={handleValueChange}
+          />
+        </div>
       </div>
     </div>
   );

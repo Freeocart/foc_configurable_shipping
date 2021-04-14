@@ -65,14 +65,14 @@ function App({ outputName }) {
     <div className="App">
       {rules.map((ruleset, rulesetIndex) => (
         <>
-          { rulesetIndex > 0 && <ConditionLabel className="text-center" label={t('Or')} />}
+          { rulesetIndex > 0 && <ConditionLabel className="text-center" label={`${t('Or')} ${t("If")}`} />}
 
           <div className="Ruleset" key={rulesetIndex}>
             <div key={rulesetIndex}>
               {ruleset.conditions.map((condition, ruleIndex) => (
                 <div key={ruleIndex}>
                   {ruleIndex > 0 && (
-                    <ConditionLabel label={t('And')} />
+                    <ConditionLabel label={`${t('And')} ${t("If")}`} />
                   )}
 
                   <Condition
@@ -110,11 +110,11 @@ function App({ outputName }) {
                 }
                 value={ruleset.resolve}
               />
-
+              <hr/>
               <div className="row">
-                <div className="col-md-12 text-right">
+                <div className="col-md-12 text-center">
                   <button
-                    className="btn btn-danger btn-xs"
+                    className="btn btn-danger"
                     type="button"
                     onClick={() => handleDeleteRuleset(rulesetIndex)}
                   >

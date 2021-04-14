@@ -1,8 +1,7 @@
 .ConditionLabel {
   display: block;
-  margin: 1em auto;
   font-size: 1.2em;
-  text-align: center;
+  /* text-align: center; */
   text-transform: uppercase;
 }
 
