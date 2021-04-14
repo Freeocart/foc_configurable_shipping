@@ -35,10 +35,11 @@ export default function RulesetResolver({
   );
 
   return (
-    <div className="RulesetResolver">
+    <div>
       <ConditionLabel className="ConditionLabel--block" label={t('Then')} />
-      <div className="row">
-        <div className="col-md-5">
+
+      <div className="row RulesetResolver">
+        <div className="col-md-4">
           <select
             value={type}
             onChange={handleTypeChange}
@@ -65,9 +66,9 @@ export default function RulesetResolver({
           </select>
         </div>
 
-        <ConditionLabel className="col-md-2" label="=" />
+        <ConditionLabel className="col-md-2 ConditionLabel--center" label="=" />
 
-        <div className="col-md-5">
+        <div className="col-md-3">
           <input
             className="form-control"
             type="text"

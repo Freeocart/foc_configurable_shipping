@@ -39,7 +39,7 @@ export default function Condition({
     {/* <ConditionLabel className="ConditionLabel--left" label={t("If")} /> */}
     <div className="Condition row">
 
-      <div className="col-md-3">
+      <div className="col-md-2">
         <label>{t('Rule type')}</label>
         <select
           className="form-control"
@@ -56,7 +56,7 @@ export default function Condition({
       <div className="col-md-1 text-center">
         <ConditionLabel label="=" />
       </div>
-      <div className={`${showDeleteBtn ? "col-md-6" : "col-md-8"}`}>
+      <div className='col-md-8'>
         <RulePicker
           value={value}
           type={type}
@@ -64,16 +64,13 @@ export default function Condition({
         />
       </div>
       {showDeleteBtn && (
-        <div className="col-md-2">
+        <div className="col-md-1">
           <button
             className="btn btn-danger"
             type="button"
             onClick={handleDeleteConditionClick}
           >
-            <i className="fa fa-trash"></i>&nbsp;
-            <span>
-              {t("Delete condition")}
-            </span>
+            <i className="fa fa-trash"></i>
           </button>
         </div>
       )}
