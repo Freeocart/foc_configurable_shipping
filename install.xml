@@ -28,7 +28,7 @@
 			<search><![CDATA[<div class="tab-pane" id="tab-design">]]></search>
 			<add position="before" error="log" index="1"><![CDATA[
       <div class="tab-pane" id="tab-configurable-shipping">
-        <div data-output-name="foc_product_configurable_shipping" data-state='{{ foc_configurable_shipping_product_settings }}' data-oc-info='{{ foc_configurable_shipping_oc_info }}' id="product-based-foc-configurable-shipping"></div>
+        <div data-output-name="foc_product_configurable_shipping" data-state='{{ foc_configurable_shipping_product_settings }}' data-oc-info='{{ foc_configurable_shipping_oc_info }}' id="product-based-foc-configurable-shipping" data-language-code='{{ language_code }}'></div>
       </div>
       ]]></add>
 		</operation>
@@ -93,6 +93,7 @@
         $currencies = array_values($currencies_list);
 				$geo_zones = $this->model_localisation_geo_zone->getGeoZones();
 
+        $data['language_code'] = $this->config->get('config_language');
         $data['foc_configurable_shipping_product_settings'] = json_encode($this->model_extension_shipping_foc_product_based->getProductSettings($this->request->get['product_id']), JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
 
         $data['foc_configurable_shipping_oc_info'] = json_encode(array(
