@@ -13,7 +13,7 @@ export default function Option({ value: propValue = {}, onChange }) {
     intOrNull(propValue.option_id)
   );
   const [selectedOptionValueId, setSelectedOptionValueId] = useState(
-    intOrNull(propValue.value)
+    intOrNull(propValue.option_value_id)
   );
   const { options, optionsValues } = useAppSettings();
   const { t } = useI18n();
@@ -26,7 +26,14 @@ export default function Option({ value: propValue = {}, onChange }) {
   }, [selectedOptionId, optionsValues]);
 
   const handleSelectOptionId = useCallback((e) => {
+    const newRule = {
+      ...propValue,
+      option_value_id: OPTION_VALUE_NOT_SELECTED,
+      option_id: e.target.value,
+    };
     setSelectedOptionId(e.target.value);
+    setSelectedOptionValueId(OPTION_VALUE_NOT_SELECTED);
+    onChange?.(newRule);
   }, []);
 
   const handleSelectOptionValueId = useCallback(
@@ -34,7 +41,7 @@ export default function Option({ value: propValue = {}, onChange }) {
       const newRule = {
         ...propValue,
         option_id: selectedOptionId,
-        value: e.target.value,
+        option_value_id: e.target.value,
       };
 
       setSelectedOptionValueId(e.target.value);

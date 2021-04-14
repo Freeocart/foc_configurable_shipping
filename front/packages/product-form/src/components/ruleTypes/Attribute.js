@@ -6,9 +6,9 @@ import { intOrNull } from "common/functions";
 import { OPTION_VALUE_NOT_SELECTED } from "common/constants";
 
 const DEFAULT_STATE = {
-  attribute_group_id: null,
-  attribute_id: null,
-  check_value: false,
+  attribute_group_id: OPTION_VALUE_NOT_SELECTED,
+  attribute_id: OPTION_VALUE_NOT_SELECTED,
+  attribute_check_value: false,
 };
 
 export default function Attribute({ value: propValue, onChange }) {
@@ -18,22 +18,27 @@ export default function Attribute({ value: propValue, onChange }) {
   const [attributeId, setAttributeId] = useState(
     intOrNull(propValue.attribute_id)
   );
-  console.log("pv:", propValue);
-  const [attributeValue, setAttributeValue] = useState(propValue.value);
-  const [checkAttributeValue, setCheckAttributeValue] = useState(
-    propValue.check_value
+
+  const [attributeValue, setAttributeValue] = useState(
+    intOrNull(propValue.attribute_value)
   );
+  const [checkAttributeValue, setCheckAttributeValue] = useState(
+    propValue.attribute_check_value
+  );
+
   const { attributeGroups, attributes } = useAppSettings();
   const { t } = useI18n();
 
   const handleSelectAttributeGroup = useCallback(
     (e) => {
       setAttributeGroupId(e.target.value);
+      setAttributeId(OPTION_VALUE_NOT_SELECTED);
       onChange?.({
         ...DEFAULT_STATE,
         ...propValue,
         attribute_group_id: e.target.value,
-        value: "", // reset value here
+        attribute_id: OPTION_VALUE_NOT_SELECTED,
+        attribute_value: OPTION_VALUE_NOT_SELECTED, // reset value here
       });
     },
     [onChange, propValue]
@@ -58,10 +63,9 @@ export default function Attribute({ value: propValue, onChange }) {
       const newRule = {
         ...DEFAULT_STATE,
         ...propValue,
-        value: e.target.value,
+        attribute_value: e.target.value,
       };
 
-      console.log("send to onChange->", newRule);
       onChange?.(newRule);
     },
     [onChange, propValue]
@@ -73,7 +77,7 @@ export default function Attribute({ value: propValue, onChange }) {
       onChange?.({
         ...DEFAULT_STATE,
         ...propValue,
-        check_value: e.target.checked,
+        attribute_check_value: e.target.checked,
       });
     },
     [onChange, propValue]

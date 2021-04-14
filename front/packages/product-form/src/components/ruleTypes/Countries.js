@@ -17,7 +17,7 @@ export default function Countries({ value: propValue = {}, onChange }) {
   const [filter, setFilter] = useState("");
   const { countries } = useAppSettings();
   const [selectedCountries, setSelectedCountries] = useState(
-    propValue?.countries || []
+    propValue?.countries_ids || []
   );
 
   const [showCheckedOnly, setShowCheckedOnly] = useState(false);
@@ -33,7 +33,7 @@ export default function Countries({ value: propValue = {}, onChange }) {
       setSelectedCountries(countriesList);
       onChange?.({
         ...propValue,
-        countries: countriesList,
+        countries_ids: countriesList,
       });
     },
     [onChange, propValue, selectedCountries]

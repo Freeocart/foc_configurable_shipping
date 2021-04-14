@@ -2,6 +2,8 @@ import React, { useState, useCallback } from "react";
 import { useAppSettings } from "../../lib/AppSettings";
 import { useI18n } from "react-simple-i18n";
 
+import { OPTION_VALUE_NOT_SELECTED } from 'common/constants';
+
 export default function Geozone({ rulesetId, rule: propRule }) {
   const [rule, setRule] = useState(propRule);
   const { geoZones = [], updateRule } = useAppSettings();
@@ -34,6 +36,9 @@ export default function Geozone({ rulesetId, rule: propRule }) {
             value={rule.zone_id}
             onChange={onLanguageChange}
           >
+            <option value={OPTION_VALUE_NOT_SELECTED}>
+              {t("Not selected")}
+            </option>
             {geoZones.map((zone) => (
               <option key={zone.geo_zone_id} value={zone.geo_zone_id}>
                 {zone.name}

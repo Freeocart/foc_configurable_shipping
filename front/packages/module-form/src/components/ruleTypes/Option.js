@@ -3,14 +3,14 @@ import { useAppSettings } from "../../lib/AppSettings";
 import { useI18n } from "react-simple-i18n";
 import { intOrNull } from "common/functions";
 
-import { OPTION_VALUE_IS_ANY } from "common/constants";
+import { OPTION_VALUE_IS_ANY, OPTION_VALUE_NOT_SELECTED } from "common/constants";
 
 export default function Option({ rulesetId, rule }) {
   const [selectedOptionId, setSelectedOptionId] = useState(
     intOrNull(rule.option_id)
   );
   const [selectedOptionValueId, setSelectedOptionValueId] = useState(
-    intOrNull(rule.value)
+    intOrNull(rule.option_value_id)
   );
   const { options, optionsValues, updateRule } = useAppSettings();
   const { t } = useI18n();
@@ -25,7 +25,7 @@ export default function Option({ rulesetId, rule }) {
   const handleSelectOptionId = useCallback(
     (e) => {
       setSelectedOptionId(e.target.value);
-      updateRule(rulesetId, rule, { option_id: e.target.value, value: null });
+      updateRule(rulesetId, rule, { option_id: e.target.value, option_value_id: null });
     },
     [rule, rulesetId, updateRule]
   );
@@ -33,7 +33,7 @@ export default function Option({ rulesetId, rule }) {
   const handleSelectOptionValueId = useCallback(
     (e) => {
       setSelectedOptionValueId(e.target.value);
-      updateRule(rulesetId, rule, { value: e.target.value });
+      updateRule(rulesetId, rule, { option_value_id: e.target.value });
     },
     [rule, rulesetId, updateRule]
   );
@@ -58,7 +58,9 @@ export default function Option({ rulesetId, rule }) {
           value={selectedOptionValueId}
           onChange={handleSelectOptionValueId}
         >
-          <option value={null}>{t("Not selected")}</option>
+          <option value={OPTION_VALUE_NOT_SELECTED}>
+            {t("Not selected")}
+          </option>
           <option value={OPTION_VALUE_IS_ANY}>{t("Any option value")}</option>
           {filteredOptionValues.map((optionValue) => (
             <option value={optionValue.option_value_id}>

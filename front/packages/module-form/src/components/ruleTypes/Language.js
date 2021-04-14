@@ -2,6 +2,8 @@ import React, { useState, useCallback } from "react";
 import { useAppSettings } from "../../lib/AppSettings";
 import { useI18n } from "react-simple-i18n";
 
+import { OPTION_VALUE_NOT_SELECTED } from 'common/constants';
+
 export default function Language({ rulesetId, rule: propRule }) {
   const [rule, setRule] = useState(propRule);
   const { languages, updateRule } = useAppSettings();
@@ -34,6 +36,9 @@ export default function Language({ rulesetId, rule: propRule }) {
             value={rule.language_id}
             onChange={onLanguageChange}
           >
+            <option value={OPTION_VALUE_NOT_SELECTED}>
+              {t("Not selected")}
+            </option>
             {languages.map((language) => (
               <option key={language.language_id} value={language.language_id}>
                 {language.name}

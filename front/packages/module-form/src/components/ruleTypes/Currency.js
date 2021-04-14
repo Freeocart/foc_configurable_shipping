@@ -2,6 +2,8 @@ import React, { useState, useCallback } from "react";
 import { useAppSettings } from "../../lib/AppSettings";
 import { useI18n } from "react-simple-i18n";
 
+import { OPTION_VALUE_NOT_SELECTED } from 'common/constants';
+
 export default function Currency({ rulesetId, rule: propRule }) {
   const [rule, setRule] = useState(propRule);
   const { currencies, updateRule } = useAppSettings();
@@ -34,6 +36,9 @@ export default function Currency({ rulesetId, rule: propRule }) {
             value={rule.currency_id}
             onChange={onCurrencyChange}
           >
+            <option value={OPTION_VALUE_NOT_SELECTED}>
+              {t("Not selected")}
+            </option>
             {currencies.map((currency) => (
               <option key={currency.currency_id} value={currency.currency_id}>
                 {currency.title}

@@ -3,15 +3,15 @@ import { useI18n } from "react-simple-i18n";
 import { useAppSettings } from "../../lib/AppSettings";
 import { intOrNull } from "common/functions";
 
+import { OPTION_VALUE_NOT_SELECTED } from 'common/constants';
+
 export default function Attribute({ rulesetId, rule }) {
   const [attributeGroupId, setAttributeGroupId] = useState(
     intOrNull(rule.attribute_group_id)
   );
   const [attributeId, setAttributeId] = useState(intOrNull(rule.attribute_id));
-  const [attributeValue, setAttributeValue] = useState(rule.value);
-  const [checkAttributeValue, setCheckAttributeValue] = useState(
-    rule.check_value
-  );
+  const [attributeValue, setAttributeValue] = useState(intOrNull(rule.attribute_value));
+  const [checkAttributeValue, setCheckAttributeValue] = useState(!!rule.attribute_check_value);
   const { attributeGroups, attributes, updateRule } = useAppSettings();
   const { t } = useI18n();
 
@@ -20,8 +20,8 @@ export default function Attribute({ rulesetId, rule }) {
       updateRule(rulesetId, rule, {
         attribute_group_id: e.target.value,
         attribute_id: null,
-        value: null,
-        check_value: false,
+        attribute_value: null,
+        attribute_check_value: false,
       });
       setAttributeGroupId(e.target.value);
     },
@@ -40,20 +40,20 @@ export default function Attribute({ rulesetId, rule }) {
 
   const handleChangeAttributeValue = useCallback(
     (e) => {
-      setAttributeValue(e.target.value);
       updateRule(rulesetId, rule, {
-        value: e.target.value,
+        attribute_value: e.target.value,
       });
+      setAttributeValue(e.target.value);
     },
     [rule, rulesetId, updateRule]
   );
 
   const handleChangeCheckAttributeValue = useCallback(
     (e) => {
-      setCheckAttributeValue(e.target.checked);
       updateRule(rulesetId, rule, {
-        check_value: e.target.checked,
+        attribute_check_value: e.target.checked,
       });
+      setCheckAttributeValue(e.target.checked);
     },
     [rule, rulesetId, updateRule]
   );
@@ -76,7 +76,9 @@ export default function Attribute({ rulesetId, rule }) {
           value={attributeGroupId}
           onChange={handleSelectAttributeGroup}
         >
-          <option value={null}>{t("Not selected")}</option>
+          <option value={OPTION_VALUE_NOT_SELECTED}>
+            {t("Not selected")}
+          </option>
           {attributeGroups.map((attributeGroup) => (
             <option value={attributeGroup.attribute_group_id}>
               {attributeGroup.name}
@@ -91,7 +93,9 @@ export default function Attribute({ rulesetId, rule }) {
           value={attributeId}
           onChange={handleSelectAttribute}
         >
-          <option value={null}>{t("Not selected")}</option>
+          <option value={OPTION_VALUE_NOT_SELECTED}>
+            {t("Not selected")}
+          </option>
           {filteredAttributes.map((attribute) => (
             <option value={attribute.attribute_id}>{attribute.name}</option>
           ))}

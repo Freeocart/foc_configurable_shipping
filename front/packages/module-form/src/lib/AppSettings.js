@@ -11,7 +11,6 @@ import {
   PRODUCT_INCREASE_STRATEGY_MIN_NON_ZERO,
   PRODUCT_INCREASE_STRATEGY_MAX,
 } from "../config/constants";
-import { T } from "common/functions";
 
 const VALID_TOTAL_MODES = [
   RULES_TOTAL_SET_MAX_INCREASE_VALUE,
@@ -220,7 +219,7 @@ function AppSettingsProvider({ ocInfo, state: defaultState = {}, children }) {
     deleteRule,
     updateRule,
     resetState(newState) {
-      setState(mergeLeft(state, newState));
+      setState(Object.assign({}, DEFAULT_STATE, state, newState));
     },
   };
 
