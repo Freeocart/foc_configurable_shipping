@@ -11,6 +11,7 @@ import {
   PRODUCT_INCREASE_STRATEGY_MIN_NON_ZERO,
   PRODUCT_INCREASE_STRATEGY_MAX,
 } from "../config/constants";
+import { T } from "common/functions";
 
 const VALID_TOTAL_MODES = [
   RULES_TOTAL_SET_MAX_INCREASE_VALUE,
@@ -55,9 +56,11 @@ const DEFAULT_OC_INFO = {
 };
 
 function AppSettingsProvider({ ocInfo, state: defaultState = {}, children }) {
-  const [state, setState] = useState(mergeLeft(DEFAULT_STATE, defaultState));
+  const [state, setState] = useState(
+    Object.assign({}, DEFAULT_STATE, defaultState)
+  );
 
-  const opencartInfo = mergeLeft(DEFAULT_OC_INFO, ocInfo);
+  const opencartInfo = Object.assign({}, DEFAULT_OC_INFO, ocInfo);
 
   const getRuleset = (id) => state.rulesets[id];
 

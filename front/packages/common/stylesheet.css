@@ -1,7 +1,10 @@
 .App__output {
   display: none;
 }
-.development .App__output {
+.App__state {
+  display: none;
+}
+.development .App__output, .development .App__state {
   display: block;
   width: 100%;
   min-height: 500px;
