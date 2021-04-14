@@ -80,14 +80,14 @@ export default function Countries({ value: propValue = {}, onChange }) {
         <div className="col-sm-9">
           <div className="Countries__list">
             {items.map((country, index) => (
-              <div key={index} className="Countries__country">
+              <label key={index} className="Countries__country">
                 <input
                   type="checkbox"
                   checked={selectedCountries.includes(country.country_id)}
                   onChange={(e) => toggleCountry(country.country_id)}
                 />{" "}
                 {country.name}
-              </div>
+              </label>
             ))}
           </div>
         </div>

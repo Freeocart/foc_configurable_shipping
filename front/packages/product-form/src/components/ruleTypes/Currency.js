@@ -26,7 +26,7 @@ export default function Currency({ value: propValue, onChange }) {
   return (
     <div className="Language">
       <div className="form-horizontal">
-        <label>{t("If selected currency")}</label>
+        <label>{t("If customer currency is")}</label>
 
         <select
           className="form-control"

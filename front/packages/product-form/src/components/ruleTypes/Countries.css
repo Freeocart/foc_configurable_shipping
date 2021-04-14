@@ -6,3 +6,6 @@
   overflow-y: auto;
   text-align: left;
 }
+.Countries__country {
+  display: block;
+}
