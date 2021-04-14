@@ -10,7 +10,9 @@
     "build:all": "concurrently --names 'MODULE-FORM,PRODUCT-FORM' --prefix-colors 'yellow,blue' --kill-others-on-fail 'yarn build:module-form' 'yarn build:product-form' && gulp build",
     "build-all": "yarn run build-module-from && yarn run build-product-form && gulp build",
     "build:module-form": "SKIP_PREFLIGHT_CHECK=true GENERATE_SOURCEMAP=false yarn --cwd ./front workspace module-form run build --prod",
+    "prebuild:module-form": "rimraf ./upload/admin/view/[stylesheet,javascript]/foc_product_based/module",
     "build:product-form": "SKIP_PREFLIGHT_CHECK=true GENERATE_SOURCEMAP=false yarn --cwd ./front workspace product-form run build --prod",
+    "prebuild:product-form": "rimraf ./upload/admin/view/[stylesheet,javascript]/foc_product_based/product",
     "dev:product-form": "SKIP_PREFLIGHT_CHECK=true yarn --cwd ./front workspace product-form start",
     "dev:module-form": "SKIP_PREFLIGHT_CHECK=true yarn --cwd ./front workspace module-form start",
     "dev": "concurrently --names 'MODULE-FORM,PRODUCT-FORM' --prefix-colors 'yellow,blue' 'PORT=3090 yarn dev:module-form' 'PORT=3091 yarn dev:product-form'"
@@ -20,7 +22,8 @@
     "gulp": "^4.0.2",
     "gulp-zip": "^5.0.1",
     "prettier": "^2.2.1",
-    "react-simple-i18n": "^1.2.1-beta.0"
+    "react-simple-i18n": "^1.2.1-beta.0",
+    "rimraf": "^3.0.2"
   },
   "devDependencies": {
     "yarn": "^1.22.4"
