@@ -1,0 +1,8 @@
+.App__output {
+  display: none;
+}
+.development .App__output {
+  display: block;
+  width: 100%;
+  min-height: 500px;
+}

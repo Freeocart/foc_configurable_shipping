@@ -57,9 +57,10 @@ function ExportImport() {
               'Click "Export" button to export rules as JSON data'
             )}
             value={exportValue}
+            readOnly
           />
           <div className="form-group">
-            <button class="btn btn-warning" onClick={handleExportClick}>
+            <button className="btn btn-warning" onClick={handleExportClick}>
               {t("Export")}
             </button>
           </div>
@@ -74,7 +75,7 @@ function ExportImport() {
             onChange={handleImportValueChange}
           />
           <div className="form-group">
-            <button class="btn btn-primary" onClick={handleImportClick}>
+            <button className="btn btn-primary" onClick={handleImportClick}>
               {t("Import")}
             </button>
           </div>

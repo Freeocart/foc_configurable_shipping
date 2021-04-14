@@ -1,9 +1,9 @@
 import React, { useState, useCallback, useMemo } from "react";
 import { useAppSettings } from "../../lib/AppSettings";
 import { useI18n } from "react-simple-i18n";
-import { intOrNull } from "../../lib";
+import { intOrNull } from "common/functions";
 
-import { OPTION_VALUE_IS_ANY } from "../../config/constants";
+import { OPTION_VALUE_IS_ANY } from "common/constants";
 
 export default function Option({ rulesetId, rule }) {
   const [selectedOptionId, setSelectedOptionId] = useState(

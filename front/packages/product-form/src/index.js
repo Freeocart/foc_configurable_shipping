@@ -4,11 +4,13 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
-import { parseJsonOr } from "./lib/helpers";
+import { parseJsonOr } from "common/functions";
 import { AppSettingsProvider } from "./lib/AppSettings";
 import { I18nProvider, createI18n } from "react-simple-i18n";
 
 import i18nData from "./i18n.json";
+
+import 'common/stylesheet.css';
 
 const rootEl = document.getElementById(
   "product-based-foc-configurable-shipping"

@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useMemo } from "react";
 import { useI18n } from "react-simple-i18n";
 import { useAppSettings } from "../../lib/AppSettings";
-import { intOrNull } from "../../lib";
+import { intOrNull } from "common/functions";
 
 export default function Attribute({ rulesetId, rule }) {
   const [attributeGroupId, setAttributeGroupId] = useState(

@@ -11,9 +11,10 @@ export default function Output({ outputName }) {
 
   return (
     <textarea
-      className="Rules__output"
+      className="App__output"
       name={outputName}
       value={output}
+      readOnly
     ></textarea>
   );
 }

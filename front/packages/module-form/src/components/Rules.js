@@ -15,8 +15,6 @@ import {
   PRODUCT_INCREASE_STRATEGY_MIN_NON_ZERO,
 } from "../config/constants";
 
-import "./Rules.css";
-
 function Rules() {
   const {
     rulesets,

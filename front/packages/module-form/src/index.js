@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import * as serviceWorker from "./serviceWorker";
+import { parseJsonOr } from 'common/functions'
 
 import App from "./App";
 import { AppSettingsProvider } from "./lib/AppSettings";
@@ -10,16 +11,9 @@ import { I18nProvider, createI18n } from "react-simple-i18n";
 import i18nData from "./i18n.json";
 
 import "./index.css";
+import "common/stylesheet.css";
 
 const mountPoints = document.querySelectorAll(".foc_increase_total_rules_app");
-
-const parseJsonOr = (json, defaultValue = {}) => {
-  try {
-    return JSON.parse(json) || defaultValue;
-  } catch (e) {
-    return defaultValue;
-  }
-};
 
 Array.from(mountPoints).forEach((rootEl) => {
   const state =

@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useCallback } from "react";
 import { useAppSettings } from "../../lib/AppSettings";
 import { useI18n } from "react-simple-i18n";
-import { intOrNull } from "../../lib/helpers";
+import { intOrNull } from "common/functions";
 
 import { OPTION_VALUE_NOT_SELECTED } from "common/constants";
 

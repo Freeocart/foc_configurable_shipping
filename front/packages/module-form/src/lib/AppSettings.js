@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { mergeLeft } from "../lib";
+import { mergeLeft } from "merge-left-utils";
 
 import {
   RULES_TOTAL_SET_MAX_INCREASE_VALUE,
