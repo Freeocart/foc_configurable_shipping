@@ -5,14 +5,15 @@
   "license": "MIT",
   "scripts": {
     "start": "gulp",
-    "pack": "bash pack.sh",
     "build": "gulp build",
     "build:all": "concurrently --names 'MODULE-FORM,PRODUCT-FORM' --prefix-colors 'yellow,blue' --kill-others-on-fail 'yarn build:module-form' 'yarn build:product-form' && gulp build",
-    "build-all": "yarn run build-module-from && yarn run build-product-form && gulp build",
-    "build:module-form": "SKIP_PREFLIGHT_CHECK=true GENERATE_SOURCEMAP=false yarn --cwd ./front workspace module-form run build --prod",
-    "prebuild:module-form": "rimraf ./upload/admin/view/[stylesheet,javascript]/foc_product_based/module",
-    "build:product-form": "SKIP_PREFLIGHT_CHECK=true GENERATE_SOURCEMAP=false yarn --cwd ./front workspace product-form run build --prod",
-    "prebuild:product-form": "rimraf ./upload/admin/view/[stylesheet,javascript]/foc_product_based/product",
+
+    "clear:module-form": "rimraf ./upload/admin/view/{stylesheet,javascript}/foc_product_based/module",
+    "build:module-form": "yarn clear:module-form && PUBLIC_URL=/admin/view/javascript/foc_product_based/module SKIP_PREFLIGHT_CHECK=true GENERATE_SOURCEMAP=false yarn --cwd ./front workspace module-form run build --prod",
+
+    "clear:product-form": "rimraf ./upload/admin/view/{stylesheet,javascript}/foc_product_based/product",
+    "build:product-form": "yarn clear:product-form && PUBLIC_URL=/admin/view/javascript/foc_product_based/product SKIP_PREFLIGHT_CHECK=true GENERATE_SOURCEMAP=false yarn --cwd ./front workspace product-form run build --prod",
+
     "dev:product-form": "SKIP_PREFLIGHT_CHECK=true yarn --cwd ./front workspace product-form start",
     "dev:module-form": "SKIP_PREFLIGHT_CHECK=true yarn --cwd ./front workspace module-form start",
     "dev": "concurrently --names 'MODULE-FORM,PRODUCT-FORM' --prefix-colors 'yellow,blue' 'PORT=3090 yarn dev:module-form' 'PORT=3091 yarn dev:product-form'"

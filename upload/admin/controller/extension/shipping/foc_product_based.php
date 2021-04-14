@@ -178,9 +178,9 @@ class ControllerExtensionShippingFocProductBased extends Controller {
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
 
-		$this->document->addScript('view/javascript/foc_product_based/module/runtime-main.js');
-		$this->document->addScript('view/javascript/foc_product_based/module/main.js');
-		$this->document->addScript('view/javascript/foc_product_based/module/2.js');
+		$this->document->addScript('view/javascript/foc_product_based/module/static/js/runtime-main.js');
+		$this->document->addScript('view/javascript/foc_product_based/module/static/js/main.js');
+		$this->document->addScript('view/javascript/foc_product_based/module/static/js/2.js');
 		$this->document->addStyle('view/stylesheet/foc_product_based/module/main.css');
 
 		$data['scripts'] = $this->document->getScripts();

@@ -28,7 +28,7 @@
 			<search><![CDATA[<div class="tab-pane" id="tab-design">]]></search>
 			<add position="before" error="log" index="1"><![CDATA[
       <div class="tab-pane" id="tab-configurable-shipping">
-        <div data-output-name="foc_product_configurable_shipping" data-state='{{ foc_configurable_shipping_product_settings }}' data-oc-info='{{ foc_configurable_shipping_oc_info }}' id="product-based-foc-configurable-shipping" data-language-code='{{ language_code }}'></div>
+        <div data-output-name="foc_product_configurable_shipping" data-state='{{ foc_configurable_shipping_product_settings }}' data-oc-info='{{ foc_configurable_shipping_oc_info }}' id="product-based-foc-configurable-shipping" data-language-code='{{ language_code }}'>{{ entry_loading_frontend }}</div>
       </div>
       ]]></add>
 		</operation>
@@ -73,6 +73,10 @@
 		<operation>
 			<search><![CDATA[protected function getForm() {]]></search>
 			<add position="after" error="log" index="1"><![CDATA[
+        // loading module translations
+        $translations = $this->load->language('extension/shipping/foc_product_based', 'foc_product_based');
+        $data['entry_loading_frontend'] = $translations['foc_product_based']->get('entry_loading_frontend');
+
         // get product settings for shipping here
         $this->load->model('extension/shipping/foc_product_based');
         $this->load->model('localisation/tax_class');
@@ -112,10 +116,9 @@
     <operation>
       <search><![CDATA[$data['footer'] = $this->load->controller('common/footer');]]></search>
       <add position="before"><![CDATA[
-        $this->document->addScript('view/javascript/foc_product_based/product/runtime-main.js');
-        $this->document->addScript('view/javascript/foc_product_based/product/main.js');
-        $this->document->addScript('view/javascript/foc_product_based/product/2.js');
-        $this->document->addScript('view/javascript/foc_product_based/product/3.js');
+        $this->document->addScript('view/javascript/foc_product_based/product/static/js/runtime-main.js');
+        $this->document->addScript('view/javascript/foc_product_based/product/static/js/main.js');
+        $this->document->addScript('view/javascript/foc_product_based/product/static/js/2.js');
         $this->document->addStyle('view/stylesheet/foc_product_based/product/main.css');
 
         $data['scripts'] = $this->document->getScripts();
