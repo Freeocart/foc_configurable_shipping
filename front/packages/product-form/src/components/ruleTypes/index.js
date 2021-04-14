@@ -5,6 +5,8 @@ import Geozone from "./Geozone";
 import Option from "./Option";
 import Attribute from "./Attribute";
 
+import './Rule.css';
+
 export const RULE_TYPES = {
   language: {
     name: "Language",

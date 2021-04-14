@@ -53,6 +53,7 @@ export default function Option({ value: propValue = {}, onChange }) {
   return (
     <div className="form-horizontal">
       <div className="col-sm-6">
+        <label>{t("Option")}</label>
         <select
           className="form-control"
           value={selectedOptionId}
@@ -65,6 +66,7 @@ export default function Option({ value: propValue = {}, onChange }) {
         </select>
       </div>
       <div className="col-sm-6">
+        <label>{t("Option value")}</label>
         <select
           className="form-control"
           value={selectedOptionValueId}

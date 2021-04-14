@@ -65,14 +65,16 @@ export default function Countries({ value: propValue = {}, onChange }) {
             onChange={(e) => setFilter(e.target.value)}
           />
 
-          <label className="checkbox">
-            {t("Show checked only")}
-            <input
-              type="checkbox"
-              checked={showCheckedOnly}
-              onChange={handleChangeShowCheckedOnly}
-            />
-          </label>
+          <div className="text-center">
+            <label className="checkbox">
+              <input
+                type="checkbox"
+                checked={showCheckedOnly}
+                onChange={handleChangeShowCheckedOnly}
+              />
+              <span>{t("Show checked only")}</span>
+            </label>
+          </div>
         </div>
 
         <div className="col-sm-9">

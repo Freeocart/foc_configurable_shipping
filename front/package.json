@@ -7,8 +7,8 @@
   "scripts": {
     "start:product-form": "yarn workspace product-form start",
     "start:module": "yarn workspace module-form start",
-    "build:product-form": "yarn workspace module-form build --prod",
-    "build:module": "yarn workspace module-form build --prod",
+    "build:product-form": "PUBLIC_URL=${PUBLIC_URL}/javascript/product yarn workspace module-form build --prod",
+    "build:module": "PUBLIC_URL=${PUBLIC_URL}/javascript/module yarn workspace module-form build --prod",
     "build:all": "yarn build:product-form; yarn build:module"
   },
   "dependencies": {

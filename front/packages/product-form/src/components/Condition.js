@@ -1,8 +1,12 @@
 import { useCallback } from "react";
 import { useI18n } from "react-simple-i18n";
 
+import ConditionLabel from './ConditionLabel';
 import RulePicker from "./RulePicker";
+
 import { RULE_TYPES } from "./ruleTypes";
+
+import './Condition.css'
 
 export default function Condition({
   value = {},
@@ -31,12 +35,12 @@ export default function Condition({
     onDelete?.();
   }, [onDelete]);
 
-  return (
+  return (<>
+    <ConditionLabel className="ConditionLabel--left" label={t("If")} />
     <div className="Condition row">
-      <div className="col-md-12">
-        <label>{t("If")}</label>
-      </div>
+
       <div className="col-md-3">
+        <label>{t('Rule type')}</label>
         <select
           className="form-control"
           value={type}
@@ -50,7 +54,7 @@ export default function Condition({
         </select>
       </div>
       <div className="col-md-1 text-center">
-        <span>=</span>
+        <ConditionLabel label="=" />
       </div>
       <div className={`${showDeleteBtn ? "col-md-6" : "col-md-8"}`}>
         <RulePicker
@@ -66,7 +70,7 @@ export default function Condition({
             type="button"
             onClick={handleDeleteConditionClick}
           >
-            <i className="fa fa-trash"></i>
+            <i className="fa fa-trash"></i>&nbsp;
             <span>
               {t("Delete condition")}
             </span>
@@ -74,5 +78,6 @@ export default function Condition({
         </div>
       )}
     </div>
+    </>
   );
 }

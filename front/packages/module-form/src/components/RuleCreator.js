@@ -45,7 +45,7 @@ export default function RuleCreator({ rulesetId }) {
             className="btn btn-primary"
             onClick={handleRuleTypeCreateClick}
           >
-            <i className="fa fa-plus"></i>
+            <i className="fa fa-plus"></i>&nbsp;
             <span>
               {t("Add")}
             </span>

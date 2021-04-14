@@ -26,23 +26,20 @@ export default function Language({ value: propValue, onChange }) {
   return (
     <div className="Language">
       <div className="form-horizontal">
-        <label className="col-sm-2">{t("If customer language is")}</label>
-        <div className="col-sm-10">
-          <select
-            className="form-control"
-            value={rule.language_id}
-            onChange={onLanguageChange}
-          >
-            <option value={OPTION_VALUE_NOT_SELECTED}>
-              {t("Not selected")}
+        <label>{t("If customer language is")}</label>
+
+        <select
+          className="form-control"
+          value={rule.language_id}
+          onChange={onLanguageChange}
+        >
+          <option value={OPTION_VALUE_NOT_SELECTED}>{t("Not selected")}</option>
+          {languages.map((language) => (
+            <option key={language.language_id} value={language.language_id}>
+              {language.name}
             </option>
-            {languages.map((language) => (
-              <option key={language.language_id} value={language.language_id}>
-                {language.name}
-              </option>
-            ))}
-          </select>
-        </div>
+          ))}
+        </select>
       </div>
     </div>
   );

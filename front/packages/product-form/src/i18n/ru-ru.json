@@ -2,6 +2,7 @@
   "If": "Если",
   "Then": "То",
   "And": "И",
+  "Or": "Или",
   "Set as shipping total for position (skip other increases for position)": "Установить стоимость доставки позиции (не учитывать остальные наценки для позиции)",
   "Set as shipping total for position (multiply on products quantity)": "Установить стоимость (умножает на количество товаров в корзине)",
   "Add to shipping total (do not skip other increases for position)": "Прибавить стоимость позиции (суммировать с остальными наценками)",

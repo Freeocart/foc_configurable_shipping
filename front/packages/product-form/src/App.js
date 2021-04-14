@@ -7,6 +7,7 @@ import RulesetResolver from "./components/RulesetResolver";
 import Output from "./components/Output";
 
 import "./App.css";
+import ConditionLabel from './components/ConditionLabel';
 
 function App({ outputName }) {
   const { t } = useI18n();
@@ -63,70 +64,70 @@ function App({ outputName }) {
   return (
     <div className="App">
       {rules.map((ruleset, rulesetIndex) => (
-        <div className="Ruleset">
-          <div key={rulesetIndex}>
-            {ruleset.conditions.map((condition, ruleIndex) => (
-              <div key={ruleIndex}>
-                {ruleIndex > 0 && (
-                  <div className="row">
-                    <div className="col-md-12">
-                      <label>{t("And")}</label>
-                    </div>
-                  </div>
-                )}
+        <>
+          { rulesetIndex > 0 && <ConditionLabel className="text-center" label={t('Or')} />}
 
-                <Condition
-                  value={condition}
-                  onChange={(payload) =>
-                    handleConditionChange({ rulesetIndex, ruleIndex }, payload)
-                  }
-                  onDelete={() =>
-                    handleConditionDelete({ rulesetIndex, ruleIndex })
-                  }
-                  showDeleteBtn={ruleIndex > 0}
-                />
-              </div>
-            ))}
+          <div className="Ruleset" key={rulesetIndex}>
+            <div key={rulesetIndex}>
+              {ruleset.conditions.map((condition, ruleIndex) => (
+                <div key={ruleIndex}>
+                  {ruleIndex > 0 && (
+                    <ConditionLabel label={t('And')} />
+                  )}
 
-            <hr />
+                  <Condition
+                    value={condition}
+                    onChange={(payload) =>
+                      handleConditionChange({ rulesetIndex, ruleIndex }, payload)
+                    }
+                    onDelete={() =>
+                      handleConditionDelete({ rulesetIndex, ruleIndex })
+                    }
+                    showDeleteBtn={ruleIndex > 0}
+                  />
+                </div>
+              ))}
 
-            <div className="text-center">
-              <button
-                className="btn btn-success"
-                type="button"
-                onClick={() => handleAddCondition(rulesetIndex)}
-              >
-                <i className="fa fa-plus"></i>
-                <span>
-                  {t("Add condition")}
-                </span>
-              </button>
-            </div>
+              <hr />
 
-            <hr />
-            <RulesetResolver
-              onChange={(payload) =>
-                handleRulesetResolverChange(rulesetIndex, payload)
-              }
-              value={ruleset.resolve}
-            />
-
-            <div className="row">
-              <div className="col-md-12 text-right">
+              <div className="text-center">
                 <button
-                  className="btn btn-danger btn-xs"
+                  className="btn btn-success"
                   type="button"
-                  onClick={() => handleDeleteRuleset(rulesetIndex)}
+                  onClick={() => handleAddCondition(rulesetIndex)}
                 >
-                  <i className="fa fa-trash"></i>
+                  <i className="fa fa-plus"></i>&nbsp;
                   <span>
-                    {t("Delete ruleset")}
+                    {t("Add condition")}
                   </span>
                 </button>
               </div>
+
+              <hr />
+              <RulesetResolver
+                onChange={(payload) =>
+                  handleRulesetResolverChange(rulesetIndex, payload)
+                }
+                value={ruleset.resolve}
+              />
+
+              <div className="row">
+                <div className="col-md-12 text-right">
+                  <button
+                    className="btn btn-danger btn-xs"
+                    type="button"
+                    onClick={() => handleDeleteRuleset(rulesetIndex)}
+                  >
+                    <i className="fa fa-trash"></i>&nbsp;
+                    <span>
+                      {t("Delete ruleset")}
+                    </span>
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+        </>
       ))}
 
       <hr />
@@ -135,7 +136,7 @@ function App({ outputName }) {
         type="button"
         onClick={handleAddRulesetClick}
       >
-        <i className="fa fa-plus"></i>
+        <i className="fa fa-plus"></i>&nbsp;
         <span>
           {t("Add ruleset")}
         </span>

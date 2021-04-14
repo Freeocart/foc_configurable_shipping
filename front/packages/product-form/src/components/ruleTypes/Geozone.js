@@ -28,6 +28,7 @@ export default function Geozone({ value: propValue, onChange }) {
       <div className="form-horizontal">
         <label className="col-sm-2">{t("If customer geozone is")}</label>
         <div className="col-sm-10">
+          <label>{t("Geozone")}</label>
           <select
             className="form-control"
             value={rule.zone_id}

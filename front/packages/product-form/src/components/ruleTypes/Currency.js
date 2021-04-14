@@ -26,23 +26,20 @@ export default function Currency({ value: propValue, onChange }) {
   return (
     <div className="Language">
       <div className="form-horizontal">
-        <label className="col-sm-2">{t("If selected currency")}</label>
-        <div className="col-sm-10">
-          <select
-            className="form-control"
-            value={rule.currency_id}
-            onChange={onCurrencyChange}
-          >
-            <option value={OPTION_VALUE_NOT_SELECTED}>
-              {t("Not selected")}
+        <label>{t("If selected currency")}</label>
+
+        <select
+          className="form-control"
+          value={rule.currency_id}
+          onChange={onCurrencyChange}
+        >
+          <option value={OPTION_VALUE_NOT_SELECTED}>{t("Not selected")}</option>
+          {currencies.map((currency) => (
+            <option key={currency.currency_id} value={currency.currency_id}>
+              {currency.title}
             </option>
-            {currencies.map((currency) => (
-              <option key={currency.currency_id} value={currency.currency_id}>
-                {currency.title}
-              </option>
-            ))}
-          </select>
-        </div>
+          ))}
+        </select>
       </div>
     </div>
   );

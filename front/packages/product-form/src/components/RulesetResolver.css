@@ -1,7 +1,4 @@
-.Rule {
-  margin: 1em auto;
-}
-.RuleFormContainer {
+.RulesetResolver {
   display: flex;
   align-items: center;
   flex-wrap: wrap;

@@ -2,12 +2,16 @@ import { useCallback } from "react";
 import { useI18n } from "react-simple-i18n";
 import { useAppSettings } from "../lib/AppSettings";
 
+import ConditionLabel from './ConditionLabel';
+
 import {
   RULESET_RESOLVER_SET_POSITION_VALUE,
   RULESET_RESOLVER_SET_POSITION_ITEM_VALUE,
   RULESET_RESOLVER_ADD_POSITION_VALUE,
   RULESET_RESOLVER_ADD_POSITION_ITEM_VALUE,
 } from "../config/constants";
+
+import './RulesetResolver.css';
 
 export default function RulesetResolver({
   value: { value, type } = {},
@@ -32,9 +36,8 @@ export default function RulesetResolver({
 
   return (
     <div className="row RulesetResolver">
-      <div className="col-md-12">
-        <label>{t("Then")}</label>
-      </div>
+      <ConditionLabel className="ConditionLabel--block" label={t('Then')} />
+
       <div className="col-md-5">
         <select
           value={type}
@@ -61,9 +64,9 @@ export default function RulesetResolver({
           </option>
         </select>
       </div>
-      <div className="col-md-2 text-center">
-        <span>=</span>
-      </div>
+
+      <ConditionLabel className="col-md-2" label="=" />
+
       <div className="col-md-5">
         <input
           className="form-control"

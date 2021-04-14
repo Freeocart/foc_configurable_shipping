@@ -1,8 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import * as serviceWorker from "./serviceWorker";
-
 import App from "./App";
 import { AppSettingsProvider } from "./lib/AppSettings";
 import { I18nProvider, createI18n } from "react-simple-i18n";
@@ -13,6 +11,7 @@ import { parseJsonOr } from 'common/functions'
 import "./index.css";
 
 const mountPoints = document.querySelectorAll(".foc_increase_total_rules_app");
+console.log('mpoints', mountPoints)
 
 Array.from(mountPoints).forEach((rootEl) => {
   const state =
@@ -28,6 +27,8 @@ Array.from(mountPoints).forEach((rootEl) => {
 
   const lang = isLanguageSupported(userLanguage) ? userLanguage : "en-gb";
 
+  console.log('starting load json files')
+
   Promise.all([
     loadCommonLanguageData(lang),
     import(`./i18n/${lang}.json`)
@@ -35,6 +36,8 @@ Array.from(mountPoints).forEach((rootEl) => {
     const i18nData = {
       [lang]: Object.assign({}, commonLanguageData.default, appLanguageData.default)
     }
+
+    console.log('loaded!')
 
     ReactDOM.render(
       <React.StrictMode>
@@ -46,10 +49,5 @@ Array.from(mountPoints).forEach((rootEl) => {
       </React.StrictMode>,
       rootEl
     );
-  });
+  }).catch(console.error)
 });
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();

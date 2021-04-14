@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import reportWebVitals from "./reportWebVitals";
 import { isLanguageSupported, loadCommonLanguageData } from 'common/i18n'
 import { parseJsonOr } from "common/functions";
 
@@ -37,6 +36,8 @@ Promise.all([
     [lang]: Object.assign({}, commonLanguageData.default, appLanguageData.default)
   }
 
+  console.log('i18n', i18nData)
+
   ReactDOM.render(
     <React.StrictMode>
       <I18nProvider i18n={createI18n(i18nData, { lang })}>
@@ -47,9 +48,8 @@ Promise.all([
     </React.StrictMode>,
     rootEl
   );
-
-  reportWebVitals();
 })
-.catch(err => {
-  alert(`Error while loading language! ${err.message}`)
+.catch(error => {
+  console.error(error)
+  alert(`Error while loading language! ${error.message}`)
 })

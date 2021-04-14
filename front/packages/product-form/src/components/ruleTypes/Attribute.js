@@ -93,9 +93,9 @@ export default function Attribute({ value: propValue, onChange }) {
   );
 
   return (
-    <div className="form-horizontal">
-      <div className="col-sm-4">
-        <span>{t("Attribute group")}</span>
+    <div className="form-horizontal RuleFormContainer">
+      <div className="col-sm-3">
+        <label>{t("Attribute group")}</label>
         <select
           className="form-control"
           value={attributeGroupId}
@@ -109,8 +109,8 @@ export default function Attribute({ value: propValue, onChange }) {
           ))}
         </select>
       </div>
-      <div className="col-sm-4">
-        <span>{t("Attribute")}</span>
+      <div className="col-sm-3">
+        <label>{t("Attribute")}</label>
         <select
           className="form-control"
           value={attributeId}
@@ -122,7 +122,8 @@ export default function Attribute({ value: propValue, onChange }) {
           ))}
         </select>
       </div>
-      <div className="col-sm-4">
+      <div className="col-sm-3">
+        <label>{t("Attribute value")}</label>
         <input
           type="text"
           placeholder={t("Attribute value")}
@@ -130,14 +131,15 @@ export default function Attribute({ value: propValue, onChange }) {
           onChange={handleChangeAttributeValue}
           className="form-control"
         />
-
+      </div>
+      <div className="col-sm-3 text-center">
         <label className="checkbox">
-          {t("Check attribute value?")}
           <input
             type="checkbox"
             checked={checkAttributeValue}
             onChange={handleChangeCheckAttributeValue}
           />
+          <span>{t("Check attribute value?")}</span>
         </label>
       </div>
     </div>
