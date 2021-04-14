@@ -136,12 +136,12 @@ class ModelExtensionShippingFocProductBased extends Model {
 	public function checkRuleForProduct ($product, $rule) {
 		switch ($rule['type']) {
 			case 'option':
-				if (empty($product['option']) || empty($rule['value'])) {
+				if (empty($product['option']) || empty($rule['option_value_id'])) {
 					return false;
 				}
 
 				$ruleOptionId = (int)$rule['option_id'];
-				$ruleValue = is_null($rule['value']) ? null : (int)$rule['value'];
+				$ruleValue = is_null($rule['option_value_id']) ? null : (int)$rule['option_value_id'];
 				$skipValueCheck = $ruleValue === self::OPTION_VALUE_IS_ANY;
 
 				foreach ($product['option'] as $option) {
@@ -177,13 +177,13 @@ class ModelExtensionShippingFocProductBased extends Model {
 				}
 			break;
 			case 'countries':
-				if (!isset($rule['value']) || !is_array($rule['value'])) {
+				if (!isset($rule['countries_ids']) || !is_array($rule['countries_ids'])) {
 					return false;
 				}
 
 				$country = $this->deliveryInfo['country_id']; //$this->session->data['shipping_address']['country_id'];
 
-				if (in_array($country, $rule['value'])) {
+				if (in_array($country, $rule['countries_ids'])) {
 					return true;
 				}
 			break;
@@ -203,7 +203,7 @@ class ModelExtensionShippingFocProductBased extends Model {
 						foreach ($attributeGroup['attribute'] as $attribute) {
 							if ((int) $rule['attribute_id'] === (int) $attribute['attribute_id']) {
 								if ($rule['check_value']) {
-									if ($rule['value'] === $attribute['text']) {
+									if ($rule['attribute_value'] === $attribute['text']) {
 										return true;
 									}
 									return false;
