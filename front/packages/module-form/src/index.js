@@ -2,16 +2,15 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import * as serviceWorker from "./serviceWorker";
-import { parseJsonOr } from 'common/functions'
 
 import App from "./App";
 import { AppSettingsProvider } from "./lib/AppSettings";
 import { I18nProvider, createI18n } from "react-simple-i18n";
 
-import i18nData from "./i18n.json";
+import { isLanguageSupported, loadCommonLanguageData } from 'common/i18n'
+import { parseJsonOr } from 'common/functions'
 
 import "./index.css";
-import "common/stylesheet.css";
 
 const mountPoints = document.querySelectorAll(".foc_increase_total_rules_app");
 
@@ -27,18 +26,27 @@ Array.from(mountPoints).forEach((rootEl) => {
     : null;
   const userLanguage = rootEl.getAttribute("data-language-code") || "en-gb";
 
-  const lang = i18nData[userLanguage] ? userLanguage : "en-gb";
+  const lang = isLanguageSupported(userLanguage) ? userLanguage : "en-gb";
 
-  ReactDOM.render(
-    <React.StrictMode>
-      <I18nProvider i18n={createI18n(i18nData, { lang })}>
-        <AppSettingsProvider state={state} ocInfo={ocInfo}>
-          <App outputName={outputName} />
-        </AppSettingsProvider>
-      </I18nProvider>
-    </React.StrictMode>,
-    rootEl
-  );
+  Promise.all([
+    loadCommonLanguageData(lang),
+    import(`./i18n/${lang}.json`)
+  ]).then(([commonLanguageData, appLanguageData]) => {
+    const i18nData = {
+      [lang]: Object.assign({}, commonLanguageData.default, appLanguageData.default)
+    }
+
+    ReactDOM.render(
+      <React.StrictMode>
+        <I18nProvider i18n={createI18n(i18nData, { lang })}>
+          <AppSettingsProvider state={state} ocInfo={ocInfo}>
+            <App outputName={outputName} />
+          </AppSettingsProvider>
+        </I18nProvider>
+      </React.StrictMode>,
+      rootEl
+    );
+  });
 });
 
 // If you want your app to work offline and load faster, you can change

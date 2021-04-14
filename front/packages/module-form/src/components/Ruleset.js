@@ -112,7 +112,8 @@ export default function Ruleset({ id, ruleset }) {
       <hr />
 
       <button className="btn btn-danger" onClick={handleDeleteRulesetClick}>
-        {t("Delete ruleset")}
+        <i className="fa fa-trash"></i>
+        <span>{t("Delete ruleset")}</span>
       </button>
     </div>
   );

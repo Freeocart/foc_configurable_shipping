@@ -66,7 +66,10 @@ export default function Condition({
             type="button"
             onClick={handleDeleteConditionClick}
           >
-            {t("Delete condition")}
+            <i className="fa fa-trash"></i>
+            <span>
+              {t("Delete condition")}
+            </span>
           </button>
         </div>
       )}

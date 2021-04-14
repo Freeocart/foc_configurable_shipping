@@ -125,7 +125,10 @@ function Rules() {
       ))}
 
       <button className="btn btn-success" onClick={handleCreateRulesetClick}>
-        {t("Add new ruleset")}
+        <i className="fa fa-plus"></i>
+        <span>
+          {t("Add new ruleset")}
+        </span>
       </button>
     </>
   );

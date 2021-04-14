@@ -1,0 +1,20 @@
+{
+  "Add condition": "Добавить условие",
+  "Add ruleset": "Добавить наценку",
+  "Delete ruleset": "Удалить набор условий",
+  "Delete condition": "Удалить условие",
+  "Any option value": "Любое значение",
+  "Not selected": "Значение не выбрано",
+  "Country filter": "Фильтр по стране",
+  "Show checked only": "Отобразить только выбранные",
+  "Increase value": "Значение наценки",
+  "Language": "Язык",
+  "Currency": "Валюта",
+  "Option": "Опция",
+  "Countries": "Страны доставки",
+  "Geozone": "Географическая зона",
+  "Attribute": "Атрибут",
+  "Attribute group": "Группа атрибутов",
+  "Attribute value": "Значение атрибута",
+  "Check attribute value?": "Проверять значение атрибута?"
+}

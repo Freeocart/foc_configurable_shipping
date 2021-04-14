@@ -29,7 +29,10 @@ function RulePicker({ rulesetId, rule }) {
         </div>
         <div className="form-group">
           <button className="btn btn-danger" onClick={handleDeleteRuleClick}>
-            {t("Delete rule")}
+            <i className="fa fa-trash"></i>
+            <span>
+              {t("Delete rule")}
+            </span>
           </button>
         </div>
       </div>

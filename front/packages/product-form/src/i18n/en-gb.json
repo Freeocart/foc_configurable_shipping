@@ -1,0 +1,10 @@
+{
+  "If": "If",
+  "Then": "Then",
+  "Equals": "Equals",
+  "And": "And",
+  "Set as shipping total for position (skip other increases for position)": "Set as shipping total for position (skip other increases for position)",
+  "Set as shipping total for position (multiply on products quantity)": "Set as shipping total for position (multiply on products quantity)",
+  "Add to shipping total (do not skip other increases for position)": "Add to shipping total (do not skip other increases for position)",
+  "Add to shipping total (multiply on products quantity)": "Add to shipping total (multiply on products quantity)"
+}

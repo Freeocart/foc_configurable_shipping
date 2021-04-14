@@ -96,7 +96,10 @@ function App({ outputName }) {
                 type="button"
                 onClick={() => handleAddCondition(rulesetIndex)}
               >
-                {t("Add condition")}
+                <i className="fa fa-plus"></i>
+                <span>
+                  {t("Add condition")}
+                </span>
               </button>
             </div>
 
@@ -115,7 +118,10 @@ function App({ outputName }) {
                   type="button"
                   onClick={() => handleDeleteRuleset(rulesetIndex)}
                 >
-                  {t("Delete ruleset")}
+                  <i className="fa fa-trash"></i>
+                  <span>
+                    {t("Delete ruleset")}
+                  </span>
                 </button>
               </div>
             </div>
@@ -129,7 +135,10 @@ function App({ outputName }) {
         type="button"
         onClick={handleAddRulesetClick}
       >
-        {t("Add ruleset")}
+        <i className="fa fa-plus"></i>
+        <span>
+          {t("Add ruleset")}
+        </span>
       </button>
 
       <Output outputName={outputName} />
