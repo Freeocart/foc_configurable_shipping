@@ -1,0 +1,46 @@
+{
+  "name": "module-form",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "4.0.3",
+    "web-vitals": "^1.0.1"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build && npm run rename-build && npm run copy-build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "rename-build": "npm run rename-js && npm run rename-css",
+    "copy-build": "npm run copy-js-to-oc && npm run copy-css-to-oc",
+    "rename-js": "renamer --find '/^(main|runtime-main|[0-9]+)\\..*\\.js$/' --replace '$1.js' build/static/js/*.js",
+    "rename-css": "renamer --find '/^main\\..*\\.css$/' --replace 'main.css' build/static/css/*.css",
+    "copy-js-to-oc": "copyfiles -f build/static/js/*.js ../../../upload/admin/view/javascript/foc_product_based/module",
+    "copy-css-to-oc": "copyfiles -f build/static/css/*.css ../../../upload/admin/view/stylesheet/foc_product_based/module"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

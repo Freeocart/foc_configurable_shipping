@@ -1,0 +1,32 @@
+{
+  "name": "foc-configurable-shipping",
+  "version": "1.0.0",
+  "license": "MIT",
+  "private": true,
+  "author": "ikenfin",
+  "scripts": {
+    "start:product-form": "yarn workspace product-form start",
+    "start:module": "yarn workspace module-form start",
+    "build:product-form": "yarn workspace module-form build --prod",
+    "build:module": "yarn workspace module-form build --prod",
+    "build:all": "yarn build:product-form; yarn build:module"
+  },
+  "dependencies": {
+    "babel-eslint": "^10.1.0",
+    "copyfiles": "^2.4.1",
+    "eslint-config-react-app": "^6.0.0",
+    "merge-left-utils": "^1.0.3",
+    "react-simple-i18n": "^1.2.1-beta.0",
+    "renamer": "^2.0.1"
+  },
+  "devDependencies": {},
+  "workspaces": {
+    "nohoist": [
+      "**/babel-eslint",
+      "**/babel-eslint/**"
+    ],
+    "packages": [
+      "packages/*"
+    ]
+  }
+}
