@@ -7,7 +7,7 @@ import RulesetResolver from "./components/RulesetResolver";
 import Output from "./components/Output";
 
 import "./App.css";
-import ConditionLabel from './components/ConditionLabel';
+import ConditionLabel from "./components/ConditionLabel";
 
 function App({ outputName }) {
   const { t } = useI18n();
@@ -48,7 +48,6 @@ function App({ outputName }) {
 
   const handleConditionChange = useCallback(
     (indexes, payload) => {
-      console.log("pl", payload);
       updateCondition(indexes, payload);
     },
     [updateCondition]
@@ -65,20 +64,28 @@ function App({ outputName }) {
     <div className="App">
       {rules.map((ruleset, rulesetIndex) => (
         <>
-          { rulesetIndex > 0 && <ConditionLabel className="text-center" label={`${t('Or')} ${t("If")}`} />}
+          {rulesetIndex > 0 && (
+            <ConditionLabel
+              className="text-center"
+              label={`${t("Or")} ${t("If")}`}
+            />
+          )}
 
           <div className="Ruleset" key={rulesetIndex}>
             <div key={rulesetIndex}>
               {ruleset.conditions.map((condition, ruleIndex) => (
                 <div key={ruleIndex}>
                   {ruleIndex > 0 && (
-                    <ConditionLabel label={`${t('And')} ${t("If")}`} />
+                    <ConditionLabel label={`${t("And")} ${t("If")}`} />
                   )}
 
                   <Condition
                     value={condition}
                     onChange={(payload) =>
-                      handleConditionChange({ rulesetIndex, ruleIndex }, payload)
+                      handleConditionChange(
+                        { rulesetIndex, ruleIndex },
+                        payload
+                      )
                     }
                     onDelete={() =>
                       handleConditionDelete({ rulesetIndex, ruleIndex })
@@ -97,9 +104,7 @@ function App({ outputName }) {
                   onClick={() => handleAddCondition(rulesetIndex)}
                 >
                   <i className="fa fa-plus"></i>&nbsp;
-                  <span>
-                    {t("Add condition")}
-                  </span>
+                  <span>{t("Add condition")}</span>
                 </button>
               </div>
 
@@ -110,7 +115,7 @@ function App({ outputName }) {
                 }
                 value={ruleset.resolve}
               />
-              <hr/>
+              <hr />
               <div className="row">
                 <div className="col-md-12 text-center">
                   <button
@@ -119,9 +124,7 @@ function App({ outputName }) {
                     onClick={() => handleDeleteRuleset(rulesetIndex)}
                   >
                     <i className="fa fa-trash"></i>&nbsp;
-                    <span>
-                      {t("Delete ruleset")}
-                    </span>
+                    <span>{t("Delete ruleset")}</span>
                   </button>
                 </div>
               </div>
@@ -137,9 +140,7 @@ function App({ outputName }) {
         onClick={handleAddRulesetClick}
       >
         <i className="fa fa-plus"></i>&nbsp;
-        <span>
-          {t("Add ruleset")}
-        </span>
+        <span>{t("Add ruleset")}</span>
       </button>
 
       <Output outputName={outputName} />

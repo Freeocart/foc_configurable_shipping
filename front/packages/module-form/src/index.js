@@ -5,13 +5,13 @@ import App from "./App";
 import { AppSettingsProvider } from "./lib/AppSettings";
 import { I18nProvider, createI18n } from "react-simple-i18n";
 
-import { isLanguageSupported, loadCommonLanguageData } from 'common/i18n'
-import { parseJsonOr } from 'common/functions'
+import { isLanguageSupported, loadCommonLanguageData } from "common/i18n";
+import { parseJsonOr } from "common/functions";
 
+import "common/stylesheet.css";
 import "./index.css";
 
 const mountPoints = document.querySelectorAll(".foc_increase_total_rules_app");
-console.log('mpoints', mountPoints)
 
 Array.from(mountPoints).forEach((rootEl) => {
   const state =
@@ -27,27 +27,26 @@ Array.from(mountPoints).forEach((rootEl) => {
 
   const lang = isLanguageSupported(userLanguage) ? userLanguage : "en-gb";
 
-  console.log('starting load json files')
+  Promise.all([loadCommonLanguageData(lang), import(`./i18n/${lang}.json`)])
+    .then(([commonLanguageData, appLanguageData]) => {
+      const i18nData = {
+        [lang]: Object.assign(
+          {},
+          commonLanguageData.default,
+          appLanguageData.default
+        ),
+      };
 
-  Promise.all([
-    loadCommonLanguageData(lang),
-    import(`./i18n/${lang}.json`)
-  ]).then(([commonLanguageData, appLanguageData]) => {
-    const i18nData = {
-      [lang]: Object.assign({}, commonLanguageData.default, appLanguageData.default)
-    }
-
-    console.log('loaded!')
-
-    ReactDOM.render(
-      <React.StrictMode>
-        <I18nProvider i18n={createI18n(i18nData, { lang })}>
-          <AppSettingsProvider state={state} ocInfo={ocInfo}>
-            <App outputName={outputName} />
-          </AppSettingsProvider>
-        </I18nProvider>
-      </React.StrictMode>,
-      rootEl
-    );
-  }).catch(console.error)
+      ReactDOM.render(
+        <React.StrictMode>
+          <I18nProvider i18n={createI18n(i18nData, { lang })}>
+            <AppSettingsProvider state={state} ocInfo={ocInfo}>
+              <App outputName={outputName} />
+            </AppSettingsProvider>
+          </I18nProvider>
+        </React.StrictMode>,
+        rootEl
+      );
+    })
+    .catch(console.error);
 });

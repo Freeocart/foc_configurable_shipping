@@ -25,26 +25,19 @@ export default function Geozone({ value: propValue, onChange }) {
 
   return (
     <div className="Language">
-      <div className="form-horizontal">
-        <label className="col-sm-2">{t("If customer geozone is")}</label>
-        <div className="col-sm-10">
-          <label>{t("Geozone")}</label>
-          <select
-            className="form-control"
-            value={rule.zone_id}
-            onChange={onLanguageChange}
-          >
-            <option value={OPTION_VALUE_NOT_SELECTED}>
-              {t("Not selected")}
-            </option>
-            {geoZones.map((zone) => (
-              <option key={zone.geo_zone_id} value={zone.geo_zone_id}>
-                {zone.name}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
+      <label>{t("Geozone")}</label>
+      <select
+        className="form-control"
+        value={rule.zone_id}
+        onChange={onLanguageChange}
+      >
+        <option value={OPTION_VALUE_NOT_SELECTED}>{t("Not selected")}</option>
+        {geoZones.map((zone) => (
+          <option key={zone.geo_zone_id} value={zone.geo_zone_id}>
+            {zone.name}
+          </option>
+        ))}
+      </select>
     </div>
   );
 }

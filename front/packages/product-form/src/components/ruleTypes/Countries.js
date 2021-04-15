@@ -55,8 +55,9 @@ export default function Countries({ value: propValue = {}, onChange }) {
 
   return (
     <div className="Countries">
+      <label>{t('If customer delivery country is')}</label>
       <div className="row">
-        <div className="col-sm-3">
+        <div className="col-sm-5">
           <input
             className="form-control"
             placeholder={t("Country filter")}
@@ -77,7 +78,7 @@ export default function Countries({ value: propValue = {}, onChange }) {
           </div>
         </div>
 
-        <div className="col-sm-9">
+        <div className="col-sm-7">
           <div className="Countries__list">
             {items.map((country, index) => (
               <label key={index} className="Countries__country">
