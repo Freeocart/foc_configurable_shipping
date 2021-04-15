@@ -412,7 +412,15 @@ class ModelExtensionShippingFocProductBased extends Model {
 							$processableProducts[] = $products[$productIndex];
 						}
 					}
+					else {
+						// if we havent any product based rule - add it to processable
+						$processableProducts[] = $products[$productIndex];
+					}
 				}
+			}
+			else {
+				// if we havent any product based increases - just mark all products as processable
+				$processableProducts = $products;
 			}
 		}
 
