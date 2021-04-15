@@ -35,7 +35,7 @@
 		<operation>
 			<search><![CDATA[<li><a href="#tab-design" data-toggle="tab">{{ tab_design }}</a></li>]]></search>
 			<add position="after" error="log" index="1"><![CDATA[
-      <li><a href="#tab-configurable-shipping" data-toggle="tab">{{ tab_shipping }}</a></li>
+      <li><a href="#tab-configurable-shipping" data-toggle="tab"><i class="fa fa-truck"></i> {{ tab_shipping }}</a></li>
       ]]></add>
 		</operation>
     <operation>
