@@ -12,44 +12,46 @@ import "./index.css";
 
 const mountPointId = "product-based-foc-configurable-shipping";
 
-const rootEl = document.getElementById(mountPointId);
+document.addEventListener("DOMContentLoaded", () => {
+  const rootEl = document.getElementById(mountPointId);
 
-const state =
-  rootEl.hasAttribute("data-state") &&
-  parseJsonOr(rootEl.getAttribute("data-state"), {});
+  const state =
+    rootEl.hasAttribute("data-state") &&
+    parseJsonOr(rootEl.getAttribute("data-state"), {});
 
-const ocInfo =
-  rootEl.hasAttribute("data-oc-info") &&
-  parseJsonOr(rootEl.getAttribute("data-oc-info"), {});
-const outputName = rootEl.hasAttribute("data-output-name")
-  ? rootEl.getAttribute("data-output-name")
-  : null;
-const userLanguage = rootEl.getAttribute("data-language-code") || "en-gb";
+  const ocInfo =
+    rootEl.hasAttribute("data-oc-info") &&
+    parseJsonOr(rootEl.getAttribute("data-oc-info"), {});
+  const outputName = rootEl.hasAttribute("data-output-name")
+    ? rootEl.getAttribute("data-output-name")
+    : null;
+  const userLanguage = rootEl.getAttribute("data-language-code") || "en-gb";
 
-const lang = isLanguageSupported(userLanguage) ? userLanguage : "en-gb";
+  const lang = isLanguageSupported(userLanguage) ? userLanguage : "en-gb";
 
-Promise.all([loadCommonLanguageData(lang), import(`./i18n/${lang}.json`)])
-  .then(([commonLanguageData, appLanguageData]) => {
-    const i18nData = {
-      [lang]: Object.assign(
-        {},
-        commonLanguageData.default,
-        appLanguageData.default
-      ),
-    };
+  Promise.all([loadCommonLanguageData(lang), import(`./i18n/${lang}.json`)])
+    .then(([commonLanguageData, appLanguageData]) => {
+      const i18nData = {
+        [lang]: Object.assign(
+          {},
+          commonLanguageData.default,
+          appLanguageData.default
+        ),
+      };
 
-    ReactDOM.render(
-      <React.StrictMode>
-        <I18nProvider i18n={createI18n(i18nData, { lang })}>
-          <AppSettingsProvider state={state} ocInfo={ocInfo}>
-            <App outputName={outputName} />
-          </AppSettingsProvider>
-        </I18nProvider>
-      </React.StrictMode>,
-      rootEl
-    );
-  })
-  .catch((error) => {
-    console.error(error);
-    alert(`Error while loading language! ${error.message}`);
-  });
+      ReactDOM.render(
+        <React.StrictMode>
+          <I18nProvider i18n={createI18n(i18nData, { lang })}>
+            <AppSettingsProvider state={state} ocInfo={ocInfo}>
+              <App outputName={outputName} />
+            </AppSettingsProvider>
+          </I18nProvider>
+        </React.StrictMode>,
+        rootEl
+      );
+    })
+    .catch((error) => {
+      console.error(error);
+      alert(`Error while loading language! ${error.message}`);
+    });
+});

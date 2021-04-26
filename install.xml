@@ -38,17 +38,6 @@
       <li><a href="#tab-configurable-shipping" data-toggle="tab"><i class="fa fa-truck"></i> {{ tab_shipping }}</a></li>
       ]]></add>
 		</operation>
-    <operation>
-      <search><![CDATA[{{ footer }}]]></search>
-      <add position="before"><![CDATA[
-      {% for script in scripts %}
-      <script src="{{ script }}" type="text/javascript"></script>
-      {% endfor %}
-      {% for style in styles %}
-      <link rel="{{ style.rel }}" href="{{ style.href }}" media="{{ style.media }}" />
-      {% endfor %}
-      ]]></add>
-    </operation>
   </file>
 	<file path="admin/controller/catalog/product.php">
 		<operation>
@@ -114,15 +103,12 @@
       ]]></add>
 		</operation>
     <operation>
-      <search><![CDATA[$data['footer'] = $this->load->controller('common/footer');]]></search>
-      <add position="before"><![CDATA[
+      <search><![CDATA[protected function getForm() {]]></search>
+      <add position="after"><![CDATA[
         $this->document->addScript('view/javascript/foc_product_based/product/static/js/runtime-main.js');
         $this->document->addScript('view/javascript/foc_product_based/product/static/js/main.js');
         $this->document->addScript('view/javascript/foc_product_based/product/static/js/2.js');
         $this->document->addStyle('view/stylesheet/foc_product_based/product/main.css');
-
-        $data['scripts'] = $this->document->getScripts();
-				$data['styles'] = $this->document->getStyles();
       ]]></add>
     </operation>
   </file>
