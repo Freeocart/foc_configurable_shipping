@@ -441,6 +441,15 @@ class ModelExtensionShippingFocProductBased extends Model {
 						$processableProducts[] = $products[$productIndex];
 					}
 				}
+
+				// add products which are not presented in result
+				$settingsProductIds = array_column($productSettings->rows, 'product_id');
+				$missingIds = array_diff($ids, $settingsProductIds);
+
+				foreach ($missingIds as $missingId) {
+					$productIndex = array_search($missingId, $ids);
+					$processableProducts[] = $products[$productIndex];
+				}
 			}
 			else {
 				// if we havent any product based increases - just mark all products as processable
@@ -457,7 +466,7 @@ class ModelExtensionShippingFocProductBased extends Model {
 	}
 
 	/*
-		Opencart getQuote API
+		Opencart getQuote API implementation
 	*/
 	public function getQuote ($address) {
 		$this->load->model('catalog/product');
