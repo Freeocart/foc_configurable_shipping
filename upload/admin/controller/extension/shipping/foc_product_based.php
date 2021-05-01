@@ -141,7 +141,7 @@ class ControllerExtensionShippingFocProductBased extends Controller {
 		$data['tax_classes'] = $this->model_localisation_tax_class->getTaxClasses();
 		$data['languages'] = $this->model_localisation_language->getLanguages();
 		$data['language_id'] = $this->config->get('config_language_id');
-		$data['language_code'] = $this->config->get('config_language');
+		$data['language_code'] = $this->config->get('config_admin_language');
 		$data['geo_zones'] = $this->model_localisation_geo_zone->getGeoZones();
 
 		$data['ocInfo'] = array();
@@ -165,7 +165,6 @@ class ControllerExtensionShippingFocProductBased extends Controller {
 				'value' => $key
 			];
 		}
-
 
 		$ocInfo = array(
 			'languages' => array_values($data['languages']),
