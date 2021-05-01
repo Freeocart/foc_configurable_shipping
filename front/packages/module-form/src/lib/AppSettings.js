@@ -43,6 +43,7 @@ const DEFAULT_RULESET = {
 };
 
 const DEFAULT_OC_INFO = {
+  categories: [],
   languages: [],
   currencies: [],
   options: [],
@@ -168,6 +169,9 @@ function AppSettingsProvider({ ocInfo, state: defaultState = {}, children }) {
   const value = {
     get state() {
       return state;
+    },
+    get categories() {
+      return opencartInfo.categories;
     },
     get options() {
       return opencartInfo.options;
