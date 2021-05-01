@@ -42,13 +42,12 @@ export default function RuleCreator({ rulesetId }) {
         </select>
         <div className="input-group-btn">
           <button
+            type="button"
             className="btn btn-primary"
             onClick={handleRuleTypeCreateClick}
           >
             <i className="fa fa-plus"></i>&nbsp;
-            <span>
-              {t("Add")}
-            </span>
+            <span>{t("Add")}</span>
           </button>
         </div>
       </div>

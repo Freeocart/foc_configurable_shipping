@@ -35,14 +35,6 @@ function RulePicker({ rulesetId, rule }) {
         <div className="form-group">
           <RuleComponent rulesetId={rulesetId} rule={rule} />
         </div>
-        {/* <div className="form-group">
-          <button className="btn btn-danger" onClick={handleDeleteRuleClick}>
-            <i className="fa fa-trash"></i>&nbsp;
-            <span>
-              {t("Delete rule")}
-            </span>
-          </button>
-        </div> */}
       </div>
     );
   } else {

@@ -60,7 +60,11 @@ function ExportImport() {
             readOnly
           />
           <div className="form-group">
-            <button className="btn btn-warning" onClick={handleExportClick}>
+            <button
+              type="button"
+              className="btn btn-warning"
+              onClick={handleExportClick}
+            >
               {t("Export")}
             </button>
           </div>
@@ -75,7 +79,11 @@ function ExportImport() {
             onChange={handleImportValueChange}
           />
           <div className="form-group">
-            <button className="btn btn-primary" onClick={handleImportClick}>
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={handleImportClick}
+            >
               {t("Import")}
             </button>
           </div>
@@ -84,7 +92,11 @@ function ExportImport() {
 
       <div className="row">
         <div className="col-md-6 col-md-offset-3">
-          <button className="btn btn-danger" onClick={handleClearClick}>
+          <button
+            type="button"
+            className="btn btn-danger"
+            onClick={handleClearClick}
+          >
             {t("Clear rulesets")}
           </button>
         </div>
