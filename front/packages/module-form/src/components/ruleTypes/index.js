@@ -1,49 +1,54 @@
-import Language from './Language'
-import Option from './Option'
-import Currency from './Currency'
-import Countries from './Countries'
-import Attribute from './Attribute'
-import Geozone from './Geozone'
+import Language from "./Language";
+import Option from "./Option";
+import Currency from "./Currency";
+import Countries from "./Countries";
+import Attribute from "./Attribute";
+import Geozone from "./Geozone";
+import Category from "./Category";
 
 export const RULE_TYPES = {
   language: {
-    name: 'Language',
-    component: Language
+    name: "Language",
+    component: Language,
   },
   option: {
-    name: 'Option',
-    component: Option
+    name: "Option",
+    component: Option,
   },
   currency: {
-    name: 'Currency',
-    component: Currency
+    name: "Currency",
+    component: Currency,
   },
   countries: {
-    name: 'Countries',
-    component: Countries
+    name: "Countries",
+    component: Countries,
   },
   attribute: {
-    name: 'Attribute',
-    component: Attribute
+    name: "Attribute",
+    component: Attribute,
   },
   geozones: {
-    name: 'Geozone',
-    component: Geozone
-  }
-}
+    name: "Geozone",
+    component: Geozone,
+  },
+  category: {
+    name: "Category",
+    component: Category,
+  },
+};
 
-export function getRuleTypeComponent (type) {
-  const ruleType = getRuleType(type)
+export function getRuleTypeComponent(type) {
+  const ruleType = getRuleType(type);
   if (ruleType) {
-    return ruleType.component
+    return ruleType.component;
   }
-  return null
+  return null;
 }
 
-export function getRuleType (type) {
+export function getRuleType(type) {
   if (RULE_TYPES[type]) {
-    return RULE_TYPES[type]
+    return RULE_TYPES[type];
   }
 
-  return null
+  return null;
 }
