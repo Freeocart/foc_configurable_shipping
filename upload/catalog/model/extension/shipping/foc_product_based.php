@@ -230,6 +230,30 @@ class ModelExtensionShippingFocProductBased extends Model {
 				}
 
 			break;
+			case 'category':
+				if (!isset($rule['category_id'])) {
+					return false;
+				}
+
+				$ruleCategoryId = $rule['category_id'];
+				$checkChilds = $rule['category_check_childs'];
+
+				$categoryIds = array();
+
+				if ($checkChilds) {
+					$sql = 'SELECT cp.path_id AS category_path FROM ' . DB_PREFIX . 'product p JOIN ' . DB_PREFIX . 'product_to_category p2c ON p2c.product_id = p.product_id JOIN ' . DB_PREFIX . 'category_path cp ON cp.category_id = p2c.category_id WHERE p.product_id = ' . (int)$product['product_id'];
+
+					$categoryPath = $this->db->query($sql);
+					$categoryIds = array_column($categoryPath->rows, 'category_path');
+				}
+				else {
+					$sql = 'SELECT category_id FROM '. DB_PREFIX . 'product_to_category WHERE product_id = ' . (int)$product['product_id'];
+
+					$productCategories = $this->db->query($sql);
+					$categoryIds = array_column($productCategories->rows, 'category_id');
+				}
+
+				return in_array($ruleCategoryId, $categoryIds);
 		}
 
 		return false;

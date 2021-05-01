@@ -165,6 +165,7 @@ class ControllerExtensionShippingFocProductBased extends Controller {
 				'optionsValues' => $this->model_extension_shipping_foc_product_based->getOptionsValuesList($language['language_id']),
 				'attributeGroups' => $this->model_extension_shipping_foc_product_based->getAttributeGroupList($language['language_id']),
 				'attributes' => $this->model_extension_shipping_foc_product_based->getAttributesList($language['language_id']),
+				'categories' => $this->model_extension_shipping_foc_product_based->getCategories($language['language_id']),
 				'currencies' => $currencies,
 				'currencySymbol' => $currency_symbol,
         'countries' => $countries,

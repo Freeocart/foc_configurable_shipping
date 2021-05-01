@@ -49,6 +49,12 @@ class ModelExtensionShippingFocProductBased extends Model {
     return $result->rows;
   }
 
+  public function getCategories ($language_id) {
+    $sql = 'SELECT category_id, name FROM ' . DB_PREFIX . 'category_description WHERE language_id = ' . (int)$language_id;
+    $result = $this->db->query($sql);
+    return $result->rows;
+  }
+
   public function getProductSettings ($product_id, $default = array()) {
     $sql = 'SELECT settings FROM ' . DB_PREFIX . 'foc_product_shipping_settings WHERE product_id = ' . (int)$product_id;
     $result = $this->db->query($sql);
