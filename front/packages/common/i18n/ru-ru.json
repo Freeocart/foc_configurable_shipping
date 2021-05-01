@@ -1,4 +1,6 @@
 {
+  "If": "Если",
+  "Then": "То",
   "Add condition": "Добавить условие",
   "Add ruleset": "Добавить наценку",
   "Delete ruleset": "Удалить набор условий",
@@ -14,6 +16,7 @@
   "Currency": "Валюта",
   "If customer currency is": "Если валюта покупателя",
   "Option": "Опция",
+  "If cart product have option": "Если у продукта в корзине выбрана опция",
   "Option value": "Значение опции",
   "Countries": "Страны доставки",
   "If customer delivery country is": "Если страна доставки покупателя",
@@ -22,5 +25,8 @@
   "Attribute": "Атрибут",
   "Attribute group": "Группа атрибутов",
   "Attribute value": "Значение атрибута",
-  "Check attribute value?": "Проверять значение атрибута?"
+  "Check attribute value?": "Проверять значение атрибута?",
+  "Category": "Категория",
+  "If cart product have category": "Если в корзине есть продукты из категории",
+  "Also check child categories?": "Также применять к вложенным категориям?"
 }

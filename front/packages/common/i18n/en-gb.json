@@ -1,4 +1,6 @@
 {
+  "If": "If",
+  "Then": "Then",
   "Add condition": "Add condition",
   "Add ruleset": "Add increase ruleset",
   "Delete ruleset": "Delete ruleset",
@@ -14,6 +16,7 @@
   "Currency": "Currency",
   "If customer currency is": "If customer currency is",
   "Option": "Option",
+  "If cart product have option": "If cart product have option",
   "Option value": "Option value",
   "Countries": "Countries",
   "If customer delivery country is": "If customer delivery country is",
@@ -22,5 +25,8 @@
   "Attribute": "Attribute",
   "Attribute group": "Attribute group",
   "Attribute value": "Attribute value",
-  "Check attribute value?": "Check attribute value?"
+  "Check attribute value?": "Check attribute value?",
+  "Category": "Category",
+  "If cart product have category": "If cart product have category",
+  "Also check child categories?": "Also check child categories?"
 }
