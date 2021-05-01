@@ -23,7 +23,7 @@ function RulePicker({ rulesetId, rule }) {
 
   if (RuleComponent) {
     return (
-      <div className="Rule form-horizontal">
+      <div className={`Rule form-horizontal Rule--${rule.type}`}>
         <button
           className="btn btn-danger Rule__RemoveBtn"
           type="button"

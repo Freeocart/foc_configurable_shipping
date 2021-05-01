@@ -35,7 +35,7 @@ const DEFAULT_STATE = {
 };
 
 const DEFAULT_RULESET = {
-  label: "ruleset",
+  label: {},
   useLabel: false,
   once: true,
   increase: 0,

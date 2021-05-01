@@ -95,7 +95,15 @@ class ControllerExtensionShippingFocProductBased extends Controller {
 			$data['shipping_foc_product_based_rules'] = $this->request->post['shipping_foc_product_based_rules'];
 		}
 		else {
-			$data['shipping_foc_product_based_rules'] = $this->config->get('shipping_foc_product_based_rules');
+			$shipping_foc_product_based_rules = $this->config->get('shipping_foc_product_based_rules');
+
+			if (is_array($shipping_foc_product_based_rules) && count($shipping_foc_product_based_rules) > 0) {
+				// old format
+				$data['shipping_foc_product_based_rules'] = $shipping_foc_product_based_rules[$this->config->get('config_language_id')];
+			}
+			else {
+				$data['shipping_foc_product_based_rules'] = $shipping_foc_product_based_rules;
+			}
 		}
 
     if (isset($this->request->post['shipping_foc_product_based_cost'])) {
@@ -158,22 +166,21 @@ class ControllerExtensionShippingFocProductBased extends Controller {
 			];
 		}
 
-		foreach ($data['languages'] as $language) {
-			$ocInfo = array(
-				'languages' => array_values($data['languages']),
-				'options' => $this->model_extension_shipping_foc_product_based->getOptionsList($language['language_id']),
-				'optionsValues' => $this->model_extension_shipping_foc_product_based->getOptionsValuesList($language['language_id']),
-				'attributeGroups' => $this->model_extension_shipping_foc_product_based->getAttributeGroupList($language['language_id']),
-				'attributes' => $this->model_extension_shipping_foc_product_based->getAttributesList($language['language_id']),
-				'categories' => $this->model_extension_shipping_foc_product_based->getCategories($language['language_id']),
-				'currencies' => $currencies,
-				'currencySymbol' => $currency_symbol,
-        'countries' => $countries,
-        'geoZones' => $data['geo_zones']
-			);
 
-			$data['ocInfo'][$language['language_id']] = json_encode($ocInfo, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
-		}
+		$ocInfo = array(
+			'languages' => array_values($data['languages']),
+			'options' => $this->model_extension_shipping_foc_product_based->getOptionsList($data['language_id']),
+			'optionsValues' => $this->model_extension_shipping_foc_product_based->getOptionsValuesList($data['language_id']),
+			'attributeGroups' => $this->model_extension_shipping_foc_product_based->getAttributeGroupList($data['language_id']),
+			'attributes' => $this->model_extension_shipping_foc_product_based->getAttributesList($data['language_id']),
+			'categories' => $this->model_extension_shipping_foc_product_based->getCategories($data['language_id']),
+			'currencies' => $currencies,
+			'currencySymbol' => $currency_symbol,
+			'countries' => $countries,
+			'geoZones' => $data['geo_zones']
+		);
+
+		$data['shipping_foc_product_based_oc_info'] = json_encode($ocInfo, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
 
 		$data['header'] = $this->load->controller('common/header');
 		$data['column_left'] = $this->load->controller('common/column_left');

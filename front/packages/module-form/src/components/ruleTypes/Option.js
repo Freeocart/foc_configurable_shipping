@@ -8,6 +8,8 @@ import {
   OPTION_VALUE_NOT_SELECTED,
 } from "common/constants";
 
+import "./Option.css";
+
 export default function Option({ rulesetId, rule }) {
   const [selectedOptionId, setSelectedOptionId] = useState(
     intOrNull(rule.option_id)
@@ -45,36 +47,40 @@ export default function Option({ rulesetId, rule }) {
   );
 
   return (
-    <div className="form-horizontal">
-      <div className="col-sm-12">
-        <label>{t("If cart product have option")}</label>
-      </div>
-      <div className="col-sm-6">
-        <select
-          className="form-control"
-          value={selectedOptionId}
-          onChange={handleSelectOptionId}
-        >
-          <option value={null}>{t("Not selected")}</option>
-          {options.map((option) => (
-            <option value={option.option_id}>{option.name}</option>
-          ))}
-        </select>
-      </div>
-      <div className="col-sm-6">
-        <select
-          className="form-control"
-          value={selectedOptionValueId}
-          onChange={handleSelectOptionValueId}
-        >
-          <option value={OPTION_VALUE_NOT_SELECTED}>{t("Not selected")}</option>
-          <option value={OPTION_VALUE_IS_ANY}>{t("Any option value")}</option>
-          {filteredOptionValues.map((optionValue) => (
-            <option value={optionValue.option_value_id}>
-              {optionValue.name}
+    <div className="Option">
+      <div className="form-horizontal Rule__form">
+        <div className="col-sm-4 text-left">
+          <label>{t("If cart product have option")}</label>
+        </div>
+        <div className="col-sm-4">
+          <select
+            className="form-control"
+            value={selectedOptionId}
+            onChange={handleSelectOptionId}
+          >
+            <option value={null}>{t("Not selected")}</option>
+            {options.map((option) => (
+              <option value={option.option_id}>{option.name}</option>
+            ))}
+          </select>
+        </div>
+        <div className="col-sm-4">
+          <select
+            className="form-control"
+            value={selectedOptionValueId}
+            onChange={handleSelectOptionValueId}
+          >
+            <option value={OPTION_VALUE_NOT_SELECTED}>
+              {t("Not selected")}
             </option>
-          ))}
-        </select>
+            <option value={OPTION_VALUE_IS_ANY}>{t("Any option value")}</option>
+            {filteredOptionValues.map((optionValue) => (
+              <option value={optionValue.option_value_id}>
+                {optionValue.name}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
     </div>
   );

@@ -2,7 +2,9 @@ import React, { useState, useCallback } from "react";
 import { useAppSettings } from "../../lib/AppSettings";
 import { useI18n } from "react-simple-i18n";
 
-import { OPTION_VALUE_NOT_SELECTED } from 'common/constants';
+import { OPTION_VALUE_NOT_SELECTED } from "common/constants";
+
+import "./Geozone.css";
 
 export default function Geozone({ rulesetId, rule: propRule }) {
   const [rule, setRule] = useState(propRule);
@@ -10,7 +12,7 @@ export default function Geozone({ rulesetId, rule: propRule }) {
 
   const { t } = useI18n();
 
-  const onLanguageChange = useCallback(
+  const onGeozoneChange = useCallback(
     (e) => {
       const newRule = {
         ...rule,
@@ -27,14 +29,14 @@ export default function Geozone({ rulesetId, rule: propRule }) {
   );
 
   return (
-    <div className="Language">
-      <div className="form-horizontal">
+    <div className="Geozone">
+      <div className="form-horizontal Rule__form">
         <label className="col-sm-2">{t("If customer geozone is")}</label>
         <div className="col-sm-10">
           <select
             className="form-control"
             value={rule.zone_id}
-            onChange={onLanguageChange}
+            onChange={onGeozoneChange}
           >
             <option value={OPTION_VALUE_NOT_SELECTED}>
               {t("Not selected")}

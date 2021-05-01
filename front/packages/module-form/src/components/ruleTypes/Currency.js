@@ -2,7 +2,9 @@ import React, { useState, useCallback } from "react";
 import { useAppSettings } from "../../lib/AppSettings";
 import { useI18n } from "react-simple-i18n";
 
-import { OPTION_VALUE_NOT_SELECTED } from 'common/constants';
+import { OPTION_VALUE_NOT_SELECTED } from "common/constants";
+
+import "./Currency.css";
 
 export default function Currency({ rulesetId, rule: propRule }) {
   const [rule, setRule] = useState(propRule);
@@ -27,9 +29,9 @@ export default function Currency({ rulesetId, rule: propRule }) {
   );
 
   return (
-    <div className="Language">
-      <div className="form-horizontal">
-        <label className="col-sm-2">{t("If selected currency")}</label>
+    <div className="Currency">
+      <div className="form-horizontal Rule__form">
+        <label className="col-sm-2">{t("If customer currency is")}</label>
         <div className="col-sm-10">
           <select
             className="form-control"

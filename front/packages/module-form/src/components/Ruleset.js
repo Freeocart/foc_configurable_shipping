@@ -2,7 +2,9 @@ import React, { useCallback } from "react";
 import { useI18n } from "react-simple-i18n";
 
 import { useAppSettings } from "../lib/AppSettings";
+import MultilanguageField from "./MultilanguageField";
 import RuleCreator from "./RuleCreator";
+import RuleDelimiter from "./RuleDelimiter";
 import RulePicker from "./RulePicker";
 
 import "./Ruleset.css";
@@ -36,8 +38,11 @@ export default function Ruleset({ id, ruleset }) {
         <h3 className="Ruleset__rules_title">{t("If")}</h3>
 
         <div className="Ruleset__rules">
-          {ruleset.rules.map((rule) => (
-            <RulePicker rulesetId={id} rule={rule} key={id} />
+          {ruleset.rules.map((rule, index) => (
+            <>
+              {index > 0 && <RuleDelimiter />}
+              <RulePicker rulesetId={id} rule={rule} key={id} />
+            </>
           ))}
         </div>
         <RuleCreator rulesetId={id} />
@@ -54,8 +59,9 @@ export default function Ruleset({ id, ruleset }) {
                 {t("Totals label")}
               </label>
               <div className="col-sm-8">
-                <input
+                <MultilanguageField
                   className="form-control"
+                  placeholder={t("Totals label")}
                   type="text"
                   value={ruleset.label}
                   onChange={handleRulesetInfoUpdate("label")}
@@ -70,6 +76,7 @@ export default function Ruleset({ id, ruleset }) {
               <div className="col-sm-8">
                 <input
                   className="form-control"
+                  placeholder={t("Extra charge")}
                   type="text"
                   value={ruleset.increase}
                   onChange={handleRulesetInfoUpdate("increase")}

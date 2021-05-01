@@ -5,6 +5,8 @@ import { intOrNull } from "common/functions";
 
 import { OPTION_VALUE_NOT_SELECTED } from "common/constants";
 
+import "./Category.css";
+
 export default function Attribute({ rulesetId, rule }) {
   const [categoryId, setCategoryId] = useState(intOrNull(rule.category_id));
 
@@ -37,30 +39,36 @@ export default function Attribute({ rulesetId, rule }) {
   );
 
   return (
-    <div className="form-horizontal">
-      <div className="col-sm-4">
-        <label>{t("If cart product have category")}</label>
-        <select
-          className="form-control"
-          value={categoryId}
-          onChange={handleSelectCategory}
-        >
-          <option value={OPTION_VALUE_NOT_SELECTED}>{t("Not selected")}</option>
-          {categories.map((category) => (
-            <option value={category.category_id}>{category.name}</option>
-          ))}
-        </select>
-      </div>
+    <div className="Category">
+      <div className="form-horizontal Rule__form">
+        <div className="col-sm-4 text-left">
+          <label>{t("If cart product have category")}</label>
+        </div>
+        <div className="col-sm-4">
+          <select
+            className="form-control"
+            value={categoryId}
+            onChange={handleSelectCategory}
+          >
+            <option value={OPTION_VALUE_NOT_SELECTED}>
+              {t("Not selected")}
+            </option>
+            {categories.map((category) => (
+              <option value={category.category_id}>{category.name}</option>
+            ))}
+          </select>
+        </div>
 
-      <div className="col-sm-4">
-        <label className="checkbox">
-          <input
-            type="checkbox"
-            checked={checkChildCategories}
-            onChange={handleChangeCheckChilds}
-          />
-          <span>{t("Also check child categories?")}</span>
-        </label>
+        <div className="col-sm-4">
+          <label className="checkbox">
+            <input
+              type="checkbox"
+              checked={checkChildCategories}
+              onChange={handleChangeCheckChilds}
+            />
+            <span>{t("Also check child categories?")}</span>
+          </label>
+        </div>
       </div>
     </div>
   );

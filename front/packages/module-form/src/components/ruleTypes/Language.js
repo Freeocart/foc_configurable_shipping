@@ -2,7 +2,9 @@ import React, { useState, useCallback } from "react";
 import { useAppSettings } from "../../lib/AppSettings";
 import { useI18n } from "react-simple-i18n";
 
-import { OPTION_VALUE_NOT_SELECTED } from 'common/constants';
+import { OPTION_VALUE_NOT_SELECTED } from "common/constants";
+
+import "./Language.css";
 
 export default function Language({ rulesetId, rule: propRule }) {
   const [rule, setRule] = useState(propRule);
@@ -28,7 +30,7 @@ export default function Language({ rulesetId, rule: propRule }) {
 
   return (
     <div className="Language">
-      <div className="form-horizontal">
+      <div className="form-horizontal Rule__form">
         <label className="col-sm-2">{t("If customer language is")}</label>
         <div className="col-sm-10">
           <select

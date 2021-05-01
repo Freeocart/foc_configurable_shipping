@@ -26,6 +26,7 @@ $_['entry_cost_increase_mode_nonzero_increase'] = 'Use only increase value if gr
 
 $_['entry_loading_frontend'] = 'Loading...';
 
+$_['entry_foc_product_based_config_label'] = '<i class="fa fa-gears"></i> Setup';
 $_['entry_foc_product_based_info_label'] = '<i class="fa fa-info-circle"></i> About';
 
 $_['entry_foc_product_based_info'] = <<<INFO

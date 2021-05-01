@@ -1,0 +1,8 @@
+.RuleDelimiter {
+  width: 100%;
+  margin: 1em auto;
+  display: block;
+  font-size: 1.2em;
+  text-transform: uppercase;
+  text-align: left;
+}

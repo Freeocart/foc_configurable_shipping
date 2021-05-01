@@ -25,6 +25,7 @@ $_['entry_cost_increase_mode_nonzero_increase'] = 'Использовать то
 
 $_['entry_loading_frontend'] = 'Загрузка...';
 
+$_['entry_foc_product_based_config_label'] = '<i class="fa fa-gears"></i> Настройка';
 $_['entry_foc_product_based_info_label'] = '<i class="fa fa-info-circle"></i> Информация о модуле';
 $_['entry_foc_product_based_info'] = <<<INFO
   <h3>Информация</h3>

@@ -54,8 +54,8 @@ export default function Countries({ rulesetId, rule: propRule }) {
 
   return (
     <div className="Countries container">
-      <div className="row">
-        <div className="col-sm-12 text-left">
+      <div className="row Rule__form">
+        <div className="col-sm-3 text-left">
           <label>{t("If customer delivery country is")}</label>
         </div>
         <div className="col-sm-3">
@@ -77,7 +77,7 @@ export default function Countries({ rulesetId, rule: propRule }) {
           </label>
         </div>
 
-        <div className="col-sm-9">
+        <div className="col-sm-6">
           <div className="Countries__list">
             {items.map((country, index) => (
               <div key={index} className="Countries__country">

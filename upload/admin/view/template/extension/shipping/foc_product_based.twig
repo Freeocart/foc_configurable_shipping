@@ -112,11 +112,11 @@
           </div>
 
           <ul class="nav nav-tabs">
-            {% for language in languages %}
-            <li {% if (language['language_id'] == language_id) %} class="active" {% endif %}>
-              <a href="#language{{ language['language_id'] }}" data-toggle="tab"><img src="language/{{ language['code'] }}/{{ language['code'] }}.png" title="{{ language['name'] }}" /> {{ language['name'] }}</a>
+            <li class="active">
+              <a href="#module-config-form" data-toggle="tab">
+                {{ entry_foc_product_based_config_label }}
+              </a>
             </li>
-            {% endfor %}
             <li>
               <a href="#module-info" data-toggle="tab">
                 {{ entry_foc_product_based_info_label }}
@@ -125,34 +125,45 @@
           </ul>
 
           <div class="tab-content">
-            {% for language in languages %}
-            <div class="tab-pane {% if (language['language_id'] == language_id) %}active{% endif %}" id="language{{ language['language_id'] }}">
-
-            <div class="form-group">
-              <label class="col-sm-2 control-label" for="input-shipping-group">{{ entry_shipping_group }}</label>
-              <div class="col-sm-10">
-                <input type="text" name="shipping_foc_product_based_group[{{ language['language_id'] }}]" value="{{ shipping_foc_product_based_group[language['language_id']] }}" placeholder="{{ entry_shipping_group }}" id="input-shipping-group" class="form-control" />
+            <div class="tab-pane active" id="module-config-form">
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-shipping-group">{{ entry_shipping_group }}</label>
+                <div class="col-sm-10">
+                  {% for language in languages %}
+                  <div class="input-group">
+                    <span class="input-group-addon">
+                      <img src="language/{{ language['code'] }}/{{ language['code'] }}.png" title="{{ language['name'] }}">
+                    </span>
+                    <input type="text" name="shipping_foc_product_based_group[{{ language['language_id'] }}]" value="{{ shipping_foc_product_based_group[language['language_id']] }}" placeholder="{{ entry_shipping_group }}" id="input-shipping-group" class="form-control" />
+                  </div>
+                  {% endfor %}
+                </div>
               </div>
-            </div>
 
-            <div class="form-group">
-              <label class="col-sm-2 control-label" for="input-shipping-label">{{ entry_shipping_label }}</label>
-              <div class="col-sm-10">
-                <input type="text" name="shipping_foc_product_based_label[{{ language['language_id'] }}]" value="{{ shipping_foc_product_based_label[language['language_id']] }}" placeholder="{{ entry_shipping_label }}" id="input-shipping-label" class="form-control" />
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-shipping-label">{{ entry_shipping_label }}</label>
+                <div class="col-sm-10">
+                  {% for language in languages %}
+                  <div class="input-group">
+                    <span class="input-group-addon">
+                      <img src="language/{{ language['code'] }}/{{ language['code'] }}.png" title="{{ language['name'] }}">
+                    </span>
+                    <input type="text" name="shipping_foc_product_based_label[{{ language['language_id'] }}]" value="{{ shipping_foc_product_based_label[language['language_id']] }}" placeholder="{{ entry_shipping_label }}" id="input-shipping-label" class="form-control" />
+                  </div>
+                  {% endfor %}
+                </div>
               </div>
-            </div>
 
               <div
-                class='foc_increase_total_rules_app'
-                data-output-name='shipping_foc_product_based_rules[{{ language['language_id'] }}]'
-                data-oc-info='{{ ocInfo[language['language_id']] }}'
-                data-state='{{ shipping_foc_product_based_rules[language['language_id']] }}'
+                id='foc_increase_total_rules_app'
+                data-output-name='shipping_foc_product_based_rules'
+                data-oc-info='{{ shipping_foc_product_based_oc_info }}'
+                data-state='{{ shipping_foc_product_based_rules }}'
                 data-language-code='{{ language_code }}'
               >
                 {{ entry_loading_frontend }}
               </div>
             </div>
-            {% endfor %}
 
             <div class="tab-pane" id="module-info">
               <div class="panel panel-default">

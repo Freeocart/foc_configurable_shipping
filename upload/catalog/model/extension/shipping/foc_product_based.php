@@ -68,13 +68,13 @@ class ModelExtensionShippingFocProductBased extends Model {
 	*/
 	public function __initConfig () {
 		$raw = $this->config->get('shipping_foc_product_based_rules');
-		$language_id = $this->config->get('config_language_id');
 
-		if (isset($raw[$language_id])) {
-			return json_decode($raw[$language_id], true);
+		try {
+			return json_decode($raw, true);
 		}
-
-		return [];
+		catch (Exception $e) {
+			return [];
+		}
 	}
 
 	/*
@@ -607,8 +607,10 @@ class ModelExtensionShippingFocProductBased extends Model {
 
 			$customLabel = array_pop($labels);
 
-			if (!empty($customLabel['title'])) {
-				$label = $customLabel['title'];
+			if (!empty($customLabel['title']) && is_array($customLabel['title'])) {
+				if (isset($customLabel['title'][$language_id])) {
+					$label = $customLabel['title'][$language_id];
+				}
 			}
 
 			$quoteData['foc_product_based'] = array(

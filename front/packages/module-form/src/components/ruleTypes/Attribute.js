@@ -5,6 +5,8 @@ import { intOrNull } from "common/functions";
 
 import { OPTION_VALUE_NOT_SELECTED } from "common/constants";
 
+import "./Attribute.css";
+
 export default function Attribute({ rulesetId, rule }) {
   const [attributeGroupId, setAttributeGroupId] = useState(
     intOrNull(rule.attribute_group_id)
@@ -72,52 +74,61 @@ export default function Attribute({ rulesetId, rule }) {
   );
 
   return (
-    <div className="form-horizontal">
-      <div className="col-sm-4">
-        <label>{t("Attribute group")}</label>
-        <select
-          className="form-control"
-          value={attributeGroupId}
-          onChange={handleSelectAttributeGroup}
-        >
-          <option value={OPTION_VALUE_NOT_SELECTED}>{t("Not selected")}</option>
-          {attributeGroups.map((attributeGroup) => (
-            <option value={attributeGroup.attribute_group_id}>
-              {attributeGroup.name}
+    <div className="Attribute">
+      <div className="form-horizontal Rule__form">
+        <div className="col-sm-3 text-left">
+          <label>{t("If cart product have attribute")}</label>
+        </div>
+        <div className="col-sm-3">
+          <label>{t("Attribute group")}</label>
+          <select
+            className="form-control"
+            value={attributeGroupId}
+            onChange={handleSelectAttributeGroup}
+          >
+            <option value={OPTION_VALUE_NOT_SELECTED}>
+              {t("Not selected")}
             </option>
-          ))}
-        </select>
-      </div>
-      <div className="col-sm-4">
-        <label>{t("Attribute")}</label>
-        <select
-          className="form-control"
-          value={attributeId}
-          onChange={handleSelectAttribute}
-        >
-          <option value={OPTION_VALUE_NOT_SELECTED}>{t("Not selected")}</option>
-          {filteredAttributes.map((attribute) => (
-            <option value={attribute.attribute_id}>{attribute.name}</option>
-          ))}
-        </select>
-      </div>
-      <div className="col-sm-4">
-        <input
-          type="text"
-          placeholder={t("Attribute value")}
-          value={attributeValue}
-          onChange={handleChangeAttributeValue}
-          className="form-control"
-        />
-
-        <label className="checkbox">
+            {attributeGroups.map((attributeGroup) => (
+              <option value={attributeGroup.attribute_group_id}>
+                {attributeGroup.name}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="col-sm-3">
+          <label>{t("Attribute")}</label>
+          <select
+            className="form-control"
+            value={attributeId}
+            onChange={handleSelectAttribute}
+          >
+            <option value={OPTION_VALUE_NOT_SELECTED}>
+              {t("Not selected")}
+            </option>
+            {filteredAttributes.map((attribute) => (
+              <option value={attribute.attribute_id}>{attribute.name}</option>
+            ))}
+          </select>
+        </div>
+        <div className="col-sm-3">
           <input
-            type="checkbox"
-            checked={checkAttributeValue}
-            onChange={handleChangeCheckAttributeValue}
+            type="text"
+            placeholder={t("Attribute value")}
+            value={attributeValue}
+            onChange={handleChangeAttributeValue}
+            className="form-control"
           />
-          <span>{t("Check attribute value?")}</span>
-        </label>
+
+          <label className="checkbox">
+            <input
+              type="checkbox"
+              checked={checkAttributeValue}
+              onChange={handleChangeCheckAttributeValue}
+            />
+            <span>{t("Check attribute value?")}</span>
+          </label>
+        </div>
       </div>
     </div>
   );

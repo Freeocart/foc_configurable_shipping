@@ -11,7 +11,7 @@ import { parseJsonOr } from "common/functions";
 import "common/stylesheet.css";
 import "./index.css";
 
-const mountPoints = document.querySelectorAll(".foc_increase_total_rules_app");
+const mountPoints = document.querySelectorAll("#foc_increase_total_rules_app");
 
 Array.from(mountPoints).forEach((rootEl) => {
   const state =

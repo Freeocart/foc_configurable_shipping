@@ -23,6 +23,7 @@
 }
 
 .Ruleset__rules_title {
+  text-transform: uppercase;
   color: #81a6bb;
 }
 
@@ -34,5 +35,6 @@
   background: #fff;
 }
 .Ruleset__effect_title {
+  text-transform: uppercase;
   color: #3dd280;
 }

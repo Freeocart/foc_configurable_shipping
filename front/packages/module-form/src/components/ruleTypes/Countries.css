@@ -1,6 +1,7 @@
-.Countries {
-
+.Rule.Rule--countries {
+  box-shadow: 0 0 6px -1px #b5bad8;
 }
+
 .Countries__list {
   max-height: 150px;
   overflow-y: auto;
