@@ -1,3 +1,11 @@
 .RuleCreator {
-
+  max-width: 320px;
+  margin: 2em auto;
+  text-transform: uppercase;
+  background: #9ce2d6;
+  padding: 20px;
+  border-radius: 10px;
+}
+.RuleCreator__AddBtn {
+  text-transform: uppercase;
 }

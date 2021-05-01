@@ -43,7 +43,7 @@ export default function RuleCreator({ rulesetId }) {
         <div className="input-group-btn">
           <button
             type="button"
-            className="btn btn-primary"
+            className="btn btn-primary RuleCreator__AddBtn"
             onClick={handleRuleTypeCreateClick}
           >
             <i className="fa fa-plus"></i>&nbsp;

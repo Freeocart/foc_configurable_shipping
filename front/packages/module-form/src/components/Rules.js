@@ -15,6 +15,8 @@ import {
   PRODUCT_INCREASE_STRATEGY_MIN_NON_ZERO,
 } from "../config/constants";
 
+import "./Rules.css";
+
 function Rules() {
   const {
     rulesets,
@@ -126,7 +128,7 @@ function Rules() {
 
       <button
         type="button"
-        className="btn btn-success"
+        className="btn btn-success Rules__AddRulesetBtn"
         onClick={handleCreateRulesetClick}
       >
         <i className="fa fa-plus"></i>&nbsp;

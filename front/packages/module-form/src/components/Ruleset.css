@@ -38,3 +38,10 @@
   text-transform: uppercase;
   color: #3dd280;
 }
+
+.Ruleset__RemoveBtnContainer {
+  text-align: right;
+}
+.Ruleset__RemoveBtn {
+  text-transform: uppercase;
+}
