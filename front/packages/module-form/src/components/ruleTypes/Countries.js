@@ -53,8 +53,11 @@ export default function Countries({ rulesetId, rule: propRule }) {
   );
 
   return (
-    <div className="Countries">
+    <div className="Countries container">
       <div className="row">
+        <div className="col-sm-12 text-left">
+          <label>{t("If customer delivery country is")}</label>
+        </div>
         <div className="col-sm-3">
           <input
             className="form-control"
@@ -65,12 +68,12 @@ export default function Countries({ rulesetId, rule: propRule }) {
           />
 
           <label className="checkbox">
-            {t("Show checked only")}
             <input
               type="checkbox"
               checked={showCheckedOnly}
               onChange={handleChangeShowCheckedOnly}
             />
+            <span>{t("Show checked only")}</span>
           </label>
         </div>
 
@@ -83,7 +86,7 @@ export default function Countries({ rulesetId, rule: propRule }) {
                   checked={selectedCountries.includes(country.country_id)}
                   onChange={(e) => toggleCountry(country.country_id)}
                 />{" "}
-                {country.name}
+                <span>{country.name}</span>
               </div>
             ))}
           </div>

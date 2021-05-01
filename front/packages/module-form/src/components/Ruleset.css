@@ -1,9 +1,11 @@
 .Ruleset {
   display: block;
-  border: 1px solid #efefef;
+  /* border: 1px solid #efefef; */
   margin: 1em auto;
-  max-width: 960px;
+  /* max-width: 960px; */
   padding: 2em;
+  background-color: #f1f1f1;
+  border-radius: 10px;
 }
 
 .Ruleset__rules {
@@ -13,7 +15,24 @@
 }
 
 .Ruleset__rules_container {
-  border: 1px solid #efefef;
+  border: 1px solid #81a6bb;
+  border-radius: 10px;
   margin: 1em auto;
   padding: 1em;
+  background: #fff;
+}
+
+.Ruleset__rules_title {
+  color: #81a6bb;
+}
+
+.Ruleset__effect {
+  border: 1px solid #3dd280;
+  border-radius: 10px;
+  margin: 1em auto;
+  padding: 1em;
+  background: #fff;
+}
+.Ruleset__effect_title {
+  color: #3dd280;
 }

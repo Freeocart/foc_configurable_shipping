@@ -32,7 +32,21 @@ export default function Ruleset({ id, ruleset }) {
 
   return (
     <div className="Ruleset">
-      <div className="form form-horizontal">
+      <div className="Ruleset__rules_container">
+        <h3 className="Ruleset__rules_title">{t("If")}</h3>
+
+        <div className="Ruleset__rules">
+          {ruleset.rules.map((rule) => (
+            <RulePicker rulesetId={id} rule={rule} key={id} />
+          ))}
+        </div>
+        <RuleCreator rulesetId={id} />
+      </div>
+
+      <hr />
+
+      <div className="Ruleset__effect form form-horizontal">
+        <h3 className="Ruleset__effect_title">{t("Then")}</h3>
         <div className="row">
           <div className="col-md-6">
             <div className="form-group">
@@ -98,18 +112,6 @@ export default function Ruleset({ id, ruleset }) {
           </div>
         </div>
       </div>
-
-      <h3>{t("Rules")}</h3>
-      <div className="Ruleset__rules_container">
-        <div className="Ruleset__rules">
-          {ruleset.rules.map((rule) => (
-            <RulePicker rulesetId={id} rule={rule} key={id} />
-          ))}
-        </div>
-        <RuleCreator rulesetId={id} />
-      </div>
-
-      <hr />
 
       <button className="btn btn-danger" onClick={handleDeleteRulesetClick}>
         <i className="fa fa-trash"></i>&nbsp;

@@ -3,15 +3,19 @@ import { useI18n } from "react-simple-i18n";
 import { useAppSettings } from "../../lib/AppSettings";
 import { intOrNull } from "common/functions";
 
-import { OPTION_VALUE_NOT_SELECTED } from 'common/constants';
+import { OPTION_VALUE_NOT_SELECTED } from "common/constants";
 
 export default function Attribute({ rulesetId, rule }) {
   const [attributeGroupId, setAttributeGroupId] = useState(
     intOrNull(rule.attribute_group_id)
   );
   const [attributeId, setAttributeId] = useState(intOrNull(rule.attribute_id));
-  const [attributeValue, setAttributeValue] = useState(intOrNull(rule.attribute_value));
-  const [checkAttributeValue, setCheckAttributeValue] = useState(!!rule.attribute_check_value);
+  const [attributeValue, setAttributeValue] = useState(
+    intOrNull(rule.attribute_value)
+  );
+  const [checkAttributeValue, setCheckAttributeValue] = useState(
+    !!rule.attribute_check_value
+  );
   const { attributeGroups, attributes, updateRule } = useAppSettings();
   const { t } = useI18n();
 
@@ -70,15 +74,13 @@ export default function Attribute({ rulesetId, rule }) {
   return (
     <div className="form-horizontal">
       <div className="col-sm-4">
-        <span>{t("Attribute group")}</span>
+        <label>{t("Attribute group")}</label>
         <select
           className="form-control"
           value={attributeGroupId}
           onChange={handleSelectAttributeGroup}
         >
-          <option value={OPTION_VALUE_NOT_SELECTED}>
-            {t("Not selected")}
-          </option>
+          <option value={OPTION_VALUE_NOT_SELECTED}>{t("Not selected")}</option>
           {attributeGroups.map((attributeGroup) => (
             <option value={attributeGroup.attribute_group_id}>
               {attributeGroup.name}
@@ -87,15 +89,13 @@ export default function Attribute({ rulesetId, rule }) {
         </select>
       </div>
       <div className="col-sm-4">
-        <span>{t("Attribute")}</span>
+        <label>{t("Attribute")}</label>
         <select
           className="form-control"
           value={attributeId}
           onChange={handleSelectAttribute}
         >
-          <option value={OPTION_VALUE_NOT_SELECTED}>
-            {t("Not selected")}
-          </option>
+          <option value={OPTION_VALUE_NOT_SELECTED}>{t("Not selected")}</option>
           {filteredAttributes.map((attribute) => (
             <option value={attribute.attribute_id}>{attribute.name}</option>
           ))}
@@ -111,12 +111,12 @@ export default function Attribute({ rulesetId, rule }) {
         />
 
         <label className="checkbox">
-          {t("Check attribute value?")}
           <input
             type="checkbox"
             checked={checkAttributeValue}
             onChange={handleChangeCheckAttributeValue}
           />
+          <span>{t("Check attribute value?")}</span>
         </label>
       </div>
     </div>
