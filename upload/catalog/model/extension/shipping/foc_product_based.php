@@ -98,10 +98,10 @@ class ModelExtensionShippingFocProductBased extends Model {
 	*/
 	public function getTotalCalculationMode () {
 		if (isset($this->_config['totalMode'])) {
-			$totalMode = $this->_config['totalMode'];
+			$totalMode = (int) $this->_config['totalMode'];
 
 			if (in_array($totalMode, $this->_validTotalModes)) {
-				return (int)$totalMode;
+				return $totalMode;
 			}
 		}
 
@@ -110,10 +110,10 @@ class ModelExtensionShippingFocProductBased extends Model {
 
 	public function getProductIncreaseStrategy () {
 		if (isset($this->_config['productIncreaseStrategy'])) {
-			$increaseStrategy = $this->_config['productIncreaseStrategy'];
+			$increaseStrategy = (int) $this->_config['productIncreaseStrategy'];
 
 			if (in_array($increaseStrategy, $this->_validProductIncreaseStrategies)) {
-				return (int)$increaseStrategy;
+				return $increaseStrategy;
 			}
 		}
 
@@ -121,10 +121,10 @@ class ModelExtensionShippingFocProductBased extends Model {
 	}
 
 	public function getTotalCostIncreaseMode () {
-		$mode = $this->config->get('shipping_foc_product_based_cost_increase_mode');
+		$mode = (int) $this->config->get('shipping_foc_product_based_cost_increase_mode');
 
 		if (in_array($mode, $this->_validTotalCostIncreaseModes)) {
-			return (int)$mode;
+			return $mode;
 		}
 
 		return $this->_defaultTotalCostIncreaseMode;
@@ -506,7 +506,6 @@ class ModelExtensionShippingFocProductBased extends Model {
 
 			foreach ($productCheckResult['products'] as $product) {
 				$rulesetsToApply = $this->checkValidRulesetsToApplyForProduct($product, $rulesets);
-
 				$appliedRulesetsIncrease = 0;
 
 				if (!empty($rulesetsToApply)) {
