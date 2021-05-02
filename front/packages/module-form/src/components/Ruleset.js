@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import { useI18n } from "react-simple-i18n";
-
 import { useAppSettings } from "../lib/AppSettings";
+
 import MultilanguageField from "./MultilanguageField";
 import RuleCreator from "./RuleCreator";
 import RuleDelimiter from "./RuleDelimiter";

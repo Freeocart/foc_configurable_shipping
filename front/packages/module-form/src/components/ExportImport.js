@@ -65,6 +65,7 @@ function ExportImport() {
               className="btn btn-warning"
               onClick={handleExportClick}
             >
+              <i className="fa fa-download"></i>&nbsp;
               {t("Export")}
             </button>
           </div>
@@ -84,6 +85,7 @@ function ExportImport() {
               className="btn btn-primary"
               onClick={handleImportClick}
             >
+              <i className="fa fa-upload"></i>&nbsp;
               {t("Import")}
             </button>
           </div>
@@ -97,6 +99,7 @@ function ExportImport() {
             className="btn btn-danger"
             onClick={handleClearClick}
           >
+            <i className="fa fa-eraser"></i>&nbsp;
             {t("Clear rulesets")}
           </button>
         </div>
