@@ -7352,9 +7352,9 @@ merge-descriptors@1.0.1:
   integrity sha1-sAqqVW3YtEVoFQ7J0blT8/kMu2E=
 
 merge-left-utils@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/merge-left-utils/-/merge-left-utils-1.0.3.tgz#c14f003c88ace8776b04b1464c7631141a936076"
-  integrity sha512-ZkKAhV0oDB2ZIdTcpNqw8yP1CRPJ0kWqbrThROQdVuiCPjBvJ+RSJUzlmRGC5cMXfQH0AP2KcPdFxZGB+rSIRA==
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/merge-left-utils/-/merge-left-utils-1.0.5.tgz#da7c96c0c8e0f67e1d71d825340330676d4acf51"
+  integrity sha512-jXpBZUd3PqDCue5JmPWxpqxeiRRwwzGGcN+ixUAaASoGWyBYY7/WRN5YjnfLU7PKZSsqmsGM6UZrZqRxSL21zw==
 
 merge-stream@^2.0.0:
   version "2.0.0"

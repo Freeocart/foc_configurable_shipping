@@ -15,7 +15,7 @@
     "babel-eslint": "^10.1.0",
     "copyfiles": "^2.4.1",
     "eslint-config-react-app": "^6.0.0",
-    "merge-left-utils": "^1.0.3",
+    "merge-left-utils": "^1.0.5",
     "react-simple-i18n": "^1.2.1-beta.0",
     "renamer": "^2.0.1"
   },
