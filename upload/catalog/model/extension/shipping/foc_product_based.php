@@ -18,7 +18,7 @@ class ModelExtensionShippingFocProductBased extends Model {
 	const PRODUCT_INCREASE_STRATEGY_MIN_NON_ZERO = 3;
 
 	const COST_INCREASE_MODE_MAX = 0;
-  const COST_INCREASE_MODE_MIN = 1;
+	const COST_INCREASE_MODE_MIN = 1;
 	const COST_INCREASE_MODE_SUM = 2;
 	const COST_INCREASE_MODE_NON_ZERO_INCREASE = 3;
 	const COST_INCREASE_MODE_MIN_NON_ZERO = 4;

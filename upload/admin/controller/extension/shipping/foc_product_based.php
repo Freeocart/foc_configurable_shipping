@@ -18,8 +18,8 @@ class ControllerExtensionShippingFocProductBased extends Controller {
 
 		$this->document->setTitle($this->language->get('heading_title'));
 
-    $this->load->model('setting/setting');
-    $this->load->model('extension/shipping/foc_product_based');
+		$this->load->model('setting/setting');
+		$this->load->model('extension/shipping/foc_product_based');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST')) {
 			// hack: prevent cleaning json data
@@ -83,9 +83,9 @@ class ControllerExtensionShippingFocProductBased extends Controller {
 			$data['shipping_foc_product_based_sort_order'] = $this->request->post['shipping_foc_product_based_sort_order'];
 		} else {
 			$data['shipping_foc_product_based_sort_order'] = $this->config->get('shipping_foc_product_based_sort_order');
-    }
+		}
 
-    if (isset($this->request->post['shipping_foc_product_based_geo_zone_id'])) {
+		if (isset($this->request->post['shipping_foc_product_based_geo_zone_id'])) {
 			$data['shipping_foc_product_based_geo_zone_id'] = $this->request->post['shipping_foc_product_based_geo_zone_id'];
 		} else {
 			$data['shipping_foc_product_based_geo_zone_id'] = $this->config->get('shipping_foc_product_based_geo_zone_id');
@@ -106,27 +106,27 @@ class ControllerExtensionShippingFocProductBased extends Controller {
 			}
 		}
 
-    if (isset($this->request->post['shipping_foc_product_based_cost'])) {
+		if (isset($this->request->post['shipping_foc_product_based_cost'])) {
 			$data['shipping_foc_product_based_cost'] = $this->request->post['shipping_foc_product_based_cost'];
 		}
 		else {
 			$data['shipping_foc_product_based_cost'] = $this->config->get('shipping_foc_product_based_cost');
-    }
+		}
 
-    if (isset($this->request->post['shipping_foc_product_based_disable_if_total_is_zero'])) {
+		if (isset($this->request->post['shipping_foc_product_based_disable_if_total_is_zero'])) {
 			$data['shipping_foc_product_based_disable_if_total_is_zero'] = $this->request->post['shipping_foc_product_based_disable_if_total_is_zero'];
 		}
 		else {
 			$data['shipping_foc_product_based_disable_if_total_is_zero'] = $this->config->get('shipping_foc_product_based_disable_if_total_is_zero');
-    }
+		}
 
-    if (isset($this->request->post['shipping_foc_product_based_tax_class_id'])) {
+		if (isset($this->request->post['shipping_foc_product_based_tax_class_id'])) {
 			$data['shipping_foc_product_based_tax_class_id'] = $this->request->post['shipping_foc_product_based_tax_class_id'];
 		} else {
 			$data['shipping_foc_product_based_tax_class_id'] = $this->config->get('shipping_foc_product_based_tax_class_id');
 		}
 
-    if (isset($this->request->post['shipping_foc_product_based_cost_increase_mode'])) {
+		if (isset($this->request->post['shipping_foc_product_based_cost_increase_mode'])) {
 			$data['shipping_foc_product_based_cost_increase_mode'] = $this->request->post['shipping_foc_product_based_cost_increase_mode'];
 		} else {
 			$data['shipping_foc_product_based_cost_increase_mode'] = $this->config->get('shipping_foc_product_based_cost_increase_mode');
@@ -135,8 +135,8 @@ class ControllerExtensionShippingFocProductBased extends Controller {
 		$this->load->model('localisation/language');
 		$this->load->model('localisation/currency');
 		$this->load->model('localisation/country');
-    $this->load->model('localisation/geo_zone');
-    $this->load->model('localisation/tax_class');
+		$this->load->model('localisation/geo_zone');
+		$this->load->model('localisation/tax_class');
 
 		$data['tax_classes'] = $this->model_localisation_tax_class->getTaxClasses();
 		$data['languages'] = $this->model_localisation_language->getLanguages();

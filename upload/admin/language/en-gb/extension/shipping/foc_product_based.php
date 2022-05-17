@@ -30,24 +30,24 @@ $_['entry_foc_product_based_config_label'] = '<i class="fa fa-gears"></i> Setup'
 $_['entry_foc_product_based_info_label'] = '<i class="fa fa-info-circle"></i> About';
 
 $_['entry_foc_product_based_info'] = <<<INFO
-  <h3>Information</h3>
-  <hr>
-  <p>With this module you can create shipping method with flexible price.</p>
-  <p>You can use sets of rules to make a different shipping cost for different cases.</p>
-  <p>
-    All source code is licensed under GNU GPLv3. This module is a part of <a href="https://freeocart.ru">Freeocart</a> project.
-  </p>
-  <p>
-    If you have questions, or you need assistance with setup/installation, put me some string on email - <a href="mailto:support@freeocart.ru">support@freeocart.ru</a>
-  </p>
-  <hr>
-  <h3>How can I help to Freeocart?</h3>
-  <p>
-    All Freeocart modules are free and opensource software, so any kind of help is appreciated!
-  </p>
-  <ul>
-    <li>Found a bug? Tell me about is on <a href="https://github.com/Freeocart/" target="_blank">github</a></li>
-    <li>Have interesting modifications? You always can send PR on github!</li>
-    <li>You a good translater? Please, contact with me at <a href="mailto:support@freeocart.ru">support@freeocart.ru</a></li>
-  </ul>
+	<h3>Information</h3>
+	<hr>
+	<p>With this module you can create shipping method with flexible price.</p>
+	<p>You can use sets of rules to make a different shipping cost for different cases.</p>
+	<p>
+		All source code is licensed under GNU GPLv3. This module is a part of <a href="https://freeocart.ru">Freeocart</a> project.
+	</p>
+	<p>
+		If you have questions, or you need assistance with setup/installation, put me some string on email - <a href="mailto:support@freeocart.ru">support@freeocart.ru</a>
+	</p>
+	<hr>
+	<h3>How can I help to Freeocart?</h3>
+	<p>
+		All Freeocart modules are free and opensource software, so any kind of help is appreciated!
+	</p>
+	<ul>
+		<li>Found a bug? Tell me about is on <a href="https://github.com/Freeocart/" target="_blank">github</a></li>
+		<li>Have interesting modifications? You always can send PR on github!</li>
+		<li>You a good translater? Please, contact with me at <a href="mailto:support@freeocart.ru">support@freeocart.ru</a></li>
+	</ul>
 INFO;
