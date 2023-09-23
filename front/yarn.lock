@@ -7351,10 +7351,10 @@ merge-descriptors@1.0.1:
   resolved "https://registry.yarnpkg.com/merge-descriptors/-/merge-descriptors-1.0.1.tgz#b00aaa556dd8b44568150ec9d1b953f3f90cbb61"
   integrity sha1-sAqqVW3YtEVoFQ7J0blT8/kMu2E=
 
-merge-left-utils@^1.0.3:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/merge-left-utils/-/merge-left-utils-1.0.5.tgz#da7c96c0c8e0f67e1d71d825340330676d4acf51"
-  integrity sha512-jXpBZUd3PqDCue5JmPWxpqxeiRRwwzGGcN+ixUAaASoGWyBYY7/WRN5YjnfLU7PKZSsqmsGM6UZrZqRxSL21zw==
+merge-left-utils@^1.0.5:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/merge-left-utils/-/merge-left-utils-1.0.7.tgz#a84446ce34186a06e7cc749b5f25352672c8b268"
+  integrity sha512-T7ugxPBJnlSWkr9kQupEttjrYdH+IORGSiFxfOEqR9VXA+Acu3b/ab7XFk+pgXTO0U2/vMRlgJY95VGINL7GHQ==
 
 merge-stream@^2.0.0:
   version "2.0.0"

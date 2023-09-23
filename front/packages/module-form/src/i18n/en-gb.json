@@ -24,5 +24,16 @@
   "Product increase strategy: 0": "Choose max increase value from cart products",
   "Product increase strategy: 1": "Choose min increase value from cart products",
   "Product increase strategy: 2": "Sum all cart products increase values",
-  "Product increase strategy: 3": "Choose min non-zero increase value from cart products"
+  "Product increase strategy: 3": "Choose min non-zero increase value from cart products",
+  "Cost increase mode": "Delivery total cost calculation mode",
+  "Cost increase mode max": "Choose max from base cost and increase value",
+  "Cost increase mode min": "Choose min from base cost and increase value",
+  "Cost increase mode sum": "Sum base cost and increase value",
+  "Cost increase mode use if non zero": "Use only increase value if greater than 0",
+  "Cost increase mode min from non zero and base cost": "Choose min non-zero from base cost and increase value",
+  "Disable if total is zero": "Disable if shipping cost is 0",
+  "Geozone": "Geozone",
+  "Base cost": "Base cost",
+  "Shipping label": "Shipping method label",
+  "Shipping group": "Shipping group label"
 }

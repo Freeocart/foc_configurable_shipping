@@ -9,6 +9,11 @@ import {
   PRODUCT_INCREASE_STRATEGY_MIN,
   PRODUCT_INCREASE_STRATEGY_MIN_NON_ZERO,
   PRODUCT_INCREASE_STRATEGY_MAX,
+  COST_INCREASE_MODE_SUM,
+  COST_INCREASE_MODE_MAX,
+  COST_INCREASE_MODE_MIN,
+  COST_INCREASE_MODE_MIN_NON_ZERO,
+  COST_INCREASE_MODE_NON_ZERO_INCREASE,
 } from "../config/constants";
 
 const VALID_TOTAL_MODES = [
@@ -25,11 +30,24 @@ const VALID_PRODUCT_INCREASE_STRATEGIES = [
   PRODUCT_INCREASE_STRATEGY_MAX,
 ];
 
+const VALID_COST_INCREASE_MODES = [
+  COST_INCREASE_MODE_SUM,
+  COST_INCREASE_MODE_MAX,
+  COST_INCREASE_MODE_MIN,
+  COST_INCREASE_MODE_MIN_NON_ZERO,
+  COST_INCREASE_MODE_NON_ZERO_INCREASE
+]
+
 const AppSettingsContext = React.createContext({});
 
 const DEFAULT_STATE = {
+  label: {},
+  group: {},
   totalMode: RULES_TOTAL_SET_MAX_INCREASE_VALUE,
   productIncreaseStrategy: PRODUCT_INCREASE_STRATEGY_MAX,
+  costIncreaseMode: COST_INCREASE_MODE_SUM,
+  disableOnZero: false,
+  geozone: null,
   rulesets: {},
 };
 
@@ -165,6 +183,35 @@ function AppSettingsProvider({ ocInfo, state: defaultState = {}, children }) {
     }
   };
 
+  const setCostIncreaseMode = (costIncreaseMode) => {
+    if (
+      VALID_COST_INCREASE_MODES.includes(
+        parseInt(costIncreaseMode)
+      )
+    ) {
+      setState({
+        ...state,
+        costIncreaseMode,
+      });
+    }
+  };
+
+  const setLabel = (label = "") => {
+    setState({ ...state, label })
+  }
+
+  const setGroup = (group = "") => {
+    setState({ ...state, group })
+  }
+
+  const setDisableOnZero = (nextDisableOnZero) => {
+    setState({ ...state, disableOnZero: !!nextDisableOnZero})
+  }
+
+  const setGeoZone = (geozone = null) => {
+    setState({ ...state, geozone })
+  }
+
   const value = {
     get state() {
       return state;
@@ -205,14 +252,34 @@ function AppSettingsProvider({ ocInfo, state: defaultState = {}, children }) {
     resetRulesets() {
       setRulesets({});
     },
+    get label () {
+      return state.label
+    },
+    get group () {
+      return state.group
+    },
     get totalMode() {
       return state.totalMode;
+    },
+    get costIncreaseMode() {
+      return state.costIncreaseMode
     },
     get productIncreaseStrategy() {
       return state.productIncreaseStrategy;
     },
+    get disableOnZero() {
+      return state.disableOnZero;
+    },
+    get geoZone() {
+      return state.geozone
+    },
+    setGeoZone,
+    setDisableOnZero,
     setRulesets,
+    setLabel,
+    setGroup,
     setTotalMode,
+    setCostIncreaseMode,
     setProductIncreaseStrategy,
     getRuleset,
     updateRuleset,
