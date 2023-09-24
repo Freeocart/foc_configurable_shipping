@@ -15,6 +15,8 @@ import {
   COST_INCREASE_MODE_MIN_NON_ZERO,
   COST_INCREASE_MODE_NON_ZERO_INCREASE,
 } from "../config/constants";
+import { id } from "common/functions";
+import merge from "lodash.merge";
 
 const VALID_TOTAL_MODES = [
   RULES_TOTAL_SET_MAX_INCREASE_VALUE,
@@ -82,22 +84,32 @@ function AppStateProvider({ state: defaultState = {}, children }) {
   );
 
   const [result, setResult] = useState(
-    Object.assign({}, DEFAULT_STATE, defaultState)
+    merge({}, DEFAULT_STATE, defaultState)
   )
+
+  const applyToResult = (mergeCb = id) => {
+    const formState = state?.id ? { shippingMethods: { [state.id]: state }} : {}
+    const nextResult = mergeCb(merge({}, result, formState))
+    setResult(nextResult)
+
+    return nextResult
+  }
 
   const addNewShippingMethod = () => {
     const nextId = makeId()
     const nextState = SHIPPING_METHOD_DEFAULT_STATE
-    const prevState = state.id ? { [state.id]: state } : {}
+    // const prevState = state.id ? { [state.id]: state } : {}
 
-    setResult(state => ({
-      ...state,
-      shippingMethods: {
-        ...state.shippingMethods,
-        ...prevState,
-        [nextId]: nextState
-      }
-    }))
+    applyToResult(state => merge({}, state, { shippingMethods: { [nextId]: nextState }}))
+
+    // setResult(state => ({
+    //   ...state,
+    //   shippingMethods: {
+    //     ...state.shippingMethods,
+    //     ...prevState,
+    //     [nextId]: nextState
+    //   }
+    // }))
 
     // Set new as current
     setState({ id: nextId, ...nextState })
@@ -338,8 +350,12 @@ function AppStateProvider({ state: defaultState = {}, children }) {
     addNewShippingMethod,
     removeShippingMethod,
     setCurrentShippingMethod,
-    resetState(newState) {
-      setState(Object.assign({}, DEFAULT_STATE, state, newState));
+    computeAppState () {
+      return applyToResult()
+    },
+    resetAppState(newState) {
+      setState(DEFAULT_EDIT_STATE)
+      setResult(newState)
     },
   };
 

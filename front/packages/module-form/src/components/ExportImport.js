@@ -5,7 +5,7 @@ import { useI18n } from "react-simple-i18n";
 import "./ExportImport.css";
 
 function ExportImport() {
-  const { state, resetState, resetRulesets } = useAppState();
+  const { computeAppState, resetAppState, resetRulesets } = useAppState();
   const [ exportValue, setExportValue ] = useState("");
   const [ importValue, setImportValue ] = useState("");
 
@@ -14,9 +14,9 @@ function ExportImport() {
   const handleExportClick = useCallback(
     (e) => {
       e.preventDefault();
-      setExportValue(JSON.stringify(state));
+      setExportValue(JSON.stringify(computeAppState()));
     },
-    [state]
+    [computeAppState]
   );
 
   const handleImportClick = useCallback(
@@ -24,12 +24,12 @@ function ExportImport() {
       e.preventDefault();
       try {
         const data = JSON.parse(importValue);
-        resetState(data);
+        resetAppState(data);
       } catch (e) {
         alert("Invalid json data! Cannot import");
       }
     },
-    [importValue, resetState]
+    [importValue, resetAppState]
   );
 
   const handleImportValueChange = useCallback((e) => {
