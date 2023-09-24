@@ -55,7 +55,7 @@ const SHIPPING_METHOD_DEFAULT_STATE = {
   totalMode: RULES_TOTAL_SET_MAX_INCREASE_VALUE,
   productIncreaseStrategy: PRODUCT_INCREASE_STRATEGY_MAX,
   costIncreaseMode: COST_INCREASE_MODE_SUM,
-  disableOnZero: false,
+  disableOnZero: true,
   geozone: null,
   baseCost: 0,
   rulesets: {},
