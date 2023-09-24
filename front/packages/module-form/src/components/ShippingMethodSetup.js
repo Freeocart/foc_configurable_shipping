@@ -1,24 +1,26 @@
 import React, { useCallback } from 'react'
 import { useI18n } from 'react-simple-i18n';
+import { useAppSettings } from '../lib/AppSettings';
+import { useAppState } from '../lib/AppState';
 
-import Rules from './Rules';
+import MultilanguageField from './MultilanguageField';
 
 import { COST_INCREASE_MODE_MAX, COST_INCREASE_MODE_MIN, COST_INCREASE_MODE_MIN_NON_ZERO, COST_INCREASE_MODE_NON_ZERO_INCREASE, COST_INCREASE_MODE_SUM } from '../config/constants';
 import { OPTION_VALUE_NOT_SELECTED } from 'common/constants';
-import { useAppSettings } from '../lib/AppSettings';
-import MultilanguageField from './MultilanguageField';
 
-export default function ShippingMethodSetup () {
+export default function ShippingMethodSetup ({ id }) {
   const { t } = useI18n();
+  const { geoZones = [] } = useAppSettings();
+
   const {
-    geoZones = [],
     costIncreaseMode,
     label, setLabel,
     group, setGroup,
     geoZone, setGeoZone,
     disableOnZero, setDisableOnZero,
+    baseCost, setBaseCost,
     setCostIncreaseMode
-  } = useAppSettings();
+  } = useAppState()
 
   const handleCostIncreaseModeChange = useCallback((event) => {
     const nextIncreaseMode = event.target.value
@@ -40,6 +42,13 @@ export default function ShippingMethodSetup () {
   const handleGeoZoneChange = useCallback((event) => {
     setGeoZone(event.target.value)
   }, [setGeoZone])
+
+  const handleBaseCostChange = useCallback((event) => {
+    setBaseCost(Number(event.target.value))
+  })
+
+
+  console.log(label)
 
   return <>
     <div className='form-group'>
@@ -77,7 +86,13 @@ export default function ShippingMethodSetup () {
         {t("Base cost")}
       </label>
       <div className='col-sm-8'>
-        <input className='form-control' type="text" placeholder={t("Base cost")} />
+        <input
+          className='form-control'
+          type="text"
+          placeholder={t("Base cost")}
+          value={baseCost}
+          onChange={handleBaseCostChange}
+        />
       </div>
     </div>
 
@@ -146,7 +161,5 @@ export default function ShippingMethodSetup () {
         </select>
       </div>
     </div>
-
-    <Rules />
   </>
 }

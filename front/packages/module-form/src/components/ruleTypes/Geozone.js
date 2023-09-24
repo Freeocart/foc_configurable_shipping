@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from "react";
 import { useAppSettings } from "../../lib/AppSettings";
+import { useAppState } from "../../lib/AppState";
 import { useI18n } from "react-simple-i18n";
 
 import { OPTION_VALUE_NOT_SELECTED } from "common/constants";
@@ -8,7 +9,8 @@ import "./Geozone.css";
 
 export default function Geozone({ rulesetId, rule: propRule }) {
   const [rule, setRule] = useState(propRule);
-  const { geoZones = [], updateRule } = useAppSettings();
+  const { geoZones = [] } = useAppSettings();
+  const { updateRule } = useAppState();
 
   const { t } = useI18n();
 

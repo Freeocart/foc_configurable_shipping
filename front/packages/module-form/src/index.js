@@ -10,6 +10,7 @@ import { parseJsonOr } from "common/functions";
 
 import "common/stylesheet.css";
 import "./index.css";
+import { AppStateProvider } from "./lib/AppState";
 
 const mountPoints = document.querySelectorAll("#foc_increase_total_rules_app");
 
@@ -40,8 +41,10 @@ Array.from(mountPoints).forEach((rootEl) => {
       ReactDOM.render(
         <React.StrictMode>
           <I18nProvider i18n={createI18n(i18nData, { lang })}>
-            <AppSettingsProvider state={state} ocInfo={ocInfo}>
-              <App outputName={outputName} />
+            <AppSettingsProvider ocInfo={ocInfo}>
+              <AppStateProvider state={state}>
+                <App outputName={outputName} />
+              </AppStateProvider>
             </AppSettingsProvider>
           </I18nProvider>
         </React.StrictMode>,

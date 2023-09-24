@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useAppSettings } from "../lib/AppSettings";
+import { useAppState } from "../lib/AppState";
 
 export default function Output({ outputName }) {
-  const { state } = useAppSettings();
+  const { state } = useAppState();
   const [output, setOutput] = useState(state);
 
   useEffect(() => {

@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useMemo } from "react";
 import { useI18n } from "react-simple-i18n";
 import { useAppSettings } from "../../lib/AppSettings";
+import { useAppState } from "../../lib/AppState";
 import { intOrNull } from "common/functions";
 
 import { OPTION_VALUE_NOT_SELECTED } from "common/constants";
@@ -18,7 +19,9 @@ export default function Attribute({ rulesetId, rule }) {
   const [checkAttributeValue, setCheckAttributeValue] = useState(
     !!rule.attribute_check_value
   );
-  const { attributeGroups, attributes, updateRule } = useAppSettings();
+  const { attributeGroups, attributes } = useAppSettings();
+  const { updateRule } = useAppState();
+
   const { t } = useI18n();
 
   const handleSelectAttributeGroup = useCallback(

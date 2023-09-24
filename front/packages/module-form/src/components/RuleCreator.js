@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from "react";
-import { useAppSettings } from "../lib/AppSettings";
+import { useAppState } from "../lib/AppState";
 import { useI18n } from "react-simple-i18n";
 
 import { RULE_TYPES } from "./ruleTypes";
@@ -8,7 +8,7 @@ import "./RuleCreator.css";
 
 export default function RuleCreator({ rulesetId }) {
   const [selectedType, setSelectedType] = useState(Object.keys(RULE_TYPES)[0]);
-  const { addNewRule } = useAppSettings();
+  const { addNewRule } = useAppState();
 
   const { t } = useI18n();
 

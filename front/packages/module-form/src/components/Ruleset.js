@@ -8,9 +8,11 @@ import RuleDelimiter from "./RuleDelimiter";
 import RulePicker from "./RulePicker";
 
 import "./Ruleset.css";
+import { useAppState } from "../lib/AppState";
 
 export default function Ruleset({ id, ruleset }) {
-  const { currencySymbol, deleteRuleset, updateRuleset } = useAppSettings();
+  const { currencySymbol } = useAppSettings();
+  const { deleteRuleset, updateRuleset } = useAppState()
 
   const { t } = useI18n();
 

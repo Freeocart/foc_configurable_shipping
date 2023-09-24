@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useMemo } from "react";
 import { useAppSettings } from "../../lib/AppSettings";
+import { useAppState } from "../../lib/AppState";
 import { useI18n } from "react-simple-i18n";
 import { intOrNull } from "common/functions";
 
@@ -17,7 +18,9 @@ export default function Option({ rulesetId, rule }) {
   const [selectedOptionValueId, setSelectedOptionValueId] = useState(
     intOrNull(rule.option_value_id)
   );
-  const { options, optionsValues, updateRule } = useAppSettings();
+  const { options, optionsValues } = useAppSettings();
+  const { updateRule } = useAppState();
+
   const { t } = useI18n();
 
   const filteredOptionValues = useMemo(() => {

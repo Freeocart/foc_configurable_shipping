@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 import { useI18n } from "react-simple-i18n";
-import { useAppSettings } from "../lib/AppSettings";
+import { useAppState } from "../lib/AppState";
 
 import Ruleset from "./Ruleset";
 
@@ -25,7 +25,7 @@ function Rules() {
     setTotalMode,
     productIncreaseStrategy,
     setProductIncreaseStrategy,
-  } = useAppSettings();
+  } = useAppState();
 
   const { t } = useI18n();
 

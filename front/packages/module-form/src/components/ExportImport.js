@@ -1,13 +1,13 @@
 import React, { useState, useCallback } from "react";
-import { useAppSettings } from "../lib/AppSettings";
+import { useAppState } from "../lib/AppState";
 import { useI18n } from "react-simple-i18n";
 
 import "./ExportImport.css";
 
 function ExportImport() {
-  const { state, resetState, resetRulesets } = useAppSettings();
-  const [exportValue, setExportValue] = useState("");
-  const [importValue, setImportValue] = useState("");
+  const { state, resetState, resetRulesets } = useAppState();
+  const [ exportValue, setExportValue ] = useState("");
+  const [ importValue, setImportValue ] = useState("");
 
   const { t } = useI18n();
 

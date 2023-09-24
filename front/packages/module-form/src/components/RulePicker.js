@@ -1,12 +1,12 @@
 import React, { useMemo, useCallback } from "react";
 import { useI18n } from "react-simple-i18n";
-import { useAppSettings } from "../lib/AppSettings";
+import { useAppState } from "../lib/AppState";
 import { getRuleTypeComponent } from "./ruleTypes";
 
 import "./ruleTypes/Rule.css";
 
 function RulePicker({ rulesetId, rule }) {
-  const { deleteRule } = useAppSettings();
+  const { deleteRule } = useAppState();
   const { t } = useI18n();
 
   const RuleComponent = useMemo(() => getRuleTypeComponent(rule.type), [

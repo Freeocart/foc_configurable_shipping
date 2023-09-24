@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useMemo } from "react";
 import { useAppSettings } from "../../lib/AppSettings";
+import { useAppState } from "../../lib/AppState";
 import { useI18n } from "react-simple-i18n";
 
 import "./Countries.css";
@@ -15,7 +16,9 @@ const filterCountries = (filter, data = []) =>
 
 export default function Countries({ rulesetId, rule: propRule }) {
   const [filter, setFilter] = useState("");
-  const { countries, updateRule } = useAppSettings();
+  const { countries } = useAppSettings();
+  const { updateRule } = useAppState();
+
   const [selectedCountries, setSelectedCountries] = useState(
     propRule.countries_ids || []
   );

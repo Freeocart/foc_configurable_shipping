@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from "react";
 import { useI18n } from "react-simple-i18n";
 import { useAppSettings } from "../../lib/AppSettings";
+import { useAppState } from "../../lib/AppState";
 import { intOrNull } from "common/functions";
 
 import { OPTION_VALUE_NOT_SELECTED } from "common/constants";
@@ -14,7 +15,9 @@ export default function Attribute({ rulesetId, rule }) {
     !!rule.category_check_childs
   );
 
-  const { categories, updateRule } = useAppSettings();
+  const { categories } = useAppSettings();
+  const { updateRule } = useAppState();
+
   const { t } = useI18n();
 
   const handleSelectCategory = useCallback(

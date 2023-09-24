@@ -1,6 +1,6 @@
 import React from "react";
 
-import ShippingMethodSetup from "./components/ShippingMethodSetup";
+import ShippingMethods from "./components/ShippingMethods";
 import ExportImport from "./components/ExportImport";
 import Output from "./components/Output";
 
@@ -10,7 +10,7 @@ import "./App.css";
 function App({ outputName }) {
   return (
     <div className="App">
-      <ShippingMethodSetup />
+      <ShippingMethods />
       <ExportImport />
       <Output outputName={outputName} />
     </div>
