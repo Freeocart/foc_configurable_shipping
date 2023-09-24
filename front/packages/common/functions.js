@@ -12,6 +12,11 @@ export const intOrNull = value => {
 export const T = () => true
 
 /*
+  Identity function
+*/
+export const id = x => x
+
+/*
   Safe parse JSON
 */
 export const parseJsonOr = (json, defaultValue = {}) => {
