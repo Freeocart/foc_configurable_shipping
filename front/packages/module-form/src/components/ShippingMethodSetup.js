@@ -20,6 +20,7 @@ export default function ShippingMethodSetup ({ id }) {
     geoZone, setGeoZone,
     disableOnZero, setDisableOnZero,
     baseCost, setBaseCost,
+    systemName, setSystemName,
     setCostIncreaseMode
   } = useAppState()
 
@@ -46,9 +47,28 @@ export default function ShippingMethodSetup ({ id }) {
 
   const handleBaseCostChange = useCallback((event) => {
     setBaseCost(Number(event.target.value))
-  })
+  }, [setBaseCost])
+
+  const handleSystemNameChange = useCallback((event) => {
+    setSystemName(event.target.value)
+  }, [setSystemName])
 
   return <>
+    <div className='form-group'>
+      <label className="col-sm-4 control-label">
+        {t("Shipping method system name")}
+      </label>
+      <div className='col-sm-8'>
+        <input
+          className='form-control'
+          placeholder={t("Shipping method system name")}
+          type="text"
+          value={systemName}
+          onChange={handleSystemNameChange}
+        />
+      </div>
+    </div>
+
     <div className='form-group'>
       <label className="col-sm-4 control-label">
         {t("Shipping label")}

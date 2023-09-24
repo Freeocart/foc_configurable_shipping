@@ -15,6 +15,7 @@
   "Click \"Export\" button to export rules as JSON data": "Click \"Export\" button to export rules as JSON data",
   "Import/export rules": "Import/export rules",
   "Clear rulesets": "Clear rulesets",
+  "Shipping method system name": "Shipping method system name",
   "Total mode": "Total calculation mode for each product in cart",
   "Total mode: 0": "Set max increase value",
   "Total mode: 1": "Set min increase value",

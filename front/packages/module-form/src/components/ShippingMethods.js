@@ -33,14 +33,14 @@ export default function ShippingMethods () {
 
   return <div className=''>
     <ul className='nav nav-tabs'>
-      {Object.keys(shippingMethods).map(id => (
+      {Object.entries(shippingMethods).map(([id, shippingMethod]) => (
         <li
           key={id}
           className={ id === currentShippingMethodId ? 'active' : '' }
           onClick={(event) => handleChangeActiveTabClick(event, id)}
         >
           <a href={`#shipping_method_${id}`}>
-            <span style={{ verticalAlign: 'middle', marginRight: 10 }}>{id}</span>
+            <span style={{ verticalAlign: 'middle', marginRight: 10 }}>{shippingMethod?.systemName ?? id}</span>
             <button className="btn btn-danger btn-xs" onClick={(event) => handleDeleteShippingMethodClick(event, id)}>
               <i className="fa fa-times" />
             </button>

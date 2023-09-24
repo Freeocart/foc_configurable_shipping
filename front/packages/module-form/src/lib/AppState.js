@@ -49,6 +49,7 @@ const DEFAULT_STATE = {
 }
 
 const SHIPPING_METHOD_DEFAULT_STATE = {
+  systemName: null,
   label: {},
   group: {},
   totalMode: RULES_TOTAL_SET_MAX_INCREASE_VALUE,
@@ -100,7 +101,7 @@ function AppStateProvider({ state: defaultState = {}, children }) {
 
   const addNewShippingMethod = () => {
     const nextId = makeId()
-    const nextState = SHIPPING_METHOD_DEFAULT_STATE
+    const nextState = Object.assign({}, SHIPPING_METHOD_DEFAULT_STATE, { systemName: nextId })
 
     // Set new as current
     setCurrentShippingMethodId(nextId)
@@ -264,6 +265,10 @@ function AppStateProvider({ state: defaultState = {}, children }) {
     setState(currentShippingMethodId, { ...state, baseCost })
   }
 
+  const setSystemName = (systemName = "") => {
+    setState(currentShippingMethodId, { ...state, systemName })
+  }
+
   const value = {
     get state() {
       return state;
@@ -309,6 +314,9 @@ function AppStateProvider({ state: defaultState = {}, children }) {
     get baseCost () {
       return state.baseCost
     },
+    get systemName() {
+      return state.systemName
+    },
     setBaseCost,
     setGeoZone,
     setDisableOnZero,
@@ -318,6 +326,7 @@ function AppStateProvider({ state: defaultState = {}, children }) {
     setTotalMode,
     setCostIncreaseMode,
     setProductIncreaseStrategy,
+    setSystemName,
     getRuleset,
     updateRuleset,
     addNewRuleset,
