@@ -93,6 +93,14 @@ class ModelExtensionShippingFocProductBased extends Model {
 		return [];
 	}
 
+	public function getShippingMethods () {
+		if (isset($this->_config['shippingMethods'])) {
+			return $this->_config['shippingMethods'];
+		}
+
+		return null;
+	}
+
 	/*
 		Get totalMode int
 	*/
@@ -473,152 +481,148 @@ class ModelExtensionShippingFocProductBased extends Model {
 		$this->load->language('extension/shipping/foc_product_based');
 		$this->deliveryInfo = $address;
 
-		$status = false;
-
-		if (!$this->config->get('shipping_foc_product_based_geo_zone_id')) {
-			$status = true;
-		}
-		else {
-			$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "zone_to_geo_zone WHERE geo_zone_id = '" . (int)$this->config->get('shipping_foc_product_based_geo_zone_id') . "' AND country_id = '" . (int)$address['country_id'] . "' AND (zone_id = '" . (int)$address['zone_id'] . "' OR zone_id = '0')");
-
-			if ($query->num_rows) {
-				$status = true;
-			}
-		}
+		$status = (bool)$this->config->get('shipping_foc_product_based_status');
 
 		$methodData = array();
 		$quoteData = array();
 
 		if ($status) {
-			$cost = $this->config->get('shipping_foc_product_based_cost');
+			$shippingMethods = $this->getShippingMethods();
 
-			$rulesets = $this->getRulesets();
+			$cartProducts = $this->cart->getProducts();
+			$language_id = $this->config->get('config_language_id');
 
-			$increaseTotal = 0;
-			$labels = [];
+			foreach ($shippingMethods as $shippingMethodId => $shippingMethod) {
+				$increaseTotal = 0;
+				$labels = [];
 
-			$calculationMode = $this->getTotalCalculationMode();
-			$increaseStrategy = $this->getProductIncreaseStrategy();
+				$shipping_labels = $shippingMethod['label'];
+				$shipping_groups = $shippingMethod['group'];
+				$label = isset($shipping_labels[$language_id]) ? $shipping_labels[$language_id] : '';
+				$group = isset($shipping_groups[$language_id]) ? $shipping_groups[$language_id] : '';
 
-			$productsIncreases = [];
+				// Costs
+				$cost = $shippingMethod['baseCost'];
+				$totalCost = $cost;
 
-			$productCheckResult = $this->checkProductBasedIncreases($this->cart->getProducts());
+				if ($shippingMethod['geozone']) {
+					$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "zone_to_geo_zone WHERE geo_zone_id = '" . (int)$shippingMethod['geozone'] . "' AND country_id = '" . (int)$address['country_id'] . "' AND (zone_id = '" . (int)$address['zone_id'] . "' OR zone_id = '0')");
 
-			foreach ($productCheckResult['products'] as $product) {
-				$rulesetsToApply = $this->checkValidRulesetsToApplyForProduct($product, $rulesets);
-				$appliedRulesetsIncrease = 0;
-
-				if (!empty($rulesetsToApply)) {
-					$reduced = [];
-
-					if ($calculationMode === self::RULES_TOTAL_SUM_INCREASE_VALUES) {
-						$reduced = $rulesetsToApply;
+					if (!$query->num_rows) {
+						continue;
 					}
-					else {
-						$reduced = [ $this->reduceRulesetsToApply($rulesetsToApply, $calculationMode) ];
-					}
+				}
 
-					if (!empty($reduced)) {
-						foreach ($reduced as $ruleset) {
-							$rulesetIncrease = $this->calculateRulesetIncreaseTotal($ruleset, $product['quantity']);
-							$appliedRulesetsIncrease += $rulesetIncrease;
+				$taxClass = null;
 
-							if ($ruleset['useLabel']) {
-								if (!isset($labels[$ruleset['id']])) {
-									$labels[$ruleset['id']] = $this->rulesetToTotals($ruleset, $product['quantity']);
-								}
-								else {
-									$labels[$ruleset['id']]['value'] += $rulesetIncrease;
+				$productsIncreases = [];
+
+				$productCheckResult = $this->checkProductBasedIncreases($cartProducts);
+
+				foreach ($productCheckResult['products'] as $product) {
+					$rulesetsToApply = $this->checkValidRulesetsToApplyForProduct($product, $shippingMethod['rulesets']);
+					$appliedRulesetsIncrease = 0;
+
+					if (!empty($rulesetsToApply)) {
+						$reduced = [];
+
+						if ($shippingMethod['totalMode'] === self::RULES_TOTAL_SUM_INCREASE_VALUES) {
+							$reduced = $rulesetsToApply;
+						}
+						else {
+							$reduced = [ $this->reduceRulesetsToApply($rulesetsToApply, $shippingMethod['totalMode']) ];
+						}
+
+						if (!empty($reduced)) {
+							foreach ($reduced as $ruleset) {
+								$rulesetIncrease = $this->calculateRulesetIncreaseTotal($ruleset, $product['quantity']);
+								$appliedRulesetsIncrease += $rulesetIncrease;
+
+								if ($ruleset['useLabel']) {
+									if (!isset($labels[$ruleset['id']])) {
+										$labels[$ruleset['id']] = $this->rulesetToTotals($ruleset, $product['quantity']);
+									}
+									else {
+										$labels[$ruleset['id']]['value'] += $rulesetIncrease;
+									}
 								}
 							}
 						}
 					}
+
+					$productsIncreases[] = $appliedRulesetsIncrease;
 				}
 
-				$productsIncreases[] = $appliedRulesetsIncrease;
-			}
+				if (count($productsIncreases) > 0) {
+					switch ($shippingMethod['productIncreaseStrategy']) {
+						case self::PRODUCT_INCREASE_STRATEGY_MAX:
+							$increaseTotal = max($productsIncreases);
+						break;
+						case self::PRODUCT_INCREASE_STRATEGY_MIN:
+							$increaseTotal = min($productsIncreases);
+						break;
+						case self::PRODUCT_INCREASE_STRATEGY_MIN_NON_ZERO:
+							$nonZero = array_filter($productsIncreases, [ $this, '__greater_than_zero' ]);
+							if (count($nonZero) > 0) {
+								$increaseTotal = min($nonZero);
+							}
+						break;
+						case self::PRODUCT_INCREASE_STRATEGY_SUM:
+							$increaseTotal = array_reduce($productsIncreases, [ $this, '__sum' ], 0);
+						break;
+					}
+				}
 
-			if (count($productsIncreases) > 0) {
-				switch ($increaseStrategy) {
-					case self::PRODUCT_INCREASE_STRATEGY_MAX:
-						$increaseTotal = max($productsIncreases);
+				switch ($shippingMethod['costIncreaseMode']) {
+					case self::COST_INCREASE_MODE_MAX:
+						$totalCost = max([ $cost, $increaseTotal ]);
 					break;
-					case self::PRODUCT_INCREASE_STRATEGY_MIN:
-						$increaseTotal = min($productsIncreases);
+					case self::COST_INCREASE_MODE_MIN:
+						$totalCost = min([ $cost, $increaseTotal ]);
 					break;
-					case self::PRODUCT_INCREASE_STRATEGY_MIN_NON_ZERO:
-						$nonZero = array_filter($productsIncreases, [ $this, '__greater_than_zero' ]);
+					case self::COST_INCREASE_MODE_MIN_NON_ZERO:
+						$nonZero = array_filter([ $cost, $increaseTotal ], [ $this, '__greater_than_zero' ]);
 						if (count($nonZero) > 0) {
-							$increaseTotal = min($nonZero);
+							$totalCost = min($nonZero);
 						}
+						else {
+							$totalCost = 0;
+						}
+					case self::COST_INCREASE_MODE_NON_ZERO_INCREASE:
+						$totalCost = $increaseTotal > 0 ? $increaseTotal : 0;
 					break;
-					case self::PRODUCT_INCREASE_STRATEGY_SUM:
-						$increaseTotal = array_reduce($productsIncreases, [ $this, '__sum' ], 0);
+					default:
+						$totalCost = $cost + $increaseTotal;
 					break;
 				}
-			}
 
-			$totalCostIncreaseMode = $this->getTotalCostIncreaseMode();
+				/*
+					Sum calculated totalCost and product based increase
+				*/
+				$totalCost += $productCheckResult['increase'];
 
-			$totalCost = $cost;
-
-			switch ($totalCostIncreaseMode) {
-				case self::COST_INCREASE_MODE_MAX:
-					$totalCost = max([ $cost, $increaseTotal ]);
-				break;
-				case self::COST_INCREASE_MODE_MIN:
-					$totalCost = min([ $cost, $increaseTotal ]);
-				break;
-				case self::COST_INCREASE_MODE_MIN_NON_ZERO:
-					$nonZero = array_filter([ $cost, $increaseTotal ], [ $this, '__greater_than_zero' ]);
-					if (count($nonZero) > 0) {
-						$totalCost = min($nonZero);
-					}
-					else {
-						$totalCost = 0;
-					}
-				case self::COST_INCREASE_MODE_NON_ZERO_INCREASE:
-					$totalCost = $increaseTotal > 0 ? $increaseTotal : 0;
-				break;
-				default:
-					$totalCost = $cost + $increaseTotal;
-				break;
-			}
-
-			/*
-				Sum calculated totalCost and product based increase
-			*/
-			$totalCost += $productCheckResult['increase'];
-
-			$disable_if_total_is_zero = $this->config->get('shipping_foc_product_based_disable_if_total_is_zero');
-
-			// disable shipping if zero and option enabled
-			if ($disable_if_total_is_zero && $totalCost <= 0) {
-				return;
-			}
-
-			$language_id = $this->config->get('config_language_id');
-			$shipping_labels = $this->config->get('shipping_foc_product_based_label');
-			$shipping_groups = $this->config->get('shipping_foc_product_based_group');
-
-			$label = isset($shipping_labels[$language_id]) ? $shipping_labels[$language_id] : '';
-			$group = isset($shipping_groups[$language_id]) ? $shipping_groups[$language_id] : '';
-
-			$customLabel = array_pop($labels);
-
-			if (!empty($customLabel['title']) && is_array($customLabel['title'])) {
-				if (isset($customLabel['title'][$language_id])) {
-					$label = $customLabel['title'][$language_id];
+				// disable shipping if zero and option enabled
+				if ($shippingMethod['disableOnZero'] && $totalCost <= 0) {
+					continue;
 				}
-			}
 
-			$quoteData['foc_product_based'] = array(
-				'code' => 'foc_product_based.foc_product_based',
-				'title'        => empty($label) ? $this->language->get('text_label_fallback') : $label, //$this->language->get('text_description'),
-				'cost'         => $totalCost,
-				'tax_class_id' => $this->config->get('shipping_foc_product_based_tax_class_id'),
-				'text'         => $this->currency->format($this->tax->calculate($totalCost, $this->config->get('shipping_foc_product_based_tax_class_id'), $this->config->get('config_tax')), $this->session->data['currency'])
-			);
+				$customLabel = array_pop($labels);
+
+				if (!empty($customLabel['title']) && is_array($customLabel['title'])) {
+					if (isset($customLabel['title'][$language_id])) {
+						$label = $customLabel['title'][$language_id];
+					}
+				}
+
+				// set quote data
+				$quoteData['foc_product_based_' . $shippingMethodId] = array(
+					'code' => 'foc_product_based.foc_product_based_' . $shippingMethodId,
+					'title'        => empty($label) ? $this->language->get('text_label_fallback') : $label,
+					'cost'         => $totalCost,
+					'tax_class_id' => $taxClass,
+					'text'         => $this->currency->format($this->tax->calculate($totalCost, $taxClass, $this->config->get('config_tax')), $this->session->data['currency'])
+				);
+			}
 
 			$methodData = array(
 				'code'       => 'foc_product_based',

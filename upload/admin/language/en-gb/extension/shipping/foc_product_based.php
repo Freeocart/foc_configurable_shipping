@@ -1,6 +1,6 @@
 <?php
 
-$_['heading_title'] = 'FOC: Configurable shipping';
+$_['heading_title'] = 'FOC: Configurable shipping 2';
 
 $_['text_edit'] = 'Configure';
 $_['text_extension'] = 'Extensions';

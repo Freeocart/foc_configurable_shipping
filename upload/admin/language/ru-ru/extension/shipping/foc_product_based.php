@@ -1,6 +1,6 @@
 <?php
 
-$_['heading_title'] = 'FOC: Настраиваемая доставка';
+$_['heading_title'] = 'FOC: Настраиваемая доставка 2';
 
 $_['text_edit'] = 'Настройка';
 $_['text_extension'] = 'Расширения';
