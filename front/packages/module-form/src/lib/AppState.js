@@ -283,7 +283,9 @@ function AppStateProvider({ state: defaultState = {}, children }) {
       return state.rulesets;
     },
     resetRulesets() {
-      setRulesets({});
+      if (currentShippingMethodId) {
+        setRulesets({});
+      }
     },
     get label () {
       return state.label
@@ -336,8 +338,7 @@ function AppStateProvider({ state: defaultState = {}, children }) {
     updateRule,
     addNewShippingMethod,
     removeShippingMethod,
-    resetAppState(newState) {
-      setState(DEFAULT_EDIT_STATE)
+    resetAppState(newState = DEFAULT_STATE) {
       setResult(newState)
     },
   };
