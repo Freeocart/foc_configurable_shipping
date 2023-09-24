@@ -4,6 +4,7 @@ import { useAppSettings } from '../lib/AppSettings';
 import { useAppState } from '../lib/AppState';
 
 import MultilanguageField from './MultilanguageField';
+import Rules from './Rules';
 
 import { COST_INCREASE_MODE_MAX, COST_INCREASE_MODE_MIN, COST_INCREASE_MODE_MIN_NON_ZERO, COST_INCREASE_MODE_NON_ZERO_INCREASE, COST_INCREASE_MODE_SUM } from '../config/constants';
 import { OPTION_VALUE_NOT_SELECTED } from 'common/constants';
@@ -46,9 +47,6 @@ export default function ShippingMethodSetup ({ id }) {
   const handleBaseCostChange = useCallback((event) => {
     setBaseCost(Number(event.target.value))
   })
-
-
-  console.log(label)
 
   return <>
     <div className='form-group'>
@@ -161,5 +159,7 @@ export default function ShippingMethodSetup ({ id }) {
         </select>
       </div>
     </div>
+
+    <Rules />
   </>
 }

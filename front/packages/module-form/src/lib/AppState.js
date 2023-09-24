@@ -79,7 +79,6 @@ const makeId = () => Date.now().toString()
 function AppStateProvider({ state: defaultState = {}, children }) {
   const [state, setState] = useState(
     DEFAULT_EDIT_STATE
-    // Object.assign({}, DEFAULT_STATE, defaultState)
   );
 
   const [result, setResult] = useState(
@@ -89,11 +88,13 @@ function AppStateProvider({ state: defaultState = {}, children }) {
   const addNewShippingMethod = () => {
     const nextId = makeId()
     const nextState = SHIPPING_METHOD_DEFAULT_STATE
+    const prevState = state.id ? { [state.id]: state } : {}
 
     setResult(state => ({
       ...state,
       shippingMethods: {
         ...state.shippingMethods,
+        ...prevState,
         [nextId]: nextState
       }
     }))
