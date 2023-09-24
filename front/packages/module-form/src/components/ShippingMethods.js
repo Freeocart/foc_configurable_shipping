@@ -1,8 +1,11 @@
 import React, { useCallback } from 'react'
 import { useAppState } from '../lib/AppState'
 import ShippingMethodSetup from './ShippingMethodSetup'
+import { useI18n } from 'react-simple-i18n';
 
 export default function ShippingMethods () {
+  const { t } = useI18n();
+
   const {
     shippingMethods = [],
     addNewShippingMethod,
@@ -19,9 +22,8 @@ export default function ShippingMethods () {
 
   const handleCreateNewMethodClick = useCallback((event) => {
     event.preventDefault()
-    const nextId = addNewShippingMethod()
-    // setCurrentShippingMethod(nextId)
-  }, [addNewShippingMethod, setCurrentShippingMethod])
+    addNewShippingMethod()
+  }, [addNewShippingMethod])
 
   const handleDeleteShippingMethodClick = useCallback((event, id) => {
     event.preventDefault()
@@ -39,13 +41,17 @@ export default function ShippingMethods () {
         >
           <a href={`#shipping_method_${id}`}>
             <span style={{ verticalAlign: 'middle', marginRight: 10 }}>{id}</span>
-            <button className="btn btn-danger btn-xs" onClick={(event) => handleDeleteShippingMethodClick(event, id)}><i className="fa fa-times" /></button>
+            <button className="btn btn-danger btn-xs" onClick={(event) => handleDeleteShippingMethodClick(event, id)}>
+              <i className="fa fa-times" />
+            </button>
           </a>
         </li>
       ))}
 
       <li>
-        <button className='btn btn-default btn-lg' onClick={handleCreateNewMethodClick}><i className="fa fa-plus"></i> Add</button>
+        <button className='btn btn-default btn-lg' onClick={handleCreateNewMethodClick}>
+          <i className="fa fa-plus"></i> {t('Add shipping method')}
+        </button>
       </li>
     </ul>
 
