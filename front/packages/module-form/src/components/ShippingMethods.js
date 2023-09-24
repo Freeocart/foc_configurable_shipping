@@ -9,16 +9,16 @@ export default function ShippingMethods () {
   const {
     shippingMethods = [],
     addNewShippingMethod,
-    currentShippingMethod,
+    currentShippingMethodId,
     removeShippingMethod,
-    setCurrentShippingMethod
+    setCurrentShippingMethodId
   } = useAppState()
 
   const handleChangeActiveTabClick = useCallback((event, nextTabId) => {
     event.preventDefault()
     event.stopPropagation()
-    setCurrentShippingMethod(nextTabId)
-  }, [setCurrentShippingMethod])
+    setCurrentShippingMethodId(nextTabId)
+  }, [setCurrentShippingMethodId])
 
   const handleCreateNewMethodClick = useCallback((event) => {
     event.preventDefault()
@@ -36,7 +36,7 @@ export default function ShippingMethods () {
       {Object.keys(shippingMethods).map(id => (
         <li
           key={id}
-          className={ id === currentShippingMethod.id ? 'active' : '' }
+          className={ id === currentShippingMethodId ? 'active' : '' }
           onClick={(event) => handleChangeActiveTabClick(event, id)}
         >
           <a href={`#shipping_method_${id}`}>
@@ -56,7 +56,7 @@ export default function ShippingMethods () {
     </ul>
 
     <div className="tab-content">
-      { !!currentShippingMethod?.id && <ShippingMethodSetup id={currentShippingMethod.id} key={currentShippingMethod.id} /> }
+      { !!currentShippingMethodId && <ShippingMethodSetup id={currentShippingMethodId} key={currentShippingMethodId} /> }
     </div>
 
   </div>

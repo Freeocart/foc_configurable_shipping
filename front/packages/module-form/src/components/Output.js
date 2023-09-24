@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useAppState } from "../lib/AppState";
 
 export default function Output({ outputName }) {
-  const { state } = useAppState();
-  const [output, setOutput] = useState(state);
+  const { exportableResult } = useAppState();
+  const [output, setOutput] = useState(JSON.stringify(exportableResult));
 
   useEffect(() => {
-    setOutput(JSON.stringify(state));
-  }, [state]);
+    setOutput(JSON.stringify(exportableResult));
+  }, [exportableResult]);
 
   return (
     <textarea

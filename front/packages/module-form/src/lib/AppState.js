@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useMemo } from "react";
 
 import {
   RULES_TOTAL_SET_MAX_INCREASE_VALUE,
@@ -79,40 +79,32 @@ const DEFAULT_RULESET = {
 const makeId = () => Date.now().toString()
 
 function AppStateProvider({ state: defaultState = {}, children }) {
-  const [state, setState] = useState(
-    DEFAULT_EDIT_STATE
-  );
-
   const [result, setResult] = useState(
     merge({}, DEFAULT_STATE, defaultState)
   )
 
-  const applyToResult = (mergeCb = id) => {
-    const formState = state?.id ? { shippingMethods: { [state.id]: state }} : {}
-    const nextResult = mergeCb(merge({}, result, formState))
-    setResult(nextResult)
+  const [currentShippingMethodId, setCurrentShippingMethodId] = useState(null)
 
-    return nextResult
+  const setState = (id, nextState) => {
+    console.log(id, nextState)
+    setResult(result => ({
+      ...result,
+      shippingMethods: {
+        ...result.shippingMethods,
+        [id]: nextState
+      }
+    }))
   }
+
+  const state = useMemo(() => result.shippingMethods?.[currentShippingMethodId] ?? DEFAULT_EDIT_STATE, [result, currentShippingMethodId])
 
   const addNewShippingMethod = () => {
     const nextId = makeId()
     const nextState = SHIPPING_METHOD_DEFAULT_STATE
-    // const prevState = state.id ? { [state.id]: state } : {}
-
-    applyToResult(state => merge({}, state, { shippingMethods: { [nextId]: nextState }}))
-
-    // setResult(state => ({
-    //   ...state,
-    //   shippingMethods: {
-    //     ...state.shippingMethods,
-    //     ...prevState,
-    //     [nextId]: nextState
-    //   }
-    // }))
 
     // Set new as current
-    setState({ id: nextId, ...nextState })
+    setCurrentShippingMethodId(nextId)
+    setState(nextId, nextState)
 
     return nextId
   }
@@ -128,36 +120,17 @@ function AppStateProvider({ state: defaultState = {}, children }) {
       }
     })
 
-    // Reset current form state
-    if (state.id === id) {
-      setState(DEFAULT_EDIT_STATE)
+    if (id === currentShippingMethodId) {
+      setCurrentShippingMethodId(null)
     }
 
     return id
   }
 
-  const setCurrentShippingMethod = (id) => {
-    // if we have some previous state - store it to result
-    const nextState = result.shippingMethods[id] ?? DEFAULT_EDIT_STATE
-
-    if (state.id) {
-      setResult(result => ({
-        ...result,
-        shippingMethods: {
-          ...result.shippingMethods,
-          [state.id]: state
-        }
-      }))
-    }
-
-    // Update edit state
-    setState({ id, ...nextState })
-  }
-
   const getRuleset = (id) => state.rulesets[id];
 
   const setRulesets = (rulesets) => {
-    setState({
+    setState(currentShippingMethodId, {
       ...state,
       rulesets,
     });
@@ -196,7 +169,7 @@ function AppStateProvider({ state: defaultState = {}, children }) {
       rulesets: { [id]: _, ...rulesets },
       ...rest
     } = state;
-    setState({
+    setState(currentShippingMethodId, {
       ...rest,
       rulesets,
     });
@@ -238,7 +211,7 @@ function AppStateProvider({ state: defaultState = {}, children }) {
 
   const setTotalMode = (totalMode) => {
     if (VALID_TOTAL_MODES.includes(parseInt(totalMode))) {
-      setState({
+      setState(currentShippingMethodId, {
         ...state,
         totalMode,
       });
@@ -251,7 +224,7 @@ function AppStateProvider({ state: defaultState = {}, children }) {
         parseInt(productIncreaseStrategy)
       )
     ) {
-      setState({
+      setState(currentShippingMethodId, {
         ...state,
         productIncreaseStrategy,
       });
@@ -264,7 +237,7 @@ function AppStateProvider({ state: defaultState = {}, children }) {
         parseInt(costIncreaseMode)
       )
     ) {
-      setState({
+      setState(currentShippingMethodId, {
         ...state,
         costIncreaseMode,
       });
@@ -272,23 +245,23 @@ function AppStateProvider({ state: defaultState = {}, children }) {
   };
 
   const setLabel = (label = "") => {
-    setState({ ...state, label })
+    setState(currentShippingMethodId, { ...state, label })
   }
 
   const setGroup = (group = "") => {
-    setState({ ...state, group })
+    setState(currentShippingMethodId, { ...state, group })
   }
 
   const setDisableOnZero = (nextDisableOnZero) => {
-    setState({ ...state, disableOnZero: !!nextDisableOnZero})
+    setState(currentShippingMethodId, { ...state, disableOnZero: !!nextDisableOnZero})
   }
 
   const setGeoZone = (geozone = null) => {
-    setState({ ...state, geozone })
+    setState(currentShippingMethodId, { ...state, geozone })
   }
 
   const setBaseCost = (baseCost = 0) => {
-    setState({ ...state, baseCost })
+    setState(currentShippingMethodId, { ...state, baseCost })
   }
 
   const value = {
@@ -297,6 +270,9 @@ function AppStateProvider({ state: defaultState = {}, children }) {
     },
     get shippingMethods() {
       return result.shippingMethods
+    },
+    get exportableResult () {
+      return result
     },
     get rulesets() {
       return state.rulesets;
@@ -328,6 +304,8 @@ function AppStateProvider({ state: defaultState = {}, children }) {
     get currentShippingMethod () {
       return state
     },
+    currentShippingMethodId,
+    setCurrentShippingMethodId,
     get baseCost () {
       return state.baseCost
     },
@@ -349,10 +327,6 @@ function AppStateProvider({ state: defaultState = {}, children }) {
     updateRule,
     addNewShippingMethod,
     removeShippingMethod,
-    setCurrentShippingMethod,
-    computeAppState () {
-      return applyToResult()
-    },
     resetAppState(newState) {
       setState(DEFAULT_EDIT_STATE)
       setResult(newState)
