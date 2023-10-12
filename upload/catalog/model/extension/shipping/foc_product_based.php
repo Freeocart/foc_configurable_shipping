@@ -599,7 +599,9 @@ class ModelExtensionShippingFocProductBased extends Model {
 				/*
 					Sum calculated totalCost and product based increase
 				*/
-				$totalCost += $productCheckResult['increase'];
+				if ($totalCost > 0) {
+					$totalCost += $productCheckResult['increase'];
+				}
 
 				// disable shipping if zero and option enabled
 				if ($shippingMethod['disableOnZero'] && $totalCost <= 0) {
