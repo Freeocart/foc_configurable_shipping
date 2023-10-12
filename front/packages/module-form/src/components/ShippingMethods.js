@@ -41,7 +41,7 @@ export default function ShippingMethods () {
         >
           <a href={`#shipping_method_${id}`}>
             <span style={{ verticalAlign: 'middle', marginRight: 10 }}>{shippingMethod?.systemName ?? id}</span>
-            <button className="btn btn-danger btn-xs" onClick={(event) => handleDeleteShippingMethodClick(event, id)}>
+            <button type="button" className="btn btn-danger btn-xs" onClick={(event) => handleDeleteShippingMethodClick(event, id)}>
               <i className="fa fa-times" />
             </button>
           </a>
@@ -49,7 +49,7 @@ export default function ShippingMethods () {
       ))}
 
       <li>
-        <button className='btn btn-default btn-lg' onClick={handleCreateNewMethodClick}>
+        <button type="button" className='btn btn-default btn-lg' onClick={handleCreateNewMethodClick}>
           <i className="fa fa-plus"></i> {t('Add shipping method')}
         </button>
       </li>
