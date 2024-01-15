@@ -491,6 +491,7 @@ class ModelExtensionShippingFocProductBased extends Model {
 
 			$cartProducts = $this->cart->getProducts();
 			$language_id = $this->config->get('config_language_id');
+			$group = '';
 
 			foreach ($shippingMethods as $shippingMethodId => $shippingMethod) {
 				$increaseTotal = 0;
@@ -498,8 +499,6 @@ class ModelExtensionShippingFocProductBased extends Model {
 
 				$shipping_labels = $shippingMethod['label'];
 				$shipping_groups = $shippingMethod['group'];
-				$label = isset($shipping_labels[$language_id]) ? $shipping_labels[$language_id] : '';
-				$group = isset($shipping_groups[$language_id]) ? $shipping_groups[$language_id] : '';
 
 				// Costs
 				$cost = $shippingMethod['baseCost'];
@@ -607,6 +606,10 @@ class ModelExtensionShippingFocProductBased extends Model {
 				if ($shippingMethod['disableOnZero'] && $totalCost <= 0) {
 					continue;
 				}
+
+				// set label and shipping group
+				$label = isset($shipping_labels[$language_id]) ? $shipping_labels[$language_id] : '';
+				$group = isset($shipping_groups[$language_id]) ? $shipping_groups[$language_id] : '';
 
 				$customLabel = array_pop($labels);
 
